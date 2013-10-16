@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.20617.1 PREVIEW
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic", "Logic\Logic.csproj", "{E847DAB4-D42B-4017-A554-BFE5D3470FFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tournamenter_WinFormsApp", "Tournamenter_WinFormsApp\Tournamenter_WinFormsApp.csproj", "{B95A83B1-D845-46E4-837E-B919C393912F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tournamenter_WpfApp", "Tournamenter_WpfApp\Tournamenter_WpfApp.csproj", "{C7BEF243-8BC4-46AE-B2E8-FB3D95757A78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tournamenter_ConsoleApp", "Tournamenter_ConsoleApp\Tournamenter_ConsoleApp.csproj", "{B1719CCA-BCFE-41A9-A246-BAC80D26CDFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tournamenter_UnitTest", "Tournamenter_UnitTest\Tournamenter_UnitTest.csproj", "{BE9C3EC5-38B3-40E8-97C8-53D3842149EB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E847DAB4-D42B-4017-A554-BFE5D3470FFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E847DAB4-D42B-4017-A554-BFE5D3470FFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E847DAB4-D42B-4017-A554-BFE5D3470FFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E847DAB4-D42B-4017-A554-BFE5D3470FFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B95A83B1-D845-46E4-837E-B919C393912F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B95A83B1-D845-46E4-837E-B919C393912F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B95A83B1-D845-46E4-837E-B919C393912F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B95A83B1-D845-46E4-837E-B919C393912F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7BEF243-8BC4-46AE-B2E8-FB3D95757A78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7BEF243-8BC4-46AE-B2E8-FB3D95757A78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7BEF243-8BC4-46AE-B2E8-FB3D95757A78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7BEF243-8BC4-46AE-B2E8-FB3D95757A78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1719CCA-BCFE-41A9-A246-BAC80D26CDFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1719CCA-BCFE-41A9-A246-BAC80D26CDFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1719CCA-BCFE-41A9-A246-BAC80D26CDFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1719CCA-BCFE-41A9-A246-BAC80D26CDFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE9C3EC5-38B3-40E8-97C8-53D3842149EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE9C3EC5-38B3-40E8-97C8-53D3842149EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE9C3EC5-38B3-40E8-97C8-53D3842149EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE9C3EC5-38B3-40E8-97C8-53D3842149EB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
