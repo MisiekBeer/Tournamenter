@@ -1,18 +1,17 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
-using System.Linq;
+using System.Drawing;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using ComponentFactory.Krypton.Toolkit;
 
 namespace Tournamenter_WinFormsApp
 {
-    public partial class RankingCtrl : UserControl
+    public partial class PlayerList : ComponentFactory.Krypton.Toolkit.KryptonForm
     {
-        public RankingCtrl()
+        public PlayerList()
         {
             InitializeComponent();
         }

@@ -9,6 +9,13 @@ namespace Logic
     public class Player : BaseLogicClass
     {
         #region properties
+        private int playerId;
+        public int PlayerId
+        {
+            get { return playerId; }
+            set { playerId = value; OnPropertyChanged(PropNames.PlayerId); }
+        }
+
         private string name;
         public string Name
         {
@@ -45,13 +52,32 @@ namespace Logic
             set { totalBigVP = value; OnPropertyChanged(PropNames.TotalBigVP); }
         }
 
+        private string tag;
+        public string Tag
+        {
+            get { return tag; }
+            set { tag = value; OnPropertyChanged(PropNames.Tag); }
+        }
+
+
+        private string info;
+        public string Info
+        {
+            get { return info; }
+            set { info = value; OnPropertyChanged(PropNames.Info); }
+        }
+
+
         public static class PropNames
         {
+            public const string PlayerId = "PlayerId";
             public const string Name = "Name";
             public const string Surname = "Surname";
             public const string Nick = "Nick";
             public const string TotalSmallVP = "TotalSmallVP";
             public const string TotalBigVP = "TotalBigVP";
+            public const string Tag = "Tag";
+            public const string Info = "Info";
         } 
         #endregion
 

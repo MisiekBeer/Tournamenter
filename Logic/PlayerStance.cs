@@ -16,6 +16,13 @@ namespace Logic
             set { place = value; OnPropertyChanged(PropNames.Place); }
         }
 
+        private int playerId;
+        public int PlayerId
+        {
+            get { return playerId; }
+            set { playerId = value; OnPropertyChanged(PropNames.PlayerId); }
+        }
+
         private Player player;
         public Player Player
         {
@@ -50,15 +57,25 @@ namespace Logic
             get { return matchRound; }
             set { matchRound = value; OnPropertyChanged(PropNames.Round); }
         }
+
+        private int tableNumber;
+        public int TableNumber
+        {
+            get { return tableNumber; }
+            set { tableNumber = value; OnPropertyChanged(PropNames.TableNumber); }
+        }
+
         
         public static class PropNames
         {
+            public const string PlayerId = "PlayerId";
             public const string Place = "Place";
             public const string Oponent = "Oponent";
             public const string SmallVP = "SmallVP";
             public const string BigVP = "BigVP";
             public const string Round = "MatchRound";
             public const string Player = "Player";
+            public const string TableNumber = "TableNumber";
         } 
         #endregion
 

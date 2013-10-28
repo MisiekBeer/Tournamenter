@@ -1,6 +1,6 @@
 namespace Tournamenter_WinFormsApp
 {
-    partial class MainForm
+    partial class PlayerList
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@ namespace Tournamenter_WinFormsApp
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlayerList));
             this.kryptonManager = new ComponentFactory.Krypton.Toolkit.KryptonManager(this.components);
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
@@ -64,7 +64,6 @@ namespace Tournamenter_WinFormsApp
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.kryptonPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.tableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.newToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -76,7 +75,8 @@ namespace Tournamenter_WinFormsApp
             this.pasteToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.playerListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.kryptonGroupBox1 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
             this.menuStrip.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -84,6 +84,10 @@ namespace Tournamenter_WinFormsApp
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel)).BeginInit();
             this.kryptonPanel.SuspendLayout();
             this.toolStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1.Panel)).BeginInit();
+            this.kryptonGroupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // kryptonManager
@@ -93,10 +97,10 @@ namespace Tournamenter_WinFormsApp
             // statusStrip
             // 
             this.statusStrip.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.statusStrip.Location = new System.Drawing.Point(0, 823);
+            this.statusStrip.Location = new System.Drawing.Point(0, 713);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
-            this.statusStrip.Size = new System.Drawing.Size(1120, 22);
+            this.statusStrip.Size = new System.Drawing.Size(981, 22);
             this.statusStrip.TabIndex = 0;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -111,7 +115,7 @@ namespace Tournamenter_WinFormsApp
             this.helpToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(1120, 24);
+            this.menuStrip.Size = new System.Drawing.Size(981, 24);
             this.menuStrip.TabIndex = 1;
             this.menuStrip.Text = "menuStrip";
             // 
@@ -138,9 +142,8 @@ namespace Tournamenter_WinFormsApp
             this.newToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.newToolStripMenuItem.Text = "&New";
-            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
@@ -148,14 +151,13 @@ namespace Tournamenter_WinFormsApp
             this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.openToolStripMenuItem.Text = "&Open";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(143, 6);
             // 
             // saveToolStripMenuItem
             // 
@@ -163,19 +165,19 @@ namespace Tournamenter_WinFormsApp
             this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.saveAsToolStripMenuItem.Text = "Save &As";
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(143, 6);
             // 
             // printToolStripMenuItem
             // 
@@ -183,7 +185,7 @@ namespace Tournamenter_WinFormsApp
             this.printToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.printToolStripMenuItem.Name = "printToolStripMenuItem";
             this.printToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.printToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.printToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.printToolStripMenuItem.Text = "&Print";
             // 
             // printPreviewToolStripMenuItem
@@ -191,18 +193,18 @@ namespace Tournamenter_WinFormsApp
             this.printPreviewToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("printPreviewToolStripMenuItem.Image")));
             this.printPreviewToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.printPreviewToolStripMenuItem.Name = "printPreviewToolStripMenuItem";
-            this.printPreviewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.printPreviewToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.printPreviewToolStripMenuItem.Text = "Print Pre&view";
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(143, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             // 
             // editToolStripMenuItem
@@ -215,8 +217,7 @@ namespace Tournamenter_WinFormsApp
             this.copyToolStripMenuItem,
             this.pasteToolStripMenuItem,
             this.toolStripSeparator6,
-            this.selectAllToolStripMenuItem,
-            this.playerListToolStripMenuItem});
+            this.selectAllToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "&Edit";
@@ -225,20 +226,20 @@ namespace Tournamenter_WinFormsApp
             // 
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
             this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.undoToolStripMenuItem.Text = "&Undo";
             // 
             // redoToolStripMenuItem
             // 
             this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
             this.redoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.redoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.redoToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.redoToolStripMenuItem.Text = "&Redo";
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(141, 6);
             // 
             // cutToolStripMenuItem
             // 
@@ -246,7 +247,7 @@ namespace Tournamenter_WinFormsApp
             this.cutToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
             this.cutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.cutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cutToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.cutToolStripMenuItem.Text = "Cu&t";
             // 
             // copyToolStripMenuItem
@@ -255,7 +256,7 @@ namespace Tournamenter_WinFormsApp
             this.copyToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
             this.copyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.copyToolStripMenuItem.Text = "&Copy";
             // 
             // pasteToolStripMenuItem
@@ -264,18 +265,18 @@ namespace Tournamenter_WinFormsApp
             this.pasteToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
             this.pasteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.pasteToolStripMenuItem.Text = "&Paste";
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(141, 6);
             // 
             // selectAllToolStripMenuItem
             // 
             this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.selectAllToolStripMenuItem.Text = "Select &All";
             // 
             // toolsToolStripMenuItem
@@ -290,13 +291,13 @@ namespace Tournamenter_WinFormsApp
             // customizeToolStripMenuItem
             // 
             this.customizeToolStripMenuItem.Name = "customizeToolStripMenuItem";
-            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.customizeToolStripMenuItem.Text = "&Customize";
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.optionsToolStripMenuItem.Text = "&Options";
             // 
             // helpToolStripMenuItem
@@ -346,11 +347,11 @@ namespace Tournamenter_WinFormsApp
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.kryptonPanel);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1120, 774);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(981, 664);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(1120, 823);
+            this.toolStripContainer1.Size = new System.Drawing.Size(981, 713);
             this.toolStripContainer1.TabIndex = 2;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
@@ -361,30 +362,13 @@ namespace Tournamenter_WinFormsApp
             // 
             // kryptonPanel
             // 
-            this.kryptonPanel.AutoScroll = true;
-            this.kryptonPanel.Controls.Add(this.tableLayout);
+            this.kryptonPanel.Controls.Add(this.kryptonGroupBox1);
+            this.kryptonPanel.Controls.Add(this.dataGridView1);
             this.kryptonPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonPanel.Location = new System.Drawing.Point(0, 0);
             this.kryptonPanel.Name = "kryptonPanel";
-            this.kryptonPanel.Size = new System.Drawing.Size(1120, 774);
+            this.kryptonPanel.Size = new System.Drawing.Size(981, 664);
             this.kryptonPanel.TabIndex = 0;
-            // 
-            // tableLayout
-            // 
-            this.tableLayout.AutoScroll = true;
-            this.tableLayout.ColumnCount = 4;
-            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayout.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.AddColumns;
-            this.tableLayout.Location = new System.Drawing.Point(0, 0);
-            this.tableLayout.Name = "tableLayout";
-            this.tableLayout.RowCount = 1;
-            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayout.Size = new System.Drawing.Size(1120, 774);
-            this.tableLayout.TabIndex = 0;
             // 
             // toolStrip
             // 
@@ -488,22 +472,37 @@ namespace Tournamenter_WinFormsApp
             this.helpToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.helpToolStripButton.Text = "He&lp";
             // 
-            // playerListToolStripMenuItem
+            // dataGridView1
             // 
-            this.playerListToolStripMenuItem.Name = "playerListToolStripMenuItem";
-            this.playerListToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.playerListToolStripMenuItem.Text = "Player List";
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.Size = new System.Drawing.Size(677, 664);
+            this.dataGridView1.TabIndex = 0;
             // 
-            // MainForm
+            // kryptonGroupBox1
+            // 
+            this.kryptonGroupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.kryptonGroupBox1.Location = new System.Drawing.Point(681, 3);
+            this.kryptonGroupBox1.Name = "kryptonGroupBox1";
+            this.kryptonGroupBox1.Size = new System.Drawing.Size(300, 430);
+            this.kryptonGroupBox1.TabIndex = 1;
+            this.kryptonGroupBox1.Text = "Player Data:";
+            this.kryptonGroupBox1.Values.Heading = "Player Data:";
+            // 
+            // PlayerList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1120, 845);
+            this.ClientSize = new System.Drawing.Size(981, 735);
             this.Controls.Add(this.toolStripContainer1);
             this.Controls.Add(this.statusStrip);
-            this.DoubleBuffered = true;
-            this.Name = "MainForm";
-            this.Text = "Tournamenter";
+            this.Name = "PlayerList";
+            this.Text = "PlayerList";
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
@@ -515,6 +514,10 @@ namespace Tournamenter_WinFormsApp
             this.kryptonPanel.ResumeLayout(false);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1.Panel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1)).EndInit();
+            this.kryptonGroupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -567,8 +570,8 @@ namespace Tournamenter_WinFormsApp
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton helpToolStripButton;
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel;
-        private System.Windows.Forms.TableLayoutPanel tableLayout;
-        private System.Windows.Forms.ToolStripMenuItem playerListToolStripMenuItem;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private ComponentFactory.Krypton.Toolkit.KryptonGroupBox kryptonGroupBox1;
     }
 }
 
