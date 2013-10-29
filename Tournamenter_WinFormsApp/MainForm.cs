@@ -83,6 +83,12 @@ namespace Tournamenter_WinFormsApp
 
             tableLayout.ResumeLayout();
         }
+
+        private void playerListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var frm = new PlayerListFrm();
+            frm.Show(this);
+        }
         
     }
 }

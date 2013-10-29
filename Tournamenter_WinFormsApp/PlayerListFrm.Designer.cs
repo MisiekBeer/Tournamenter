@@ -1,6 +1,6 @@
 namespace Tournamenter_WinFormsApp
 {
-    partial class MainForm
+    partial class PlayerListFrm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,9 +28,13 @@ namespace Tournamenter_WinFormsApp
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.kryptonManager = new ComponentFactory.Krypton.Toolkit.KryptonManager(this.components);
+            ComponentFactory.Krypton.Toolkit.KryptonLabel playerIdLabel;
+            ComponentFactory.Krypton.Toolkit.KryptonLabel nameLabel;
+            ComponentFactory.Krypton.Toolkit.KryptonLabel surnameLabel;
+            ComponentFactory.Krypton.Toolkit.KryptonLabel nickLabel;
+            ComponentFactory.Krypton.Toolkit.KryptonLabel tagLabel;
+            ComponentFactory.Krypton.Toolkit.KryptonLabel infoLabel;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlayerListFrm));
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,7 +57,6 @@ namespace Tournamenter_WinFormsApp
             this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.playerListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,40 +68,101 @@ namespace Tournamenter_WinFormsApp
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.kryptonPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.tableLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.toolStrip = new System.Windows.Forms.ToolStrip();
-            this.newToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.printToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.cutToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.copyToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.pasteToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.globalPalette = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
+            this.btnAddPlayer = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.kryptonGroupBox1 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
+            this.infoTextBox = new System.Windows.Forms.TextBox();
+            this.tagTextBox = new System.Windows.Forms.TextBox();
+            this.nickTextBox = new System.Windows.Forms.TextBox();
+            this.surnameTextBox = new System.Windows.Forms.TextBox();
+            this.nameTextBox = new System.Windows.Forms.TextBox();
+            this.playerIdTextBox = new System.Windows.Forms.TextBox();
+            this.dgvPlayers = new System.Windows.Forms.DataGridView();
+            this.toolStripContainer2 = new System.Windows.Forms.ToolStripContainer();
+            this.toolStripContainer3 = new System.Windows.Forms.ToolStripContainer();
+            this.btnEditPlayer = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.btnDeletePlayer = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.btnAddToMatch = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.btnEditOK = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            playerIdLabel = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            nameLabel = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            surnameLabel = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            nickLabel = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            tagLabel = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            infoLabel = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.menuStrip.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
-            this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel)).BeginInit();
             this.kryptonPanel.SuspendLayout();
-            this.toolStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1.Panel)).BeginInit();
+            this.kryptonGroupBox1.Panel.SuspendLayout();
+            this.kryptonGroupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPlayers)).BeginInit();
+            this.toolStripContainer2.BottomToolStripPanel.SuspendLayout();
+            this.toolStripContainer2.ContentPanel.SuspendLayout();
+            this.toolStripContainer2.SuspendLayout();
+            this.toolStripContainer3.ContentPanel.SuspendLayout();
+            this.toolStripContainer3.TopToolStripPanel.SuspendLayout();
+            this.toolStripContainer3.SuspendLayout();
             this.SuspendLayout();
             // 
-            // kryptonManager
+            // playerIdLabel
             // 
-            this.kryptonManager.GlobalPalette = this.globalPalette;
-            this.kryptonManager.GlobalPaletteMode = ComponentFactory.Krypton.Toolkit.PaletteModeManager.Custom;
+            playerIdLabel.Location = new System.Drawing.Point(12, 20);
+            playerIdLabel.Name = "playerIdLabel";
+            playerIdLabel.Size = new System.Drawing.Size(60, 20);
+            playerIdLabel.TabIndex = 0;
+            playerIdLabel.Values.Text = "Player Id:";
+            // 
+            // nameLabel
+            // 
+            nameLabel.Location = new System.Drawing.Point(12, 59);
+            nameLabel.Name = "nameLabel";
+            nameLabel.Size = new System.Drawing.Size(46, 20);
+            nameLabel.TabIndex = 2;
+            nameLabel.Values.Text = "Name:";
+            // 
+            // surnameLabel
+            // 
+            surnameLabel.Location = new System.Drawing.Point(12, 98);
+            surnameLabel.Name = "surnameLabel";
+            surnameLabel.Size = new System.Drawing.Size(61, 20);
+            surnameLabel.TabIndex = 4;
+            surnameLabel.Values.Text = "Surname:";
+            // 
+            // nickLabel
+            // 
+            nickLabel.Location = new System.Drawing.Point(12, 142);
+            nickLabel.Name = "nickLabel";
+            nickLabel.Size = new System.Drawing.Size(37, 20);
+            nickLabel.TabIndex = 6;
+            nickLabel.Values.Text = "Nick:";
+            // 
+            // tagLabel
+            // 
+            tagLabel.Location = new System.Drawing.Point(12, 191);
+            tagLabel.Name = "tagLabel";
+            tagLabel.Size = new System.Drawing.Size(33, 20);
+            tagLabel.TabIndex = 8;
+            tagLabel.Values.Text = "Tag:";
+            // 
+            // infoLabel
+            // 
+            infoLabel.Location = new System.Drawing.Point(12, 245);
+            infoLabel.Name = "infoLabel";
+            infoLabel.Size = new System.Drawing.Size(35, 20);
+            infoLabel.TabIndex = 10;
+            infoLabel.Values.Text = "Info:";
             // 
             // statusStrip
             // 
+            this.statusStrip.Dock = System.Windows.Forms.DockStyle.None;
             this.statusStrip.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.statusStrip.Location = new System.Drawing.Point(0, 823);
+            this.statusStrip.Location = new System.Drawing.Point(0, 0);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
-            this.statusStrip.Size = new System.Drawing.Size(1120, 22);
+            this.statusStrip.Size = new System.Drawing.Size(981, 22);
             this.statusStrip.TabIndex = 0;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -113,7 +177,7 @@ namespace Tournamenter_WinFormsApp
             this.helpToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(1120, 24);
+            this.menuStrip.Size = new System.Drawing.Size(981, 24);
             this.menuStrip.TabIndex = 1;
             this.menuStrip.Text = "menuStrip";
             // 
@@ -140,9 +204,8 @@ namespace Tournamenter_WinFormsApp
             this.newToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.newToolStripMenuItem.Text = "&New";
-            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
@@ -150,14 +213,13 @@ namespace Tournamenter_WinFormsApp
             this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.openToolStripMenuItem.Text = "&Open";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(143, 6);
             // 
             // saveToolStripMenuItem
             // 
@@ -165,19 +227,19 @@ namespace Tournamenter_WinFormsApp
             this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.saveAsToolStripMenuItem.Text = "Save &As";
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(143, 6);
             // 
             // printToolStripMenuItem
             // 
@@ -185,7 +247,7 @@ namespace Tournamenter_WinFormsApp
             this.printToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.printToolStripMenuItem.Name = "printToolStripMenuItem";
             this.printToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.printToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.printToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.printToolStripMenuItem.Text = "&Print";
             // 
             // printPreviewToolStripMenuItem
@@ -193,18 +255,18 @@ namespace Tournamenter_WinFormsApp
             this.printPreviewToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("printPreviewToolStripMenuItem.Image")));
             this.printPreviewToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.printPreviewToolStripMenuItem.Name = "printPreviewToolStripMenuItem";
-            this.printPreviewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.printPreviewToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.printPreviewToolStripMenuItem.Text = "Print Pre&view";
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(143, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             // 
             // editToolStripMenuItem
@@ -217,8 +279,7 @@ namespace Tournamenter_WinFormsApp
             this.copyToolStripMenuItem,
             this.pasteToolStripMenuItem,
             this.toolStripSeparator6,
-            this.selectAllToolStripMenuItem,
-            this.playerListToolStripMenuItem});
+            this.selectAllToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "&Edit";
@@ -227,20 +288,20 @@ namespace Tournamenter_WinFormsApp
             // 
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
             this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.undoToolStripMenuItem.Text = "&Undo";
             // 
             // redoToolStripMenuItem
             // 
             this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
             this.redoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.redoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.redoToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.redoToolStripMenuItem.Text = "&Redo";
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(141, 6);
             // 
             // cutToolStripMenuItem
             // 
@@ -248,7 +309,7 @@ namespace Tournamenter_WinFormsApp
             this.cutToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
             this.cutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.cutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cutToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.cutToolStripMenuItem.Text = "Cu&t";
             // 
             // copyToolStripMenuItem
@@ -257,7 +318,7 @@ namespace Tournamenter_WinFormsApp
             this.copyToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
             this.copyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.copyToolStripMenuItem.Text = "&Copy";
             // 
             // pasteToolStripMenuItem
@@ -266,26 +327,19 @@ namespace Tournamenter_WinFormsApp
             this.pasteToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
             this.pasteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.pasteToolStripMenuItem.Text = "&Paste";
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(141, 6);
             // 
             // selectAllToolStripMenuItem
             // 
             this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.selectAllToolStripMenuItem.Text = "Select &All";
-            // 
-            // playerListToolStripMenuItem
-            // 
-            this.playerListToolStripMenuItem.Name = "playerListToolStripMenuItem";
-            this.playerListToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.playerListToolStripMenuItem.Text = "Player List";
-            this.playerListToolStripMenuItem.Click += new System.EventHandler(this.playerListToolStripMenuItem_Click);
             // 
             // toolsToolStripMenuItem
             // 
@@ -355,182 +409,239 @@ namespace Tournamenter_WinFormsApp
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.kryptonPanel);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1120, 774);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(981, 689);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(1120, 823);
+            this.toolStripContainer1.Size = new System.Drawing.Size(981, 689);
             this.toolStripContainer1.TabIndex = 2;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
-            // toolStripContainer1.TopToolStripPanel
-            // 
-            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.menuStrip);
-            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip);
-            // 
             // kryptonPanel
             // 
-            this.kryptonPanel.AutoScroll = true;
-            this.kryptonPanel.Controls.Add(this.tableLayout);
+            this.kryptonPanel.Controls.Add(this.btnAddToMatch);
+            this.kryptonPanel.Controls.Add(this.btnDeletePlayer);
+            this.kryptonPanel.Controls.Add(this.btnEditPlayer);
+            this.kryptonPanel.Controls.Add(this.btnAddPlayer);
+            this.kryptonPanel.Controls.Add(this.kryptonGroupBox1);
+            this.kryptonPanel.Controls.Add(this.dgvPlayers);
             this.kryptonPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonPanel.Location = new System.Drawing.Point(0, 0);
             this.kryptonPanel.Name = "kryptonPanel";
-            this.kryptonPanel.Size = new System.Drawing.Size(1120, 774);
+            this.kryptonPanel.Size = new System.Drawing.Size(981, 689);
             this.kryptonPanel.TabIndex = 0;
             // 
-            // tableLayout
+            // btnAddPlayer
             // 
-            this.tableLayout.AutoScroll = true;
-            this.tableLayout.ColumnCount = 4;
-            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayout.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.AddColumns;
-            this.tableLayout.Location = new System.Drawing.Point(0, 0);
-            this.tableLayout.Name = "tableLayout";
-            this.tableLayout.RowCount = 1;
-            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayout.Size = new System.Drawing.Size(1120, 774);
-            this.tableLayout.TabIndex = 0;
+            this.btnAddPlayer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddPlayer.Location = new System.Drawing.Point(748, 439);
+            this.btnAddPlayer.Name = "btnAddPlayer";
+            this.btnAddPlayer.Size = new System.Drawing.Size(138, 25);
+            this.btnAddPlayer.TabIndex = 2;
+            this.btnAddPlayer.Values.Text = "Add new player";
+            this.btnAddPlayer.Click += new System.EventHandler(this.btnAddPlayer_Click);
             // 
-            // toolStrip
+            // kryptonGroupBox1
             // 
-            this.toolStrip.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStrip.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newToolStripButton,
-            this.openToolStripButton,
-            this.saveToolStripButton,
-            this.printToolStripButton,
-            this.toolStripSeparator,
-            this.cutToolStripButton,
-            this.copyToolStripButton,
-            this.pasteToolStripButton,
-            this.toolStripSeparator1,
-            this.helpToolStripButton});
-            this.toolStrip.Location = new System.Drawing.Point(3, 24);
-            this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(208, 25);
-            this.toolStrip.TabIndex = 2;
+            this.kryptonGroupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.kryptonGroupBox1.Location = new System.Drawing.Point(681, 3);
+            this.kryptonGroupBox1.Name = "kryptonGroupBox1";
             // 
-            // newToolStripButton
+            // kryptonGroupBox1.Panel
             // 
-            this.newToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.newToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripButton.Image")));
-            this.newToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.newToolStripButton.Name = "newToolStripButton";
-            this.newToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.newToolStripButton.Text = "&New";
+            this.kryptonGroupBox1.Panel.Controls.Add(this.btnEditOK);
+            this.kryptonGroupBox1.Panel.Controls.Add(infoLabel);
+            this.kryptonGroupBox1.Panel.Controls.Add(this.infoTextBox);
+            this.kryptonGroupBox1.Panel.Controls.Add(tagLabel);
+            this.kryptonGroupBox1.Panel.Controls.Add(this.tagTextBox);
+            this.kryptonGroupBox1.Panel.Controls.Add(nickLabel);
+            this.kryptonGroupBox1.Panel.Controls.Add(this.nickTextBox);
+            this.kryptonGroupBox1.Panel.Controls.Add(surnameLabel);
+            this.kryptonGroupBox1.Panel.Controls.Add(this.surnameTextBox);
+            this.kryptonGroupBox1.Panel.Controls.Add(nameLabel);
+            this.kryptonGroupBox1.Panel.Controls.Add(this.nameTextBox);
+            this.kryptonGroupBox1.Panel.Controls.Add(playerIdLabel);
+            this.kryptonGroupBox1.Panel.Controls.Add(this.playerIdTextBox);
+            this.kryptonGroupBox1.Size = new System.Drawing.Size(300, 430);
+            this.kryptonGroupBox1.TabIndex = 1;
+            this.kryptonGroupBox1.Text = "Player data:";
+            this.kryptonGroupBox1.Values.Heading = "Player data:";
             // 
-            // openToolStripButton
+            // infoTextBox
             // 
-            this.openToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.openToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripButton.Image")));
-            this.openToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.openToolStripButton.Name = "openToolStripButton";
-            this.openToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.openToolStripButton.Text = "&Open";
+            this.infoTextBox.Location = new System.Drawing.Point(103, 245);
+            this.infoTextBox.Name = "infoTextBox";
+            this.infoTextBox.Size = new System.Drawing.Size(141, 20);
+            this.infoTextBox.TabIndex = 11;
             // 
-            // saveToolStripButton
+            // tagTextBox
             // 
-            this.saveToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.saveToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripButton.Image")));
-            this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.saveToolStripButton.Name = "saveToolStripButton";
-            this.saveToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.saveToolStripButton.Text = "&Save";
+            this.tagTextBox.Location = new System.Drawing.Point(103, 191);
+            this.tagTextBox.Name = "tagTextBox";
+            this.tagTextBox.Size = new System.Drawing.Size(141, 20);
+            this.tagTextBox.TabIndex = 9;
             // 
-            // printToolStripButton
+            // nickTextBox
             // 
-            this.printToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.printToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("printToolStripButton.Image")));
-            this.printToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.printToolStripButton.Name = "printToolStripButton";
-            this.printToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.printToolStripButton.Text = "&Print";
+            this.nickTextBox.Location = new System.Drawing.Point(103, 142);
+            this.nickTextBox.Name = "nickTextBox";
+            this.nickTextBox.Size = new System.Drawing.Size(141, 20);
+            this.nickTextBox.TabIndex = 7;
             // 
-            // toolStripSeparator
+            // surnameTextBox
             // 
-            this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(6, 25);
+            this.surnameTextBox.Location = new System.Drawing.Point(103, 98);
+            this.surnameTextBox.Name = "surnameTextBox";
+            this.surnameTextBox.Size = new System.Drawing.Size(141, 20);
+            this.surnameTextBox.TabIndex = 5;
             // 
-            // cutToolStripButton
+            // nameTextBox
             // 
-            this.cutToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.cutToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("cutToolStripButton.Image")));
-            this.cutToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.cutToolStripButton.Name = "cutToolStripButton";
-            this.cutToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.cutToolStripButton.Text = "C&ut";
+            this.nameTextBox.Location = new System.Drawing.Point(103, 59);
+            this.nameTextBox.Name = "nameTextBox";
+            this.nameTextBox.Size = new System.Drawing.Size(141, 20);
+            this.nameTextBox.TabIndex = 3;
             // 
-            // copyToolStripButton
+            // playerIdTextBox
             // 
-            this.copyToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.copyToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("copyToolStripButton.Image")));
-            this.copyToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.copyToolStripButton.Name = "copyToolStripButton";
-            this.copyToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.copyToolStripButton.Text = "&Copy";
+            this.playerIdTextBox.Location = new System.Drawing.Point(103, 20);
+            this.playerIdTextBox.Name = "playerIdTextBox";
+            this.playerIdTextBox.ReadOnly = true;
+            this.playerIdTextBox.Size = new System.Drawing.Size(141, 20);
+            this.playerIdTextBox.TabIndex = 1;
             // 
-            // pasteToolStripButton
+            // dgvPlayers
             // 
-            this.pasteToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.pasteToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("pasteToolStripButton.Image")));
-            this.pasteToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.pasteToolStripButton.Name = "pasteToolStripButton";
-            this.pasteToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.pasteToolStripButton.Text = "&Paste";
+            this.dgvPlayers.AllowUserToAddRows = false;
+            this.dgvPlayers.AllowUserToDeleteRows = false;
+            this.dgvPlayers.AllowUserToResizeRows = false;
+            this.dgvPlayers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvPlayers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dgvPlayers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPlayers.Location = new System.Drawing.Point(0, 0);
+            this.dgvPlayers.MultiSelect = false;
+            this.dgvPlayers.Name = "dgvPlayers";
+            this.dgvPlayers.ReadOnly = true;
+            this.dgvPlayers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvPlayers.Size = new System.Drawing.Size(677, 689);
+            this.dgvPlayers.TabIndex = 0;
+            this.dgvPlayers.SelectionChanged += new System.EventHandler(this.dgvPlayers_SelectionChanged);
             // 
-            // toolStripSeparator1
+            // toolStripContainer2
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
-            // helpToolStripButton
+            // toolStripContainer2.BottomToolStripPanel
             // 
-            this.helpToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.helpToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("helpToolStripButton.Image")));
-            this.helpToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.helpToolStripButton.Name = "helpToolStripButton";
-            this.helpToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.helpToolStripButton.Text = "He&lp";
+            this.toolStripContainer2.BottomToolStripPanel.Controls.Add(this.statusStrip);
             // 
-            // globalPalette
+            // toolStripContainer2.ContentPanel
             // 
-            this.globalPalette.BasePaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2007Black;
-            this.globalPalette.LabelStyles.LabelCommon.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.toolStripContainer2.ContentPanel.AutoScroll = true;
+            this.toolStripContainer2.ContentPanel.Controls.Add(this.toolStripContainer1);
+            this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(981, 689);
+            this.toolStripContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.toolStripContainer2.Location = new System.Drawing.Point(0, 0);
+            this.toolStripContainer2.Name = "toolStripContainer2";
+            this.toolStripContainer2.Size = new System.Drawing.Size(981, 711);
+            this.toolStripContainer2.TabIndex = 3;
+            this.toolStripContainer2.Text = "toolStripContainer2";
             // 
-            // MainForm
+            // toolStripContainer3
+            // 
+            // 
+            // toolStripContainer3.ContentPanel
+            // 
+            this.toolStripContainer3.ContentPanel.AutoScroll = true;
+            this.toolStripContainer3.ContentPanel.Controls.Add(this.toolStripContainer2);
+            this.toolStripContainer3.ContentPanel.Size = new System.Drawing.Size(981, 711);
+            this.toolStripContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.toolStripContainer3.Location = new System.Drawing.Point(0, 0);
+            this.toolStripContainer3.Name = "toolStripContainer3";
+            this.toolStripContainer3.Size = new System.Drawing.Size(981, 735);
+            this.toolStripContainer3.TabIndex = 4;
+            this.toolStripContainer3.Text = "toolStripContainer3";
+            // 
+            // toolStripContainer3.TopToolStripPanel
+            // 
+            this.toolStripContainer3.TopToolStripPanel.Controls.Add(this.menuStrip);
+            // 
+            // btnEditPlayer
+            // 
+            this.btnEditPlayer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEditPlayer.Location = new System.Drawing.Point(748, 488);
+            this.btnEditPlayer.Name = "btnEditPlayer";
+            this.btnEditPlayer.Size = new System.Drawing.Size(138, 25);
+            this.btnEditPlayer.TabIndex = 3;
+            this.btnEditPlayer.Values.Text = "Edit player data";
+            this.btnEditPlayer.Click += new System.EventHandler(this.btnEditPlayer_Click);
+            // 
+            // btnDeletePlayer
+            // 
+            this.btnDeletePlayer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeletePlayer.Location = new System.Drawing.Point(748, 539);
+            this.btnDeletePlayer.Name = "btnDeletePlayer";
+            this.btnDeletePlayer.Size = new System.Drawing.Size(138, 25);
+            this.btnDeletePlayer.TabIndex = 4;
+            this.btnDeletePlayer.Values.Text = "Delete player";
+            // 
+            // btnAddToMatch
+            // 
+            this.btnAddToMatch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddToMatch.Location = new System.Drawing.Point(706, 612);
+            this.btnAddToMatch.Name = "btnAddToMatch";
+            this.btnAddToMatch.Size = new System.Drawing.Size(241, 50);
+            this.btnAddToMatch.TabIndex = 5;
+            this.btnAddToMatch.Values.Text = "Add player to match";
+            // 
+            // btnEditOK
+            // 
+            this.btnEditOK.Location = new System.Drawing.Point(103, 338);
+            this.btnEditOK.Name = "btnEditOK";
+            this.btnEditOK.Size = new System.Drawing.Size(100, 25);
+            this.btnEditOK.TabIndex = 6;
+            this.btnEditOK.Values.Text = "OK";
+            // 
+            // PlayerListFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1120, 845);
-            this.Controls.Add(this.toolStripContainer1);
-            this.Controls.Add(this.statusStrip);
-            this.DoubleBuffered = true;
-            this.Name = "MainForm";
-            this.Text = "Tournamenter";
+            this.ClientSize = new System.Drawing.Size(981, 735);
+            this.Controls.Add(this.toolStripContainer3);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Name = "PlayerListFrm";
+            this.Text = "PlayerList";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PlayerListFrm_FormClosed);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
-            this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
-            this.toolStripContainer1.TopToolStripPanel.PerformLayout();
             this.toolStripContainer1.ResumeLayout(false);
             this.toolStripContainer1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel)).EndInit();
             this.kryptonPanel.ResumeLayout(false);
-            this.toolStrip.ResumeLayout(false);
-            this.toolStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1.Panel)).EndInit();
+            this.kryptonGroupBox1.Panel.ResumeLayout(false);
+            this.kryptonGroupBox1.Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1)).EndInit();
+            this.kryptonGroupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPlayers)).EndInit();
+            this.toolStripContainer2.BottomToolStripPanel.ResumeLayout(false);
+            this.toolStripContainer2.BottomToolStripPanel.PerformLayout();
+            this.toolStripContainer2.ContentPanel.ResumeLayout(false);
+            this.toolStripContainer2.ResumeLayout(false);
+            this.toolStripContainer2.PerformLayout();
+            this.toolStripContainer3.ContentPanel.ResumeLayout(false);
+            this.toolStripContainer3.TopToolStripPanel.ResumeLayout(false);
+            this.toolStripContainer3.TopToolStripPanel.PerformLayout();
+            this.toolStripContainer3.ResumeLayout(false);
+            this.toolStripContainer3.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private ComponentFactory.Krypton.Toolkit.KryptonManager kryptonManager;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
@@ -563,21 +674,22 @@ namespace Tournamenter_WinFormsApp
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripContainer toolStripContainer1;
-        private System.Windows.Forms.ToolStrip toolStrip;
-        private System.Windows.Forms.ToolStripButton newToolStripButton;
-        private System.Windows.Forms.ToolStripButton openToolStripButton;
-        private System.Windows.Forms.ToolStripButton saveToolStripButton;
-        private System.Windows.Forms.ToolStripButton printToolStripButton;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
-        private System.Windows.Forms.ToolStripButton cutToolStripButton;
-        private System.Windows.Forms.ToolStripButton copyToolStripButton;
-        private System.Windows.Forms.ToolStripButton pasteToolStripButton;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton helpToolStripButton;
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel;
-        private System.Windows.Forms.TableLayoutPanel tableLayout;
-        private System.Windows.Forms.ToolStripMenuItem playerListToolStripMenuItem;
-        private ComponentFactory.Krypton.Toolkit.KryptonPalette globalPalette;
+        private System.Windows.Forms.DataGridView dgvPlayers;
+        private ComponentFactory.Krypton.Toolkit.KryptonGroupBox kryptonGroupBox1;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnAddPlayer;
+        private System.Windows.Forms.TextBox infoTextBox;
+        private System.Windows.Forms.TextBox tagTextBox;
+        private System.Windows.Forms.TextBox nickTextBox;
+        private System.Windows.Forms.TextBox surnameTextBox;
+        private System.Windows.Forms.TextBox nameTextBox;
+        private System.Windows.Forms.TextBox playerIdTextBox;
+        private System.Windows.Forms.ToolStripContainer toolStripContainer2;
+        private System.Windows.Forms.ToolStripContainer toolStripContainer3;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnEditPlayer;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnAddToMatch;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnDeletePlayer;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnEditOK;
     }
 }
 
