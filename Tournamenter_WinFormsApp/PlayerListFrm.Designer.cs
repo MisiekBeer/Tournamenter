@@ -28,6 +28,7 @@ namespace Tournamenter_WinFormsApp
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             ComponentFactory.Krypton.Toolkit.KryptonLabel playerIdLabel;
             ComponentFactory.Krypton.Toolkit.KryptonLabel nameLabel;
             ComponentFactory.Krypton.Toolkit.KryptonLabel surnameLabel;
@@ -68,8 +69,12 @@ namespace Tournamenter_WinFormsApp
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.kryptonPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
+            this.btnAddToMatch = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.btnDeletePlayer = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.btnEditPlayer = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnAddPlayer = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonGroupBox1 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
+            this.btnEditOK = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.infoTextBox = new System.Windows.Forms.TextBox();
             this.tagTextBox = new System.Windows.Forms.TextBox();
             this.nickTextBox = new System.Windows.Forms.TextBox();
@@ -79,10 +84,11 @@ namespace Tournamenter_WinFormsApp
             this.dgvPlayers = new System.Windows.Forms.DataGridView();
             this.toolStripContainer2 = new System.Windows.Forms.ToolStripContainer();
             this.toolStripContainer3 = new System.Windows.Forms.ToolStripContainer();
-            this.btnEditPlayer = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.btnDeletePlayer = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.btnAddToMatch = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.btnEditOK = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.btnEditCancel = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.checkBtnAddPlayer = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
+            this.kryptonCheckSet = new ComponentFactory.Krypton.Toolkit.KryptonCheckSet(this.components);
+            this.checkButtonEditPlayer = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
+            this.checkButtonRemovePlayer = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
             playerIdLabel = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             nameLabel = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             surnameLabel = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
@@ -105,6 +111,7 @@ namespace Tournamenter_WinFormsApp
             this.toolStripContainer3.ContentPanel.SuspendLayout();
             this.toolStripContainer3.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonCheckSet)).BeginInit();
             this.SuspendLayout();
             // 
             // playerIdLabel
@@ -117,7 +124,7 @@ namespace Tournamenter_WinFormsApp
             // 
             // nameLabel
             // 
-            nameLabel.Location = new System.Drawing.Point(12, 59);
+            nameLabel.Location = new System.Drawing.Point(12, 65);
             nameLabel.Name = "nameLabel";
             nameLabel.Size = new System.Drawing.Size(46, 20);
             nameLabel.TabIndex = 2;
@@ -125,7 +132,7 @@ namespace Tournamenter_WinFormsApp
             // 
             // surnameLabel
             // 
-            surnameLabel.Location = new System.Drawing.Point(12, 98);
+            surnameLabel.Location = new System.Drawing.Point(12, 110);
             surnameLabel.Name = "surnameLabel";
             surnameLabel.Size = new System.Drawing.Size(61, 20);
             surnameLabel.TabIndex = 4;
@@ -133,7 +140,7 @@ namespace Tournamenter_WinFormsApp
             // 
             // nickLabel
             // 
-            nickLabel.Location = new System.Drawing.Point(12, 142);
+            nickLabel.Location = new System.Drawing.Point(12, 155);
             nickLabel.Name = "nickLabel";
             nickLabel.Size = new System.Drawing.Size(37, 20);
             nickLabel.TabIndex = 6;
@@ -141,7 +148,7 @@ namespace Tournamenter_WinFormsApp
             // 
             // tagLabel
             // 
-            tagLabel.Location = new System.Drawing.Point(12, 191);
+            tagLabel.Location = new System.Drawing.Point(12, 200);
             tagLabel.Name = "tagLabel";
             tagLabel.Size = new System.Drawing.Size(33, 20);
             tagLabel.TabIndex = 8;
@@ -409,16 +416,19 @@ namespace Tournamenter_WinFormsApp
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.kryptonPanel);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(981, 689);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(981, 639);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(981, 689);
+            this.toolStripContainer1.Size = new System.Drawing.Size(981, 664);
             this.toolStripContainer1.TabIndex = 2;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
             // kryptonPanel
             // 
+            this.kryptonPanel.Controls.Add(this.checkButtonRemovePlayer);
+            this.kryptonPanel.Controls.Add(this.checkButtonEditPlayer);
+            this.kryptonPanel.Controls.Add(this.checkBtnAddPlayer);
             this.kryptonPanel.Controls.Add(this.btnAddToMatch);
             this.kryptonPanel.Controls.Add(this.btnDeletePlayer);
             this.kryptonPanel.Controls.Add(this.btnEditPlayer);
@@ -428,27 +438,57 @@ namespace Tournamenter_WinFormsApp
             this.kryptonPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonPanel.Location = new System.Drawing.Point(0, 0);
             this.kryptonPanel.Name = "kryptonPanel";
-            this.kryptonPanel.Size = new System.Drawing.Size(981, 689);
+            this.kryptonPanel.Size = new System.Drawing.Size(981, 639);
             this.kryptonPanel.TabIndex = 0;
+            // 
+            // btnAddToMatch
+            // 
+            this.btnAddToMatch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddToMatch.Location = new System.Drawing.Point(706, 612);
+            this.btnAddToMatch.Name = "btnAddToMatch";
+            this.btnAddToMatch.Size = new System.Drawing.Size(241, 50);
+            this.btnAddToMatch.TabIndex = 11;
+            this.btnAddToMatch.Values.Text = "Add player to match";
+            // 
+            // btnDeletePlayer
+            // 
+            this.btnDeletePlayer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeletePlayer.Location = new System.Drawing.Point(867, 65);
+            this.btnDeletePlayer.Name = "btnDeletePlayer";
+            this.btnDeletePlayer.Size = new System.Drawing.Size(138, 25);
+            this.btnDeletePlayer.TabIndex = 10;
+            this.btnDeletePlayer.Values.Text = "Delete player";
+            this.btnDeletePlayer.Click += new System.EventHandler(this.btnDeletePlayer_Click);
+            // 
+            // btnEditPlayer
+            // 
+            this.btnEditPlayer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEditPlayer.Location = new System.Drawing.Point(867, 34);
+            this.btnEditPlayer.Name = "btnEditPlayer";
+            this.btnEditPlayer.Size = new System.Drawing.Size(138, 25);
+            this.btnEditPlayer.TabIndex = 9;
+            this.btnEditPlayer.Values.Text = "Edit player data";
+            this.btnEditPlayer.Click += new System.EventHandler(this.btnEditPlayer_Click);
             // 
             // btnAddPlayer
             // 
             this.btnAddPlayer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddPlayer.Location = new System.Drawing.Point(748, 439);
+            this.btnAddPlayer.Location = new System.Drawing.Point(867, 3);
             this.btnAddPlayer.Name = "btnAddPlayer";
             this.btnAddPlayer.Size = new System.Drawing.Size(138, 25);
-            this.btnAddPlayer.TabIndex = 2;
+            this.btnAddPlayer.TabIndex = 8;
             this.btnAddPlayer.Values.Text = "Add new player";
             this.btnAddPlayer.Click += new System.EventHandler(this.btnAddPlayer_Click);
             // 
             // kryptonGroupBox1
             // 
             this.kryptonGroupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.kryptonGroupBox1.Location = new System.Drawing.Point(681, 3);
+            this.kryptonGroupBox1.Location = new System.Drawing.Point(683, 109);
             this.kryptonGroupBox1.Name = "kryptonGroupBox1";
             // 
             // kryptonGroupBox1.Panel
             // 
+            this.kryptonGroupBox1.Panel.Controls.Add(this.btnEditCancel);
             this.kryptonGroupBox1.Panel.Controls.Add(this.btnEditOK);
             this.kryptonGroupBox1.Panel.Controls.Add(infoLabel);
             this.kryptonGroupBox1.Panel.Controls.Add(this.infoTextBox);
@@ -467,40 +507,49 @@ namespace Tournamenter_WinFormsApp
             this.kryptonGroupBox1.Text = "Player data:";
             this.kryptonGroupBox1.Values.Heading = "Player data:";
             // 
+            // btnEditOK
+            // 
+            this.btnEditOK.Location = new System.Drawing.Point(21, 342);
+            this.btnEditOK.Name = "btnEditOK";
+            this.btnEditOK.Size = new System.Drawing.Size(100, 25);
+            this.btnEditOK.TabIndex = 7;
+            this.btnEditOK.Values.Text = "OK";
+            this.btnEditOK.Click += new System.EventHandler(this.btnEditOK_Click);
+            // 
             // infoTextBox
             // 
             this.infoTextBox.Location = new System.Drawing.Point(103, 245);
             this.infoTextBox.Name = "infoTextBox";
             this.infoTextBox.Size = new System.Drawing.Size(141, 20);
-            this.infoTextBox.TabIndex = 11;
+            this.infoTextBox.TabIndex = 6;
             // 
             // tagTextBox
             // 
-            this.tagTextBox.Location = new System.Drawing.Point(103, 191);
+            this.tagTextBox.Location = new System.Drawing.Point(103, 200);
             this.tagTextBox.Name = "tagTextBox";
             this.tagTextBox.Size = new System.Drawing.Size(141, 20);
-            this.tagTextBox.TabIndex = 9;
+            this.tagTextBox.TabIndex = 5;
             // 
             // nickTextBox
             // 
-            this.nickTextBox.Location = new System.Drawing.Point(103, 142);
+            this.nickTextBox.Location = new System.Drawing.Point(103, 155);
             this.nickTextBox.Name = "nickTextBox";
             this.nickTextBox.Size = new System.Drawing.Size(141, 20);
-            this.nickTextBox.TabIndex = 7;
+            this.nickTextBox.TabIndex = 4;
             // 
             // surnameTextBox
             // 
-            this.surnameTextBox.Location = new System.Drawing.Point(103, 98);
+            this.surnameTextBox.Location = new System.Drawing.Point(103, 110);
             this.surnameTextBox.Name = "surnameTextBox";
             this.surnameTextBox.Size = new System.Drawing.Size(141, 20);
-            this.surnameTextBox.TabIndex = 5;
+            this.surnameTextBox.TabIndex = 3;
             // 
             // nameTextBox
             // 
-            this.nameTextBox.Location = new System.Drawing.Point(103, 59);
+            this.nameTextBox.Location = new System.Drawing.Point(103, 65);
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(141, 20);
-            this.nameTextBox.TabIndex = 3;
+            this.nameTextBox.TabIndex = 2;
             // 
             // playerIdTextBox
             // 
@@ -525,7 +574,7 @@ namespace Tournamenter_WinFormsApp
             this.dgvPlayers.Name = "dgvPlayers";
             this.dgvPlayers.ReadOnly = true;
             this.dgvPlayers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvPlayers.Size = new System.Drawing.Size(677, 689);
+            this.dgvPlayers.Size = new System.Drawing.Size(677, 639);
             this.dgvPlayers.TabIndex = 0;
             this.dgvPlayers.SelectionChanged += new System.EventHandler(this.dgvPlayers_SelectionChanged);
             // 
@@ -540,7 +589,7 @@ namespace Tournamenter_WinFormsApp
             // 
             this.toolStripContainer2.ContentPanel.AutoScroll = true;
             this.toolStripContainer2.ContentPanel.Controls.Add(this.toolStripContainer1);
-            this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(981, 689);
+            this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(981, 664);
             this.toolStripContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer2.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer2.Name = "toolStripContainer2";
@@ -567,41 +616,45 @@ namespace Tournamenter_WinFormsApp
             // 
             this.toolStripContainer3.TopToolStripPanel.Controls.Add(this.menuStrip);
             // 
-            // btnEditPlayer
+            // btnEditCancel
             // 
-            this.btnEditPlayer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEditPlayer.Location = new System.Drawing.Point(748, 488);
-            this.btnEditPlayer.Name = "btnEditPlayer";
-            this.btnEditPlayer.Size = new System.Drawing.Size(138, 25);
-            this.btnEditPlayer.TabIndex = 3;
-            this.btnEditPlayer.Values.Text = "Edit player data";
-            this.btnEditPlayer.Click += new System.EventHandler(this.btnEditPlayer_Click);
+            this.btnEditCancel.Location = new System.Drawing.Point(172, 342);
+            this.btnEditCancel.Name = "btnEditCancel";
+            this.btnEditCancel.Size = new System.Drawing.Size(90, 25);
+            this.btnEditCancel.TabIndex = 11;
+            this.btnEditCancel.Values.Text = "Cancel";
+            this.btnEditCancel.Click += new System.EventHandler(this.btnEditCancel_Click);
             // 
-            // btnDeletePlayer
+            // checkBtnAddPlayer
             // 
-            this.btnDeletePlayer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeletePlayer.Location = new System.Drawing.Point(748, 539);
-            this.btnDeletePlayer.Name = "btnDeletePlayer";
-            this.btnDeletePlayer.Size = new System.Drawing.Size(138, 25);
-            this.btnDeletePlayer.TabIndex = 4;
-            this.btnDeletePlayer.Values.Text = "Delete player";
+            this.checkBtnAddPlayer.Location = new System.Drawing.Point(706, 4);
+            this.checkBtnAddPlayer.Name = "checkBtnAddPlayer";
+            this.checkBtnAddPlayer.Size = new System.Drawing.Size(123, 25);
+            this.checkBtnAddPlayer.TabIndex = 12;
+            this.checkBtnAddPlayer.Values.Text = "Add new player";
+            this.checkBtnAddPlayer.CheckedChanged += new System.EventHandler(this.checkBtnAddPlayer_CheckedChanged);
             // 
-            // btnAddToMatch
+            // kryptonCheckSet
             // 
-            this.btnAddToMatch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddToMatch.Location = new System.Drawing.Point(706, 612);
-            this.btnAddToMatch.Name = "btnAddToMatch";
-            this.btnAddToMatch.Size = new System.Drawing.Size(241, 50);
-            this.btnAddToMatch.TabIndex = 5;
-            this.btnAddToMatch.Values.Text = "Add player to match";
+            this.kryptonCheckSet.CheckButtons.Add(this.checkBtnAddPlayer);
+            this.kryptonCheckSet.CheckButtons.Add(this.checkButtonEditPlayer);
+            this.kryptonCheckSet.CheckButtons.Add(this.checkButtonRemovePlayer);
             // 
-            // btnEditOK
+            // checkButtonEditPlayer
             // 
-            this.btnEditOK.Location = new System.Drawing.Point(103, 338);
-            this.btnEditOK.Name = "btnEditOK";
-            this.btnEditOK.Size = new System.Drawing.Size(100, 25);
-            this.btnEditOK.TabIndex = 6;
-            this.btnEditOK.Values.Text = "OK";
+            this.checkButtonEditPlayer.Location = new System.Drawing.Point(706, 35);
+            this.checkButtonEditPlayer.Name = "checkButtonEditPlayer";
+            this.checkButtonEditPlayer.Size = new System.Drawing.Size(122, 25);
+            this.checkButtonEditPlayer.TabIndex = 13;
+            this.checkButtonEditPlayer.Values.Text = "Edit player data";
+            // 
+            // checkButtonRemovePlayer
+            // 
+            this.checkButtonRemovePlayer.Location = new System.Drawing.Point(706, 66);
+            this.checkButtonRemovePlayer.Name = "checkButtonRemovePlayer";
+            this.checkButtonRemovePlayer.Size = new System.Drawing.Size(123, 25);
+            this.checkButtonRemovePlayer.TabIndex = 14;
+            this.checkButtonRemovePlayer.Values.Text = "Delete player";
             // 
             // PlayerListFrm
             // 
@@ -611,7 +664,7 @@ namespace Tournamenter_WinFormsApp
             this.Controls.Add(this.toolStripContainer3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "PlayerListFrm";
-            this.Text = "PlayerList";
+            this.Text = "Player List";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PlayerListFrm_FormClosed);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
@@ -636,6 +689,7 @@ namespace Tournamenter_WinFormsApp
             this.toolStripContainer3.TopToolStripPanel.PerformLayout();
             this.toolStripContainer3.ResumeLayout(false);
             this.toolStripContainer3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonCheckSet)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -690,6 +744,11 @@ namespace Tournamenter_WinFormsApp
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnAddToMatch;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnDeletePlayer;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnEditOK;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnEditCancel;
+        private ComponentFactory.Krypton.Toolkit.KryptonCheckButton checkButtonRemovePlayer;
+        private ComponentFactory.Krypton.Toolkit.KryptonCheckButton checkButtonEditPlayer;
+        private ComponentFactory.Krypton.Toolkit.KryptonCheckButton checkBtnAddPlayer;
+        private ComponentFactory.Krypton.Toolkit.KryptonCheckSet kryptonCheckSet;
     }
 }
 

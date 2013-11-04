@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logic
 {
+    [Serializable]
     public class Round : BaseLogicClass
     {
         #region properties

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logic
 {
+    [Serializable]
     public class Match : BaseLogicClass
     {
         #region properties
@@ -20,7 +21,7 @@ namespace Logic
         public DateTime MatchDate
         {
             get { return matchDate; }
-            set { matchDate = value; OnPropertyChanged(PropNames.MatchDate); }
+            private set { matchDate = value; OnPropertyChanged(PropNames.MatchDate); }
         }
 
 
@@ -32,8 +33,8 @@ namespace Logic
         }
 
 
-        private List<Player> players;
-        public List<Player> Players
+        private List<MatchPlayer> players;
+        public List<MatchPlayer> Players
         {
             get { return players; }
             private set { players = value; OnPropertyChanged(PropNames.Players); }
@@ -61,7 +62,7 @@ namespace Logic
         {
             Name = "New Match";
             MatchDate = DateTime.Today.Date;
-            Players = new List<Player>();
+            Players = new List<MatchPlayer>();
             Rounds = new List<Round>();
             Settings = new MatchSettings();
         } 
@@ -69,6 +70,11 @@ namespace Logic
         public override string ToString()
         {
             return string.Format("Match: {0} - {1}", Name, MatchDate);
+        }
+
+        public void AddPlayer(MatchPlayer player)
+        { 
+            Players.Add(player);
         }
     }
 }

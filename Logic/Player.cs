@@ -38,21 +38,6 @@ namespace Logic
             set { nick = value; OnPropertyChanged(PropNames.Nick); }
         }
 
-        private int totalSmallVP;
-        public int TotalSmallVP
-        {
-            get { return totalSmallVP; }
-            set { totalSmallVP = value; OnPropertyChanged(PropNames.TotalSmallVP); }
-        }
-
-
-        private int totalBigVP;
-        public int TotalBigVP
-        {
-            get { return totalBigVP; }
-            set { totalBigVP = value; OnPropertyChanged(PropNames.TotalBigVP); }
-        }
-
         private string tag;
         public string Tag
         {

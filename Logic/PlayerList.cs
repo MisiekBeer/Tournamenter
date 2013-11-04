@@ -90,7 +90,7 @@ namespace Logic
             }
         }
 
-        private void SavePlayerList()
+        public void SavePlayerList()
         {
             Task.Run(() =>
                 {

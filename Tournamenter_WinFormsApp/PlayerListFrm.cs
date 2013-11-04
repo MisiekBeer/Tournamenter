@@ -12,16 +12,23 @@ namespace Tournamenter_WinFormsApp
 {
     public partial class PlayerListFrm : ComponentFactory.Krypton.Toolkit.KryptonForm
     {
-        private Player _editedPlayer;
+        public enum EditKind
+        {
+            None,
+            Add,
+            Change,
+            Remove
+        }
+
         private Player _selectedPlayer;
+        private EditKind _editKind = EditKind.None;
 
         public PlayerListFrm()
         {
             InitializeComponent();
+            dgvPlayers.AutoGenerateColumns = true;
 
             RefreshList();
-
-            dgvPlayers.AutoGenerateColumns = true;
 
             PlayerList.Instance.PropertyChanged += Instance_PropertyChanged;
         }
@@ -34,24 +41,27 @@ namespace Tournamenter_WinFormsApp
         private void RefreshList()
         {
             dgvPlayers.DataSource = PlayerList.Instance.Players;
+            dgvPlayers.Refresh();
         }
         private void btnAddPlayer_Click(object sender, EventArgs e)
         {
-            Player player = new Player()
-            {
-                Name = nameTextBox.Text,
-                Surname = surnameTextBox.Text,
-                Nick = nickTextBox.Text,
-                Info = infoTextBox.Text,
-                Tag = tagTextBox.Text
-            };
+            Player player = new Player();
+            SetPlayerDataFromEditors(player);
 
             PlayerList.Instance.Add(player);
         }
 
         private void btnEditPlayer_Click(object sender, EventArgs e)
         {
+            SetPlayerDataFromEditors(_selectedPlayer);
+            PlayerList.Instance.SavePlayerList();
+        }
 
+
+        private void btnDeletePlayer_Click(object sender, EventArgs e)
+        {
+            PlayerList.Instance.Remove(_selectedPlayer);
+            _selectedPlayer = null;
         }
 
         private void PlayerListFrm_FormClosed(object sender, FormClosedEventArgs e)
@@ -68,11 +78,11 @@ namespace Tournamenter_WinFormsApp
             }
             _selectedPlayer = (Player)dgvPlayers.SelectedRows[0].DataBoundItem;
 
-            SetPlayerEditData(_selectedPlayer);
+            SetPlayerEditorsData(_selectedPlayer);
         }
 
 
-        private void SetPlayerEditData(Player player)
+        private void SetPlayerEditorsData(Player player)
         {
             playerIdTextBox.Text = player.PlayerId.ToString();
             nameTextBox.Text = player.Name;     
@@ -81,5 +91,59 @@ namespace Tournamenter_WinFormsApp
             infoTextBox.Text = player.Info;       
             tagTextBox.Text = player.Tag;      
         }
+
+        private void SetPlayerDataFromEditors(Player player)
+        { 
+            player.Name = nameTextBox.Text;
+            player.Surname = surnameTextBox.Text;
+            player.Nick = nickTextBox.Text;
+            player.Info = infoTextBox.Text;
+            player.Tag = tagTextBox.Text;
+        }
+
+        private void ClearEditors()
+        {
+            playerIdTextBox.Clear();
+            nameTextBox.Clear();
+            surnameTextBox.Clear();
+            nickTextBox.Clear();
+            infoTextBox.Clear();
+            tagTextBox.Clear();      
+        }
+
+        private void SetEditKind(EditKind editKind)
+        {
+            switch (editKind)
+            {
+                case EditKind.None:
+                    btnAddPlayer.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Global;
+                    btnEditPlayer.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Global;
+                    btnDeletePlayer.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Global;
+                    break;
+                case EditKind.Add:
+                    break;
+                case EditKind.Change:
+                    break;
+                case EditKind.Remove:
+                    break;
+            }
+            _editKind = editKind;
+        }
+
+        private void btnEditOK_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnEditCancel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBtnAddPlayer_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

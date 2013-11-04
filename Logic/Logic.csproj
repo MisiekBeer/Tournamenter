@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="BaseLogicClass.cs" />
     <Compile Include="Match.cs" />
+    <Compile Include="MatchPlayer.cs" />
     <Compile Include="MatchSettings.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerList.cs" />

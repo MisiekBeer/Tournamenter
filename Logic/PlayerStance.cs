@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logic
 {
+    [Serializable]
     public class PlayerStance : BaseLogicClass
     {
         #region properties
@@ -23,15 +24,17 @@ namespace Logic
             set { playerId = value; OnPropertyChanged(PropNames.PlayerId); }
         }
 
-        private Player player;
-        public Player Player
+        [NonSerialized]
+        private MatchPlayer player;
+        public MatchPlayer Player
         {
             get { return player; }
             set { player = value; OnPropertyChanged(PropNames.Player); }
         }
 
-        private Player oponent;
-        public Player Oponent
+        [NonSerialized]
+        private MatchPlayer oponent;
+        public MatchPlayer Oponent
         {
             get { return oponent; }
             set { oponent = value; OnPropertyChanged(PropNames.Oponent); }
