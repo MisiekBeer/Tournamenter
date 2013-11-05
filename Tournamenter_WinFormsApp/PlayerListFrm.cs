@@ -27,6 +27,7 @@ namespace Tournamenter_WinFormsApp
         {
             InitializeComponent();
             dgvPlayers.AutoGenerateColumns = true;
+            BlockEditors(true);
 
             RefreshList();
 
@@ -42,26 +43,6 @@ namespace Tournamenter_WinFormsApp
         {
             dgvPlayers.DataSource = PlayerList.Instance.Players;
             dgvPlayers.Refresh();
-        }
-        private void btnAddPlayer_Click(object sender, EventArgs e)
-        {
-            Player player = new Player();
-            SetPlayerDataFromEditors(player);
-
-            PlayerList.Instance.Add(player);
-        }
-
-        private void btnEditPlayer_Click(object sender, EventArgs e)
-        {
-            SetPlayerDataFromEditors(_selectedPlayer);
-            PlayerList.Instance.SavePlayerList();
-        }
-
-
-        private void btnDeletePlayer_Click(object sender, EventArgs e)
-        {
-            PlayerList.Instance.Remove(_selectedPlayer);
-            _selectedPlayer = null;
         }
 
         private void PlayerListFrm_FormClosed(object sender, FormClosedEventArgs e)
@@ -111,38 +92,109 @@ namespace Tournamenter_WinFormsApp
             tagTextBox.Clear();      
         }
 
-        private void SetEditKind(EditKind editKind)
+        private void BlockEditors(bool blockEditors)
         {
-            switch (editKind)
+            nameTextBox.ReadOnly =
+            surnameTextBox.ReadOnly =
+            nickTextBox.ReadOnly =
+            infoTextBox.ReadOnly =
+            tagTextBox.ReadOnly = blockEditors;      
+        }
+
+        private bool ValidateEditors()
+        {
+            if (string.IsNullOrWhiteSpace(nameTextBox.Text))
             {
-                case EditKind.None:
-                    btnAddPlayer.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Global;
-                    btnEditPlayer.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Global;
-                    btnDeletePlayer.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Global;
-                    break;
-                case EditKind.Add:
-                    break;
-                case EditKind.Change:
-                    break;
-                case EditKind.Remove:
-                    break;
+                MessageBox.Show("Player name empty!");
+                return false;
             }
-            _editKind = editKind;
+            if (string.IsNullOrWhiteSpace(surnameTextBox.Text))
+            {
+                MessageBox.Show("Player surname empty!");
+                return false;
+            }
+            return true;
         }
 
         private void btnEditOK_Click(object sender, EventArgs e)
         {
+            switch (_editKind)
+            {
+                case EditKind.Add:
+                    if (!ValidateEditors()) 
+                        return;
+                    Player player = new Player();
+                    SetPlayerDataFromEditors(player);
+                    PlayerList.Instance.Add(player);
 
+                    ClearEditors();
+                    dgvPlayers.Rows[dgvPlayers.Rows.Count - 1].Selected = true;
+                    break;
+
+                case EditKind.Change:
+                    if (_selectedPlayer == null)
+                    {
+                        MessageBox.Show("Player not selected.");
+                        break;
+                    }
+                    if (!ValidateEditors())
+                        return;
+                    SetPlayerDataFromEditors(_selectedPlayer);
+                    PlayerList.Instance.SavePlayerList();
+                    dgvPlayers.Refresh();
+                    break;
+
+                case EditKind.Remove:
+                    if (_selectedPlayer == null)
+                    {
+                        MessageBox.Show("Player not selected.");
+                        break;
+                    }
+                    PlayerList.Instance.Remove(_selectedPlayer);
+                    _selectedPlayer = null;
+
+                    ClearEditors();
+                    dgvPlayers.Rows[dgvPlayers.Rows.Count - 1].Selected = true;
+                    break;
+
+                default:
+                    ClearEditors();
+                    break;
+            }
+            _editKind = EditKind.None;
+            checkSet.CheckedButton = null;
+            BlockEditors(true);
         }
 
         private void btnEditCancel_Click(object sender, EventArgs e)
         {
-
+            checkSet.CheckedButton = null;
+            _selectedPlayer = null;
+            BlockEditors(true);
         }
 
-        private void checkBtnAddPlayer_CheckedChanged(object sender, EventArgs e)
+        private void checkSet_CheckedButtonChanged(object sender, EventArgs e)
         {
-
+            if (checkSet.CheckedButton == checkBtnAddPlayer)
+            {
+                _editKind = EditKind.Add;
+                ClearEditors();
+                BlockEditors(false);
+                return;
+            }
+            if (checkSet.CheckedButton == checkButtonEditPlayer)
+            {
+                _editKind = EditKind.Change;
+                BlockEditors(false);
+                return;
+            }
+            if (checkSet.CheckedButton == checkButtonRemovePlayer)
+            {
+                _editKind = EditKind.Remove;
+                BlockEditors(true);
+                return;
+            }
+            _editKind = EditKind.None;
         }
 
     }
