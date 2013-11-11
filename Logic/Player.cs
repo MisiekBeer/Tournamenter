@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Logic
 {
+    /// <summary>
+    /// Player data
+    /// </summary>
     [Serializable]
     public class Player : BaseLogicClass
     {
@@ -60,8 +63,6 @@ namespace Logic
             public const string Name = "Name";
             public const string Surname = "Surname";
             public const string Nick = "Nick";
-            public const string TotalSmallVP = "TotalSmallVP";
-            public const string TotalBigVP = "TotalBigVP";
             public const string Tag = "Tag";
             public const string Info = "Info";
         } 

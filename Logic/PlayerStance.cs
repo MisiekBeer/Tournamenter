@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Logic
 {
+    /// <summary>
+    /// Player in- and pre-round stance
+    /// </summary>
     [Serializable]
     public class PlayerStance : BaseLogicClass
     {
@@ -21,23 +24,34 @@ namespace Logic
         public int PlayerId
         {
             get { return playerId; }
-            set { playerId = value; OnPropertyChanged(PropNames.PlayerId); }
+            set { playerId = value;
+                    Player = PlayerList.Instance[value];
+                    OnPropertyChanged(PropNames.PlayerId); }
         }
 
         [NonSerialized]
-        private MatchPlayer player;
-        public MatchPlayer Player
+        private Player player;
+        public Player Player
         {
             get { return player; }
-            set { player = value; OnPropertyChanged(PropNames.Player); }
+            private set { player = value; OnPropertyChanged(PropNames.Player); }
+        }
+
+        private int oponentId;
+        public int OponentId
+        {
+            get { return oponentId; }
+            set { oponentId = value;
+                    Oponent = PlayerList.Instance[value];
+                    OnPropertyChanged(PropNames.OponentId); }
         }
 
         [NonSerialized]
-        private MatchPlayer oponent;
-        public MatchPlayer Oponent
+        private Player oponent;
+        public Player Oponent
         {
             get { return oponent; }
-            set { oponent = value; OnPropertyChanged(PropNames.Oponent); }
+            private set { oponent = value; OnPropertyChanged(PropNames.Oponent); }
         }
 
         private int smallVP;
@@ -52,6 +66,21 @@ namespace Logic
         {
             get { return bigVP; }
             set { bigVP = value; OnPropertyChanged(PropNames.BigVP); }
+        }
+
+        private int totalSmallVP;
+        public int TotalSmallVP
+        {
+            get { return totalSmallVP; }
+            set { totalSmallVP = value; OnPropertyChanged(PropNames.TotalSmallVP); }
+        }
+
+
+        private int totalBigVP;
+        public int TotalBigVP
+        {
+            get { return totalBigVP; }
+            set { totalBigVP = value; OnPropertyChanged(PropNames.TotalBigVP); }
         }
 
         private Round matchRound;
@@ -72,10 +101,13 @@ namespace Logic
         public static class PropNames
         {
             public const string PlayerId = "PlayerId";
+            public const string OponentId = "OponentId";
             public const string Place = "Place";
             public const string Oponent = "Oponent";
             public const string SmallVP = "SmallVP";
             public const string BigVP = "BigVP";
+            public const string TotalSmallVP = "TotalSmallVP";
+            public const string TotalBigVP = "TotalBigVP";
             public const string Round = "MatchRound";
             public const string Player = "Player";
             public const string TableNumber = "TableNumber";

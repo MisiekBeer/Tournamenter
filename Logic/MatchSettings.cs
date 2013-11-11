@@ -15,9 +15,9 @@ namespace Logic
         public int PointsForDraw
         {
             get { return pointsForDraw; }
-            set { pointsForDraw = value; OnPropertyChanged(PropNames.PointsForDraw); }
+            set { pointsForDraw = value; OnPropertyChanged(PropNames.PointsForDraw); 
+            }
         }
-
 
         //Points for BAY
         private int pointsForBAY;
@@ -35,12 +35,19 @@ namespace Logic
             set { walkowerPoints = value; OnPropertyChanged(PropNames.WalkowerPoints); }
         }
 
+        private int roundCount;
+        public int RoundCount
+        {
+            get { return roundCount; }
+            set { roundCount = value; OnPropertyChanged(PropNames.RoundCount); }
+        }
 
         public static class PropNames
         {
             public const string PointsForDraw = "PointsForDraw";
             public const string PointsForBay = "PointsForBay";
             public const string WalkowerPoints = "WalkowerPoints";
+            public const string RoundCount = "RoundCount";
         } 
         #endregion
 
@@ -49,6 +56,7 @@ namespace Logic
             PointsForDraw = 10;
             PointsForBay = 10;
             WalkowerPoints = 20;
+            RoundCount = 3;
         }
 
         public override string ToString()
@@ -56,5 +64,7 @@ namespace Logic
             return string.Format("Match settings: points for walkower:{0}; BAY: {1}; Draw {2}",
                                   WalkowerPoints, PointsForBay, PointsForDraw);
         }
+
+        public static MatchSettings DefaultSettings = new MatchSettings() { };
     }
 }

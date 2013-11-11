@@ -28,28 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.roundHGroup = new ComponentFactory.Krypton.Toolkit.KryptonHeaderGroup();
+            this.roundGroup = new ComponentFactory.Krypton.Toolkit.KryptonHeaderGroup();
             this.tableLayout = new System.Windows.Forms.TableLayoutPanel();
-            ((System.ComponentModel.ISupportInitialize)(this.roundHGroup)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.roundHGroup.Panel)).BeginInit();
-            this.roundHGroup.Panel.SuspendLayout();
-            this.roundHGroup.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.roundGroup)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.roundGroup.Panel)).BeginInit();
+            this.roundGroup.Panel.SuspendLayout();
+            this.roundGroup.SuspendLayout();
             this.SuspendLayout();
             // 
-            // roundHGroup
+            // roundGroup
             // 
-            this.roundHGroup.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.roundHGroup.Location = new System.Drawing.Point(5, 5);
-            this.roundHGroup.Name = "roundHGroup";
+            this.roundGroup.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.roundGroup.Location = new System.Drawing.Point(5, 5);
+            this.roundGroup.Name = "roundGroup";
             // 
-            // roundHGroup.Panel
+            // roundGroup.Panel
             // 
-            this.roundHGroup.Panel.AutoScroll = true;
-            this.roundHGroup.Panel.Controls.Add(this.tableLayout);
-            this.roundHGroup.Size = new System.Drawing.Size(397, 789);
-            this.roundHGroup.TabIndex = 0;
-            this.roundHGroup.ValuesPrimary.Heading = "Round";
-            this.roundHGroup.ValuesSecondary.Heading = "Round Description - player count etc.";
+            this.roundGroup.Panel.AutoScroll = true;
+            this.roundGroup.Panel.Controls.Add(this.tableLayout);
+            this.roundGroup.Size = new System.Drawing.Size(397, 789);
+            this.roundGroup.TabIndex = 0;
+            this.roundGroup.ValuesPrimary.Heading = "Round";
+            this.roundGroup.ValuesSecondary.Heading = "Round Description - player count etc.";
             // 
             // tableLayout
             // 
@@ -60,7 +60,7 @@
             this.tableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayout.Location = new System.Drawing.Point(0, 0);
             this.tableLayout.Name = "tableLayout";
-            this.tableLayout.RowCount = 4;
+            this.tableLayout.RowCount = 1;
             this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -73,22 +73,22 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.Controls.Add(this.roundHGroup);
+            this.Controls.Add(this.roundGroup);
             this.DoubleBuffered = true;
-            this.Name = "RoundCtrl";
+            this.RoundName = "RoundCtrl";
             this.Padding = new System.Windows.Forms.Padding(5);
             this.Size = new System.Drawing.Size(407, 799);
-            ((System.ComponentModel.ISupportInitialize)(this.roundHGroup.Panel)).EndInit();
-            this.roundHGroup.Panel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.roundHGroup)).EndInit();
-            this.roundHGroup.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.roundGroup.Panel)).EndInit();
+            this.roundGroup.Panel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.roundGroup)).EndInit();
+            this.roundGroup.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private ComponentFactory.Krypton.Toolkit.KryptonHeaderGroup roundHGroup;
+        private ComponentFactory.Krypton.Toolkit.KryptonHeaderGroup roundGroup;
         private System.Windows.Forms.TableLayoutPanel tableLayout;
 
     }

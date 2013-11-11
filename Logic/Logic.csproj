@@ -42,13 +42,20 @@
   <ItemGroup>
     <Compile Include="BaseLogicClass.cs" />
     <Compile Include="Match.cs" />
-    <Compile Include="MatchPlayer.cs" />
     <Compile Include="MatchSettings.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerList.cs" />
     <Compile Include="PlayerStance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Round.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\DataSources\Match.datasource" />
+    <None Include="Properties\DataSources\MatchPlayer.datasource" />
+    <None Include="Properties\DataSources\MatchSettings.datasource" />
+    <None Include="Properties\DataSources\Player.datasource" />
+    <None Include="Properties\DataSources\PlayerStance.datasource" />
+    <None Include="Properties\DataSources\Round.datasource" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

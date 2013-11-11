@@ -11,6 +11,9 @@ using System.Xml.Serialization;
 
 namespace Logic
 {
+    /// <summary>
+    /// Globally defined players data
+    /// </summary>
     public class PlayerList : ICollection<Player>, IDisposable, INotifyPropertyChanged
     {
         #region Props
