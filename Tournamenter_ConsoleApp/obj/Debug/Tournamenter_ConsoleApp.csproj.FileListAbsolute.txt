@@ -1,0 +1,8 @@
+D:\Work + stuff\VS2013\Tournamenter\Tournamenter_ConsoleApp\bin\Debug\Tournamenter_ConsoleApp.exe.config
+D:\Work + stuff\VS2013\Tournamenter\Tournamenter_ConsoleApp\bin\Debug\Tournamenter_ConsoleApp.exe
+D:\Work + stuff\VS2013\Tournamenter\Tournamenter_ConsoleApp\bin\Debug\Tournamenter_ConsoleApp.pdb
+D:\Work + stuff\VS2013\Tournamenter\Tournamenter_ConsoleApp\obj\Debug\Tournamenter_ConsoleApp.exe
+D:\Work + stuff\VS2013\Tournamenter\Tournamenter_ConsoleApp\obj\Debug\Tournamenter_ConsoleApp.pdb
+D:\Work + stuff\VS2013\Tournamenter\Tournamenter_ConsoleApp\obj\Debug\Tournamenter_ConsoleApp.csprojResolveAssemblyReference.cache
+D:\Work + stuff\VS2013\Tournamenter\Tournamenter_ConsoleApp\bin\Debug\Logic.dll
+D:\Work + stuff\VS2013\Tournamenter\Tournamenter_ConsoleApp\bin\Debug\Logic.pdb

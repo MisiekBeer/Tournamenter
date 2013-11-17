@@ -1,0 +1,7 @@
+D:\Work + stuff\VS2013\Tournamenter\Tournamenter_UnitTest\bin\Debug\Tournamenter_UnitTest.dll
+D:\Work + stuff\VS2013\Tournamenter\Tournamenter_UnitTest\bin\Debug\Tournamenter_UnitTest.pdb
+D:\Work + stuff\VS2013\Tournamenter\Tournamenter_UnitTest\obj\Debug\Tournamenter_UnitTest.csprojResolveAssemblyReference.cache
+D:\Work + stuff\VS2013\Tournamenter\Tournamenter_UnitTest\obj\Debug\Tournamenter_UnitTest.dll
+D:\Work + stuff\VS2013\Tournamenter\Tournamenter_UnitTest\obj\Debug\Tournamenter_UnitTest.pdb
+D:\Work + stuff\VS2013\Tournamenter\Tournamenter_UnitTest\bin\Debug\Logic.dll
+D:\Work + stuff\VS2013\Tournamenter\Tournamenter_UnitTest\bin\Debug\Logic.pdb
