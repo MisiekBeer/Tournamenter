@@ -27,39 +27,56 @@ namespace Tournamenter_WinFormsApp
         }
 
         #region props
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [Browsable(false)]
         public Mode ControlMode { get; private set; }
 
-        private string name;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [Browsable(false)]
         public string RoundName
         {
-            get { return name; }
-            set { name = value; roundGroup.ValuesPrimary.Heading = value; }
+            get { return roundGroup.ValuesPrimary.Heading; }
+            set { roundGroup.ValuesPrimary.Heading = value; }
         }
 
         #endregion
 
         #region fields
-        private Round _round; 
+        private Round _round;
+        private readonly List<PlayerPositionCtrl> _posControls = new List<PlayerPositionCtrl>();
         #endregion
 
         #region ctor
+        /// <summary>
+        /// Player list constructor. For adding single player controls
+        /// </summary>
         public RoundCtrl()
         {
-            InitializeComponent();
+            Initialize();
 
             ControlMode = Mode.MatchPlayersStance;
-            Dock = DockStyle.Fill;
         }
 
+        /// <summary>
+        /// Round player vs player container.
+        /// </summary>
+        /// <param name="matchRound">current round</param>
         public RoundCtrl(Round matchRound)
         {
-            InitializeComponent();
+            Initialize();
 
             ControlMode = Mode.RoundStance;
-            Dock = DockStyle.Fill;
 
             _round = matchRound;
-        } 
+
+            AddVsControls();
+        }
+
+        private void Initialize()
+        {
+            InitializeComponent();
+            Dock = DockStyle.Fill;
+        }
         #endregion
 
         internal void AddControl(Control ctrl)
@@ -72,9 +89,17 @@ namespace Tournamenter_WinFormsApp
             tableLayout.ResumeLayout();
         }
 
+        private void AddVsControls()
+        {
+            foreach (var pair in _round.PlayerPairs)
+            {
+                AddPlayerPair(pair.Item1, pair.Item2);
+            }
+        }
 
         public void ClearPlayers()
         {
+            _posControls.Clear();
             tableLayout.Controls.Clear();
         }
 
@@ -82,14 +107,33 @@ namespace Tournamenter_WinFormsApp
         {
             if (ControlMode != Mode.MatchPlayersStance)
                 return;
-            tableLayout.Controls.Add(new PlayerPositionCtrl(player));
+
+            var ctrl = new PlayerPositionCtrl(player);
+            _posControls.Add(ctrl);
+            tableLayout.Controls.Add(ctrl);
         }
 
-        public void AddPlayerPair(PlayerStance player1, PlayerStance player2)
+        private void AddPlayerPair(PlayerStance player1_Stance, PlayerStance player2_Stance)
         {
             if (ControlMode != Mode.RoundStance)
                 return;
-            //tableLayout.Controls.Add(playerCtrl);
+
+            var ctrl1 = new PlayerPositionCtrl(player1_Stance);
+            var ctrl2 = new PlayerPositionCtrl(player2_Stance);
+            _posControls.Add(ctrl1);
+            _posControls.Add(ctrl2);
+            tableLayout.Controls.Add(new VsCtrl(ctrl1, ctrl2));
+        }
+
+        public bool CheckIfAllPointsEntered()
+        {
+            switch (ControlMode)
+            {
+                case Mode.RoundStance:
+                    return _posControls.All(n => n.PointsEntered == true);
+                default:
+                    return false;
+            }
         }
     }
 }

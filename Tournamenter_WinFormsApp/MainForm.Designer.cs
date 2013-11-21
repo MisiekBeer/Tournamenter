@@ -260,8 +260,8 @@ namespace Tournamenter_WinFormsApp
             this.toolStripSeparator1,
             this.startMatchToolStripMenuItem,
             this.closeRoundToolStripMenuItem,
-            this.matchSettingsToolStripMenuItem,
-            this.toolStripSeparator5});
+            this.toolStripSeparator5,
+            this.matchSettingsToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "&Edit";
@@ -283,12 +283,14 @@ namespace Tournamenter_WinFormsApp
             this.startMatchToolStripMenuItem.Name = "startMatchToolStripMenuItem";
             this.startMatchToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.startMatchToolStripMenuItem.Text = "Start match";
+            this.startMatchToolStripMenuItem.Click += new System.EventHandler(this.startMatchToolStripMenuItem_Click);
             // 
             // closeRoundToolStripMenuItem
             // 
             this.closeRoundToolStripMenuItem.Name = "closeRoundToolStripMenuItem";
             this.closeRoundToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.closeRoundToolStripMenuItem.Text = "Close round";
+            this.closeRoundToolStripMenuItem.Click += new System.EventHandler(this.closeRoundToolStripMenuItem_Click);
             // 
             // matchSettingsToolStripMenuItem
             // 

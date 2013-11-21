@@ -31,29 +31,28 @@
             this.components = new System.ComponentModel.Container();
             this.kryptonGroup1 = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
             this.tbNazwisko = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.bindSrcPlayerStance = new System.Windows.Forms.BindingSource(this.components);
             this.palettePlayer = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
-            this.globalPalette = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.tbKsywa = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.tbImie = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.groupPunkty = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
-            this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.labelPosition = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonTextBox4 = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.tbTotalBigPoints = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.kryptonLabel4 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonTextBox2 = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.tbBigPoints = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.kryptonLabel3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonTextBox1 = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
-            this.kryptonTextBox3 = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
-            this.bindSrcPlayerStance = new System.Windows.Forms.BindingSource(this.components);
+            this.tbSmallPoints = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.tbTotalSmallPoints = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1.Panel)).BeginInit();
             this.kryptonGroup1.Panel.SuspendLayout();
             this.kryptonGroup1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindSrcPlayerStance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupPunkty)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupPunkty.Panel)).BeginInit();
             this.groupPunkty.Panel.SuspendLayout();
             this.groupPunkty.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindSrcPlayerStance)).BeginInit();
             this.SuspendLayout();
             // 
             // kryptonGroup1
@@ -74,6 +73,7 @@
             // tbNazwisko
             // 
             this.tbNazwisko.AlwaysActive = false;
+            this.tbNazwisko.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindSrcPlayerStance, "Player.Surname", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.tbNazwisko.Location = new System.Drawing.Point(230, 3);
             this.tbNazwisko.MaxLength = 35;
             this.tbNazwisko.Name = "tbNazwisko";
@@ -84,14 +84,13 @@
             this.tbNazwisko.TabIndex = 2;
             this.tbNazwisko.Text = "Nazwisko";
             // 
+            // bindSrcPlayerStance
+            // 
+            this.bindSrcPlayerStance.AllowNew = false;
+            this.bindSrcPlayerStance.DataSource = typeof(Logic.PlayerStance);
+            // 
             // palettePlayer
             // 
-            // 
-            // globalPalette
-            // 
-            this.globalPalette.BasePaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2007Black;
-            this.globalPalette.LabelStyles.LabelCommon.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.palettePlayer.BasePalette = this.globalPalette;
             this.palettePlayer.BasePaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Global;
             this.palettePlayer.Common.StateCommon.Border.Color1 = System.Drawing.SystemColors.Control;
             this.palettePlayer.Common.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
@@ -103,6 +102,7 @@
             // tbKsywa
             // 
             this.tbKsywa.AlwaysActive = false;
+            this.tbKsywa.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindSrcPlayerStance, "Player.Nick", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.tbKsywa.Location = new System.Drawing.Point(110, 3);
             this.tbKsywa.MaxLength = 25;
             this.tbKsywa.Name = "tbKsywa";
@@ -116,6 +116,7 @@
             // tbImie
             // 
             this.tbImie.AlwaysActive = false;
+            this.tbImie.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindSrcPlayerStance, "Player.Name", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.tbImie.Location = new System.Drawing.Point(4, 3);
             this.tbImie.MaxLength = 25;
             this.tbImie.Name = "tbImie";
@@ -137,29 +138,30 @@
             // 
             // groupPunkty.Panel
             // 
-            this.groupPunkty.Panel.Controls.Add(this.kryptonLabel1);
+            this.groupPunkty.Panel.Controls.Add(this.labelPosition);
             this.groupPunkty.Panel.Controls.Add(this.kryptonLabel2);
-            this.groupPunkty.Panel.Controls.Add(this.kryptonTextBox4);
+            this.groupPunkty.Panel.Controls.Add(this.tbTotalBigPoints);
             this.groupPunkty.Panel.Controls.Add(this.kryptonLabel4);
-            this.groupPunkty.Panel.Controls.Add(this.kryptonTextBox2);
+            this.groupPunkty.Panel.Controls.Add(this.tbBigPoints);
             this.groupPunkty.Panel.Controls.Add(this.kryptonLabel3);
-            this.groupPunkty.Panel.Controls.Add(this.kryptonTextBox1);
-            this.groupPunkty.Panel.Controls.Add(this.kryptonTextBox3);
+            this.groupPunkty.Panel.Controls.Add(this.tbSmallPoints);
+            this.groupPunkty.Panel.Controls.Add(this.tbTotalSmallPoints);
             this.groupPunkty.Size = new System.Drawing.Size(374, 98);
             this.groupPunkty.TabIndex = 12;
             this.groupPunkty.Text = "Punkty:";
             this.groupPunkty.Values.Heading = "Punkty:";
             // 
-            // kryptonLabel1
+            // labelPosition
             // 
-            this.kryptonLabel1.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.TitleControl;
-            this.kryptonLabel1.Location = new System.Drawing.Point(14, 4);
-            this.kryptonLabel1.Name = "kryptonLabel1";
-            this.kryptonLabel1.Size = new System.Drawing.Size(63, 49);
-            this.kryptonLabel1.StateCommon.ShortText.Color1 = System.Drawing.Color.LightGreen;
-            this.kryptonLabel1.StateCommon.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.kryptonLabel1.TabIndex = 5;
-            this.kryptonLabel1.Values.Text = "01";
+            this.labelPosition.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindSrcPlayerStance, "Place", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.labelPosition.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.TitleControl;
+            this.labelPosition.Location = new System.Drawing.Point(14, 4);
+            this.labelPosition.Name = "labelPosition";
+            this.labelPosition.Size = new System.Drawing.Size(63, 49);
+            this.labelPosition.StateCommon.ShortText.Color1 = System.Drawing.Color.LightGreen;
+            this.labelPosition.StateCommon.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelPosition.TabIndex = 5;
+            this.labelPosition.Values.Text = "01";
             // 
             // kryptonLabel2
             // 
@@ -171,20 +173,21 @@
             this.kryptonLabel2.TabIndex = 8;
             this.kryptonLabel2.Values.Text = "MP";
             // 
-            // kryptonTextBox4
+            // tbTotalBigPoints
             // 
-            this.kryptonTextBox4.AlwaysActive = false;
-            this.kryptonTextBox4.Location = new System.Drawing.Point(204, 65);
-            this.kryptonTextBox4.MaxLength = 7;
-            this.kryptonTextBox4.Name = "kryptonTextBox4";
-            this.kryptonTextBox4.Palette = this.palettePlayer;
-            this.kryptonTextBox4.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
-            this.kryptonTextBox4.ReadOnly = true;
-            this.kryptonTextBox4.Size = new System.Drawing.Size(74, 26);
-            this.kryptonTextBox4.StateCommon.Content.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.kryptonTextBox4.TabIndex = 7;
-            this.kryptonTextBox4.Text = "DP SUM";
-            this.kryptonTextBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbTotalBigPoints.AlwaysActive = false;
+            this.tbTotalBigPoints.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindSrcPlayerStance, "TotalBigVP", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null, "N0"));
+            this.tbTotalBigPoints.Location = new System.Drawing.Point(204, 65);
+            this.tbTotalBigPoints.MaxLength = 7;
+            this.tbTotalBigPoints.Name = "tbTotalBigPoints";
+            this.tbTotalBigPoints.Palette = this.palettePlayer;
+            this.tbTotalBigPoints.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
+            this.tbTotalBigPoints.ReadOnly = true;
+            this.tbTotalBigPoints.Size = new System.Drawing.Size(74, 26);
+            this.tbTotalBigPoints.StateCommon.Content.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.tbTotalBigPoints.TabIndex = 7;
+            this.tbTotalBigPoints.Text = "DP SUM";
+            this.tbTotalBigPoints.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // kryptonLabel4
             // 
@@ -196,18 +199,19 @@
             this.kryptonLabel4.TabIndex = 10;
             this.kryptonLabel4.Values.Text = "DP";
             // 
-            // kryptonTextBox2
+            // tbBigPoints
             // 
-            this.kryptonTextBox2.AlwaysActive = false;
-            this.kryptonTextBox2.Location = new System.Drawing.Point(204, 35);
-            this.kryptonTextBox2.MaxLength = 6;
-            this.kryptonTextBox2.Name = "kryptonTextBox2";
-            this.kryptonTextBox2.Palette = this.palettePlayer;
-            this.kryptonTextBox2.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
-            this.kryptonTextBox2.Size = new System.Drawing.Size(75, 26);
-            this.kryptonTextBox2.TabIndex = 4;
-            this.kryptonTextBox2.Text = "DP";
-            this.kryptonTextBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbBigPoints.AlwaysActive = false;
+            this.tbBigPoints.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindSrcPlayerStance, "BigVP", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null, "N0"));
+            this.tbBigPoints.Location = new System.Drawing.Point(204, 35);
+            this.tbBigPoints.MaxLength = 6;
+            this.tbBigPoints.Name = "tbBigPoints";
+            this.tbBigPoints.Palette = this.palettePlayer;
+            this.tbBigPoints.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
+            this.tbBigPoints.Size = new System.Drawing.Size(75, 26);
+            this.tbBigPoints.TabIndex = 4;
+            this.tbBigPoints.Text = "DP";
+            this.tbBigPoints.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // kryptonLabel3
             // 
@@ -219,33 +223,35 @@
             this.kryptonLabel3.TabIndex = 9;
             this.kryptonLabel3.Values.Text = "SUMA";
             // 
-            // kryptonTextBox1
+            // tbSmallPoints
             // 
-            this.kryptonTextBox1.AlwaysActive = false;
-            this.kryptonTextBox1.Location = new System.Drawing.Point(95, 35);
-            this.kryptonTextBox1.MaxLength = 6;
-            this.kryptonTextBox1.Name = "kryptonTextBox1";
-            this.kryptonTextBox1.Palette = this.palettePlayer;
-            this.kryptonTextBox1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
-            this.kryptonTextBox1.Size = new System.Drawing.Size(78, 26);
-            this.kryptonTextBox1.TabIndex = 3;
-            this.kryptonTextBox1.Text = "MP";
-            this.kryptonTextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbSmallPoints.AlwaysActive = false;
+            this.tbSmallPoints.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindSrcPlayerStance, "SmallVP", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null, "N0"));
+            this.tbSmallPoints.Location = new System.Drawing.Point(95, 35);
+            this.tbSmallPoints.MaxLength = 6;
+            this.tbSmallPoints.Name = "tbSmallPoints";
+            this.tbSmallPoints.Palette = this.palettePlayer;
+            this.tbSmallPoints.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
+            this.tbSmallPoints.Size = new System.Drawing.Size(78, 26);
+            this.tbSmallPoints.TabIndex = 3;
+            this.tbSmallPoints.Text = "MP";
+            this.tbSmallPoints.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // kryptonTextBox3
+            // tbTotalSmallPoints
             // 
-            this.kryptonTextBox3.AlwaysActive = false;
-            this.kryptonTextBox3.Location = new System.Drawing.Point(95, 65);
-            this.kryptonTextBox3.MaxLength = 7;
-            this.kryptonTextBox3.Name = "kryptonTextBox3";
-            this.kryptonTextBox3.Palette = this.palettePlayer;
-            this.kryptonTextBox3.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
-            this.kryptonTextBox3.ReadOnly = true;
-            this.kryptonTextBox3.Size = new System.Drawing.Size(78, 26);
-            this.kryptonTextBox3.StateCommon.Content.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.kryptonTextBox3.TabIndex = 6;
-            this.kryptonTextBox3.Text = "MP SUM";
-            this.kryptonTextBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbTotalSmallPoints.AlwaysActive = false;
+            this.tbTotalSmallPoints.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindSrcPlayerStance, "TotalSmallVP", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null, "N0"));
+            this.tbTotalSmallPoints.Location = new System.Drawing.Point(95, 65);
+            this.tbTotalSmallPoints.MaxLength = 7;
+            this.tbTotalSmallPoints.Name = "tbTotalSmallPoints";
+            this.tbTotalSmallPoints.Palette = this.palettePlayer;
+            this.tbTotalSmallPoints.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
+            this.tbTotalSmallPoints.ReadOnly = true;
+            this.tbTotalSmallPoints.Size = new System.Drawing.Size(78, 26);
+            this.tbTotalSmallPoints.StateCommon.Content.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.tbTotalSmallPoints.TabIndex = 6;
+            this.tbTotalSmallPoints.Text = "MP SUM";
+            this.tbTotalSmallPoints.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // PlayerPositionCtrl
             // 
@@ -260,12 +266,12 @@
             this.kryptonGroup1.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).EndInit();
             this.kryptonGroup1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.bindSrcPlayerStance)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupPunkty.Panel)).EndInit();
             this.groupPunkty.Panel.ResumeLayout(false);
             this.groupPunkty.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupPunkty)).EndInit();
             this.groupPunkty.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.bindSrcPlayerStance)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -276,18 +282,17 @@
         private ComponentFactory.Krypton.Toolkit.KryptonTextBox tbNazwisko;
         private ComponentFactory.Krypton.Toolkit.KryptonTextBox tbKsywa;
         private ComponentFactory.Krypton.Toolkit.KryptonTextBox tbImie;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel labelPosition;
         private ComponentFactory.Krypton.Toolkit.KryptonGroupBox groupPunkty;
-        private ComponentFactory.Krypton.Toolkit.KryptonTextBox kryptonTextBox4;
+        private ComponentFactory.Krypton.Toolkit.KryptonTextBox tbTotalBigPoints;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel4;
-        private ComponentFactory.Krypton.Toolkit.KryptonTextBox kryptonTextBox2;
+        private ComponentFactory.Krypton.Toolkit.KryptonTextBox tbBigPoints;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel2;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel3;
-        private ComponentFactory.Krypton.Toolkit.KryptonTextBox kryptonTextBox1;
-        private ComponentFactory.Krypton.Toolkit.KryptonTextBox kryptonTextBox3;
+        private ComponentFactory.Krypton.Toolkit.KryptonTextBox tbSmallPoints;
+        private ComponentFactory.Krypton.Toolkit.KryptonTextBox tbTotalSmallPoints;
         private ComponentFactory.Krypton.Toolkit.KryptonPalette palettePlayer;
         private System.Windows.Forms.BindingSource bindSrcPlayerStance;
-        private ComponentFactory.Krypton.Toolkit.KryptonPalette globalPalette;
 
 
     }

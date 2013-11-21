@@ -301,6 +301,14 @@ namespace Tournamenter_WinFormsApp
             }
         }
 
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            if (_editKind != EditKind.None)
+                btnEditCancel.PerformClick();
+
+            Close();
+        }
+
 
     }
 }

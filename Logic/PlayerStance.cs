@@ -25,7 +25,8 @@ namespace Logic
         {
             get { return playerId; }
             set { playerId = value;
-                    Player = PlayerList.Instance[value];
+                    if (Player == null) 
+                        Player = PlayerList.Instance[value];
                     OnPropertyChanged(PropNames.PlayerId); }
         }
 
@@ -34,7 +35,10 @@ namespace Logic
         public Player Player
         {
             get { return player; }
-            private set { player = value; OnPropertyChanged(PropNames.Player); }
+            private set { player = value;
+                            if (PlayerId == 0)
+                                PlayerId = value.PlayerId;
+                          OnPropertyChanged(PropNames.Player); }
         }
 
         private int oponentId;
@@ -42,7 +46,8 @@ namespace Logic
         {
             get { return oponentId; }
             set { oponentId = value;
-                    Oponent = PlayerList.Instance[value];
+                    if (Oponent == null)
+                        Oponent = PlayerList.Instance[value];
                     OnPropertyChanged(PropNames.OponentId); }
         }
 
@@ -51,7 +56,10 @@ namespace Logic
         public Player Oponent
         {
             get { return oponent; }
-            private set { oponent = value; OnPropertyChanged(PropNames.Oponent); }
+            private set { oponent = value;
+                            if (OponentId == 0)
+                                OponentId = value.PlayerId;
+                        OnPropertyChanged(PropNames.Oponent); }
         }
 
         private int smallVP;
@@ -83,12 +91,12 @@ namespace Logic
             set { totalBigVP = value; OnPropertyChanged(PropNames.TotalBigVP); }
         }
 
-        private Round matchRound;
-        public Round MatchRound
-        {
-            get { return matchRound; }
-            set { matchRound = value; OnPropertyChanged(PropNames.Round); }
-        }
+        //private Round matchRound;
+        //public Round MatchRound
+        //{
+        //    get { return matchRound; }
+        //    set { matchRound = value; OnPropertyChanged(PropNames.Round); }
+        //}
 
         private int tableNumber;
         public int TableNumber
@@ -108,15 +116,31 @@ namespace Logic
             public const string BigVP = "BigVP";
             public const string TotalSmallVP = "TotalSmallVP";
             public const string TotalBigVP = "TotalBigVP";
-            public const string Round = "MatchRound";
+            //public const string Round = "MatchRound";
             public const string Player = "Player";
             public const string TableNumber = "TableNumber";
-        } 
+        }
+
+        public bool PointsEntered { get { return smallVP > 0 && bigVP > 0; } }
+        #endregion
+
+
+        #region ctor
+        public PlayerStance()
+        {
+
+        }
+
+        public PlayerStance(Player player, Player opponent)
+        {
+            Player = player;
+            Oponent = opponent;
+        }
         #endregion
 
         public override string ToString()
         {
-            return string.Format("Player: {0} place from {1} round", Player.ToString(), MatchRound.Number);
+            return string.Format("Player: {0} place from {1} round", Player.ToString());
         }
     }
 }

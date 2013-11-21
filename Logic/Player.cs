@@ -65,13 +65,22 @@ namespace Logic
             public const string Nick = "Nick";
             public const string Tag = "Tag";
             public const string Info = "Info";
-        } 
+        }
+
+        public static readonly Player Empty;
         #endregion
+
+        #region ctor
+        static Player()
+        {
+            Empty = new Player() { PlayerId = -1, Name = "-", Surname = "-", Nick = "-" };
+        }
 
         public Player()
         {
-            
-        }
+
+        } 
+        #endregion
 
         public override string ToString()
         {

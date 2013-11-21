@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseLogicClass.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Match.cs" />
     <Compile Include="MatchSettings.cs" />
     <Compile Include="Player.cs" />

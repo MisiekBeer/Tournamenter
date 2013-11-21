@@ -49,6 +49,7 @@ namespace Tournamenter_WinFormsApp
             this.kryptonPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.splitContainer = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
             this.dgvPlayers = new System.Windows.Forms.DataGridView();
+            this.btnClose = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonGroupBox2 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
             this.checkBtnAddPlayer = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
             this.checkButtonEditPlayer = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
@@ -165,7 +166,7 @@ namespace Tournamenter_WinFormsApp
             this.statusStrip.Location = new System.Drawing.Point(0, 0);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
-            this.statusStrip.Size = new System.Drawing.Size(844, 22);
+            this.statusStrip.Size = new System.Drawing.Size(842, 22);
             this.statusStrip.TabIndex = 0;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -184,7 +185,7 @@ namespace Tournamenter_WinFormsApp
             this.editToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(844, 24);
+            this.menuStrip.Size = new System.Drawing.Size(842, 24);
             this.menuStrip.TabIndex = 1;
             this.menuStrip.Text = "menuStrip";
             // 
@@ -250,11 +251,11 @@ namespace Tournamenter_WinFormsApp
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.kryptonPanel);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(844, 570);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(842, 598);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(844, 595);
+            this.toolStripContainer1.Size = new System.Drawing.Size(842, 623);
             this.toolStripContainer1.TabIndex = 2;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
@@ -264,7 +265,7 @@ namespace Tournamenter_WinFormsApp
             this.kryptonPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonPanel.Location = new System.Drawing.Point(0, 0);
             this.kryptonPanel.Name = "kryptonPanel";
-            this.kryptonPanel.Size = new System.Drawing.Size(844, 570);
+            this.kryptonPanel.Size = new System.Drawing.Size(842, 598);
             this.kryptonPanel.TabIndex = 0;
             // 
             // splitContainer
@@ -281,11 +282,12 @@ namespace Tournamenter_WinFormsApp
             // 
             // splitContainer.Panel2
             // 
+            this.splitContainer.Panel2.Controls.Add(this.btnClose);
             this.splitContainer.Panel2.Controls.Add(this.kryptonGroupBox2);
             this.splitContainer.Panel2.Controls.Add(this.btnAddToMatch);
             this.splitContainer.Panel2.Controls.Add(this.kryptonGroupBox1);
-            this.splitContainer.Size = new System.Drawing.Size(844, 570);
-            this.splitContainer.SplitterDistance = 557;
+            this.splitContainer.Size = new System.Drawing.Size(842, 598);
+            this.splitContainer.SplitterDistance = 555;
             this.splitContainer.TabIndex = 11;
             // 
             // dgvPlayers
@@ -302,11 +304,20 @@ namespace Tournamenter_WinFormsApp
             this.dgvPlayers.ReadOnly = true;
             this.dgvPlayers.RowHeadersVisible = false;
             this.dgvPlayers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvPlayers.Size = new System.Drawing.Size(557, 570);
+            this.dgvPlayers.Size = new System.Drawing.Size(555, 598);
             this.dgvPlayers.TabIndex = 0;
             this.dgvPlayers.SelectionChanged += new System.EventHandler(this.dgvPlayers_SelectionChanged);
             this.dgvPlayers.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvPlayers_MouseDown);
             this.dgvPlayers.MouseMove += new System.Windows.Forms.MouseEventHandler(this.dgvPlayers_MouseMove);
+            // 
+            // btnClose
+            // 
+            this.btnClose.Location = new System.Drawing.Point(96, 529);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(94, 50);
+            this.btnClose.TabIndex = 12;
+            this.btnClose.Values.Text = "Close";
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // kryptonGroupBox2
             // 
@@ -349,7 +360,7 @@ namespace Tournamenter_WinFormsApp
             // 
             // btnAddToMatch
             // 
-            this.btnAddToMatch.Location = new System.Drawing.Point(22, 505);
+            this.btnAddToMatch.Location = new System.Drawing.Point(22, 473);
             this.btnAddToMatch.Name = "btnAddToMatch";
             this.btnAddToMatch.Size = new System.Drawing.Size(236, 50);
             this.btnAddToMatch.TabIndex = 10;
@@ -456,11 +467,11 @@ namespace Tournamenter_WinFormsApp
             // 
             this.toolStripContainer2.ContentPanel.AutoScroll = true;
             this.toolStripContainer2.ContentPanel.Controls.Add(this.toolStripContainer1);
-            this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(844, 595);
+            this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(842, 623);
             this.toolStripContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer2.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer2.Name = "toolStripContainer2";
-            this.toolStripContainer2.Size = new System.Drawing.Size(844, 642);
+            this.toolStripContainer2.Size = new System.Drawing.Size(842, 670);
             this.toolStripContainer2.TabIndex = 3;
             this.toolStripContainer2.Text = "toolStripContainer2";
             // 
@@ -471,11 +482,11 @@ namespace Tournamenter_WinFormsApp
             // 
             this.toolStripContainer3.ContentPanel.AutoScroll = true;
             this.toolStripContainer3.ContentPanel.Controls.Add(this.toolStripContainer2);
-            this.toolStripContainer3.ContentPanel.Size = new System.Drawing.Size(844, 642);
+            this.toolStripContainer3.ContentPanel.Size = new System.Drawing.Size(842, 670);
             this.toolStripContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer3.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer3.Name = "toolStripContainer3";
-            this.toolStripContainer3.Size = new System.Drawing.Size(844, 666);
+            this.toolStripContainer3.Size = new System.Drawing.Size(842, 694);
             this.toolStripContainer3.TabIndex = 4;
             this.toolStripContainer3.Text = "toolStripContainer3";
             // 
@@ -494,11 +505,12 @@ namespace Tournamenter_WinFormsApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(844, 666);
+            this.ClientSize = new System.Drawing.Size(842, 694);
             this.Controls.Add(this.toolStripContainer3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MinimumSize = new System.Drawing.Size(640, 480);
             this.Name = "PlayerListFrm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Player List";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PlayerListFrm_FormClosed);
             this.statusStrip.ResumeLayout(false);
@@ -573,6 +585,7 @@ namespace Tournamenter_WinFormsApp
         private System.Windows.Forms.ToolStripStatusLabel labelStatus;
         private ComponentFactory.Krypton.Toolkit.KryptonSplitContainer splitContainer;
         private ComponentFactory.Krypton.Toolkit.KryptonGroupBox kryptonGroupBox2;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnClose;
     }
 }
 

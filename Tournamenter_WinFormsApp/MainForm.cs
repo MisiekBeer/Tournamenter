@@ -7,20 +7,23 @@ using System.Text;
 using System.Windows.Forms;
 using ComponentFactory.Krypton.Toolkit;
 using Logic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Tournamenter_WinFormsApp
 {
     public partial class MainForm : ComponentFactory.Krypton.Toolkit.KryptonForm
     {
-
+        RoundCtrl ActiveRound { get { return _rounds.Count > 0 ? _rounds.Last() : _startList; } }
 
         #region fields
-        private List<RoundCtrl> _rounds = new List<RoundCtrl>();
+        private readonly List<RoundCtrl> _rounds = new List<RoundCtrl>();
 
         private PlayerListFrm _playerListFrm;
 
         private Match _match;
-        private RoundCtrl _startList = new RoundCtrl(); 
+        private readonly RoundCtrl _startList = new RoundCtrl();
+        private RoundCtrl _endList;
         #endregion
 
         #region ctor
@@ -32,8 +35,8 @@ namespace Tournamenter_WinFormsApp
             statusLabel.Text = "Ready";
 
             _playerListFrm = new PlayerListFrm(this);
+            _playerListFrm.Location = new Point(Screen.FromControl(this).WorkingArea.Size - this.Size);
 
-            _startList.Visible = false;
             tableLayout.Controls.Add(_startList);
         } 
         #endregion
@@ -96,7 +99,10 @@ namespace Tournamenter_WinFormsApp
 
         private void playerListToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _playerListFrm.Show(this);
+            if (Application.OpenForms.OfType<PlayerListFrm>().Count() > 0)
+                _playerListFrm.Activate();
+            else
+                _playerListFrm.Show(this);
         }
 
         private void timerTime_Tick(object sender, EventArgs e)
@@ -181,7 +187,29 @@ namespace Tournamenter_WinFormsApp
 
             _startList.RoundName = _match.Name;
             _match.PlayerAdded += _match_PlayerAdded;
+            _match.MatchStatusChanged += _match_MatchStatusChanged;
+
             matchSettingsToolStripMenuItem.Visible = true;
+            playerListToolStripMenuItem.PerformClick();
+        }
+
+        void _match_MatchStatusChanged(object sender, MatchStatus e)
+        {
+            switch (e)
+            {
+                case MatchStatus.PlayersEnlisting:
+
+                    break;
+                case MatchStatus.RoundStarted:
+                    break;
+                case MatchStatus.RoundEnded:
+                    break;
+                case MatchStatus.MatchEnded:
+
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void _match_PlayerAdded(object sender, Player e)
@@ -193,6 +221,7 @@ namespace Tournamenter_WinFormsApp
         {
             _match.Save();
             _match.PlayerAdded -= _match_PlayerAdded;
+            _match.MatchStatusChanged -= _match_MatchStatusChanged;
             _startList.ClearPlayers();
         }
 
@@ -205,10 +234,49 @@ namespace Tournamenter_WinFormsApp
         {
             if (_match == null)
                 return;
+
+            if (_match.Status != MatchStatus.PlayersEnlisting)
+                MessageBox.Show(this, "Cannot add player now");
+
             if (!_match.AddPlayer(player))
                 MessageBox.Show(this, string.Format("Player {0} is already added to match.", player));
         } 
         #endregion
+
+        private void startMatchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_match == null || _match.Status != MatchStatus.NotSet)
+            {
+                MessageBox.Show(this, "Cannot start match now.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (_match.PlayerCount < 3)
+            {
+                MessageBox.Show(this, "You need more players to start.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            RoundCtrl roundCtrl = new RoundCtrl(_match.StartMatch());
+            _rounds.Add(roundCtrl);
+            tableLayout.Controls.Add(roundCtrl);
+        }
+
+        private void closeRoundToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_match == null || _match.Status != MatchStatus.RoundStarted)
+            {
+                MessageBox.Show(this, "No active round now to close.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (!ActiveRound.CheckIfAllPointsEntered())
+            {
+                MessageBox.Show(this, "Please enter all player's results.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            _match.CloseRoundAndGenerateNext();
+        }
 
 
     }

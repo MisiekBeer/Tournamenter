@@ -75,7 +75,6 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.roundGroup);
             this.DoubleBuffered = true;
-            this.RoundName = "RoundCtrl";
             this.Padding = new System.Windows.Forms.Padding(5);
             this.Size = new System.Drawing.Size(407, 799);
             ((System.ComponentModel.ISupportInitialize)(this.roundGroup.Panel)).EndInit();

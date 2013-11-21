@@ -13,25 +13,47 @@ namespace Tournamenter_WinFormsApp
 {
     public partial class PlayerPositionCtrl : UserControl
     {
-        private Player _player;
-        private PlayerStance _playerStance;
+        #region props
+        public PlayerStance Stance { get { return _playerStance; } }
+        public bool PointsEntered { 
+            get {
+                if (_player == Player.Empty) return true;
+                return _playerStance != null && _playerStance.PointsEntered; } }
+        #endregion
 
+        #region fields
+        private Player _player;
+        private PlayerStance _playerStance; 
+        #endregion
+
+        #region ctor
         public PlayerPositionCtrl()
-        {   
+        {
             InitializeComponent();
-        }
+        } 
+        #endregion
 
         public PlayerPositionCtrl(Player player)
         {
             InitializeComponent();
 
-            SetShowPoints(false);
+            if (player != Player.Empty)
+                SetShowPoints(false);
 
             _player = player;
 
             tbImie.Text = _player.Name;
             tbKsywa.Text = _player.Nick;
             tbNazwisko.Text = _player.Surname;
+        }
+
+        public PlayerPositionCtrl(PlayerStance playerStance)
+        {
+            InitializeComponent();
+
+            _playerStance = playerStance;
+
+            bindSrcPlayerStance.DataSource = _playerStance;
         }
 
         private void SetShowPoints(bool _showPoints)
