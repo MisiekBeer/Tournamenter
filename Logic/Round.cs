@@ -137,9 +137,11 @@ namespace Logic
 
         private List<Tuple<PlayerStance, PlayerStance>> GenerateRankingPairs(Round previousRound)
         {
-            //create pairs from compairing results
+            //todo: create pairs from compairing results
+            //List<PlayerStance> places = new List<PlayerStance>(previousRound.PlayerPlaces.OrderBy());
 
-            //check if players already played with opponent and swap to next oponent if necessery
+
+            //todo: check if players already played with opponent and swap to next oponent if necessery
             return null;
         }
 

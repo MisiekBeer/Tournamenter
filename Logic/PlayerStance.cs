@@ -142,5 +142,7 @@ namespace Logic
         {
             return string.Format("Player: {0} place from {1} round", Player.ToString());
         }
+
+        //todo: add place and points comparers for generating next rounds
     }
 }
