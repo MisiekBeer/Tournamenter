@@ -307,6 +307,7 @@ namespace Tournamenter_WinFormsApp
             this.dgvPlayers.Size = new System.Drawing.Size(555, 598);
             this.dgvPlayers.TabIndex = 0;
             this.dgvPlayers.SelectionChanged += new System.EventHandler(this.dgvPlayers_SelectionChanged);
+            this.dgvPlayers.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvPlayers_KeyDown);
             this.dgvPlayers.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvPlayers_MouseDown);
             this.dgvPlayers.MouseMove += new System.Windows.Forms.MouseEventHandler(this.dgvPlayers_MouseMove);
             // 
@@ -508,6 +509,7 @@ namespace Tournamenter_WinFormsApp
             this.ClientSize = new System.Drawing.Size(842, 694);
             this.Controls.Add(this.toolStripContainer3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(640, 480);
             this.Name = "PlayerListFrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;

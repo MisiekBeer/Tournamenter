@@ -55,6 +55,7 @@ namespace Tournamenter_WinFormsApp
             Initialize();
 
             ControlMode = Mode.MatchPlayersStance;
+            RoundName = "Match players";
         }
 
         /// <summary>
@@ -68,6 +69,7 @@ namespace Tournamenter_WinFormsApp
             ControlMode = Mode.RoundStance;
 
             _round = matchRound;
+            RoundName = string.Format("Round: {0}", matchRound.Number);
 
             AddVsControls();
         }

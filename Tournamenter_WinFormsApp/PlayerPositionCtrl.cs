@@ -66,5 +66,14 @@ namespace Tournamenter_WinFormsApp
 
             ResumeLayout();
         }
+
+        private void labelPosition_TextChanged(object sender, EventArgs e)
+        {
+            if (labelPosition.Text == "0" || labelPosition.Text == "-1" ||
+                labelPosition.Text == "00" || labelPosition.Text == "-1")
+                labelPosition.Text = "BAY";
+        }
+
+
     }
 }

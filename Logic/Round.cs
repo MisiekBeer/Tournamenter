@@ -74,6 +74,12 @@ namespace Logic
         public Round(List<Tuple<PlayerStance, PlayerStance>> pairs) : this()
         {
             PlayerPairs.AddRange(pairs);
+
+            foreach (var pair in pairs)
+            {
+                PlayerPlaces.Add(pair.Item1);
+                PlayerPlaces.Add(pair.Item2);
+            }
         } 
         #endregion
 
@@ -97,7 +103,7 @@ namespace Logic
             Player player2 = null;
             PlayerStance player2_Stance = null;
 
-            while (players.Count / 2 >= 1)
+            while ((players.Count / 2) > 0)
             {
                 player1 = players.First();
                 players.RemoveAt(0);
@@ -119,11 +125,10 @@ namespace Logic
             {
                 player1 = players.First();
                 players.RemoveAt(0);
-                player2 = Player.Empty;
 
-                player1_Stance = new PlayerStance(player1, player2) { Place = place, TableNumber = tableNumber };
+                player1_Stance = new PlayerStance(player1, Player.Empty) { Place = place, TableNumber = tableNumber };
                 place++;
-                player2_Stance = new PlayerStance(player2, player1) { Place = place, TableNumber = tableNumber };
+                player2_Stance = new PlayerStance(Player.Empty, player1) { Place = place, TableNumber = tableNumber };
                 place++;
 
                 tableNumber++;
@@ -135,22 +140,84 @@ namespace Logic
             Contract.Ensures(players.Count == 0, "Player generation list is not emptied");
         }
 
-        private List<Tuple<PlayerStance, PlayerStance>> GenerateRankingPairs(Round previousRound)
+        private List<Tuple<PlayerStance, PlayerStance>> GenerateRankingPairs()
         {
-            //todo: create pairs from compairing results
-            //List<PlayerStance> places = new List<PlayerStance>(previousRound.PlayerPlaces.OrderBy());
+            //create pairs from compairing results
+            List<PlayerStance> places = new List<PlayerStance>(PlayerPlaces);
+            places.Remove(PlayerStance.Empty); //remove bay player
+            places.Sort();
+            places.Reverse();
 
+            SwapRepeatedOpponents(places);
+            int place = 0;
+            int table = 1;
 
-            //todo: check if players already played with opponent and swap to next oponent if necessery
-            return null;
+            var newPairs = new List<Tuple<PlayerStance, PlayerStance>>(places.Count/2 + 1);
+            while ((places.Count / 2) > 0)
+            {//TODO: Add table verification
+                newPairs.Add(new Tuple<PlayerStance, PlayerStance>(
+                    new PlayerStance(places[0]) { Place = ++place, TableNumber = table, OponentId = places[1].PlayerId },
+                    new PlayerStance(places[1]) { Place = ++place, TableNumber = table, OponentId = places[0].PlayerId }
+                    ));
+                places.RemoveRange(0, 2);
+            }
+            if (places.Count == 1)
+            {
+                newPairs.Add(new Tuple<PlayerStance, PlayerStance>(
+                    new PlayerStance(places[0]) { Place = ++place, TableNumber = -1, OponentId = PlayerStance.Empty.PlayerId }, 
+                    PlayerStance.Empty));
+            }
+            return newPairs;
         }
 
-        internal PlayerStance GetOpponent(PlayerStance playerStance)
+        /// <summary>
+        /// Organizes players list in "pairs" of new opponents
+        /// </summary>
+        /// <param name="playersList">organized list</param>
+        private void SwapRepeatedOpponents(List<PlayerStance> playersList)
         {
-            Tuple<PlayerStance, PlayerStance> pair = 
-                playerPairs.First(n => n.Item1 == playerStance || n.Item2 == playerStance);
+            LinkedList<PlayerStance> players = new LinkedList<PlayerStance>(playersList);
 
-            return pair.Item1 == playerStance ? pair.Item2 : pair.Item1; 
+            LinkedListNode<PlayerStance> plStance = players.First;
+            LinkedListNode<PlayerStance> tmpStance = null;
+            while (plStance != null && plStance != players.Last)
+            {
+                if (!Match.CheckIfPlayerWasOpponent(plStance.Value, plStance.Next.Value.PlayerId))
+                {
+                    if (plStance.Next == players.Last) break;
+                    plStance = plStance.Next;
+                    if (plStance.Next == players.Last) break;
+                    plStance = plStance.Next;
+                }
+                else {
+                    tmpStance = plStance.Next; if (plStance.Next == players.Last) break;
+                    tmpStance = plStance.Next;
+                    while(Match.CheckIfPlayerWasOpponent(plStance.Value, tmpStance.Value.PlayerId))
+                    {
+                        if (tmpStance == players.Last)
+                            break;
+                        tmpStance = tmpStance.Next; 
+                        if (tmpStance == players.Last) 
+                            break;
+                    }
+                    players.Remove(tmpStance);
+                    players.AddAfter(plStance, tmpStance);
+                    if (tmpStance == players.Last)
+                        break;
+                    plStance = tmpStance.Next;
+                }
+            }
+            playersList.Clear();
+            playersList.AddRange(players);
+        }
+
+        internal int GetCurrentOpponent(PlayerStance playerStance)
+        {
+            int id = playerStance.PlayerId;
+            Tuple<PlayerStance, PlayerStance> pair = 
+                playerPairs.First(n => n.Item1.PlayerId == id || n.Item2.PlayerId == id);
+
+            return pair.Item1.PlayerId == id ? pair.Item2.PlayerId : pair.Item1.PlayerId; 
         }
 
         #endregion
@@ -160,8 +227,32 @@ namespace Logic
         /// <returns>new Round</returns>
         internal Round CloseAndGenerateNext()
         {
-            var pairs = GenerateRankingPairs(this);
+            UpdateBigPoints();
+            var pairs = GenerateRankingPairs();
             return new Round(pairs) { Number = this.Number + 1, Match = this.Match};
+        }
+
+        private void UpdateBigPoints()
+        {
+            int drawPoints = Match.Settings.PointsForDraw;
+
+            foreach (var pair in PlayerPairs)
+            {//TODO: Dodać wczytywanie z tabeli zakresów
+                PlayerStance stance1 = pair.Item1;
+                PlayerStance stance2 = pair.Item2;
+
+                int diff = stance1.SmallVP - stance2.SmallVP;
+                if (diff == 0)
+                {
+                    stance1.BigVP += drawPoints;
+                    stance2.BigVP += drawPoints;
+                }
+                else
+                {
+                    stance1.BigVP += drawPoints + diff;
+                    stance2.BigVP += drawPoints - diff;
+                }              
+            }
         }
     }
 }

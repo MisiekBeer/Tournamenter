@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.kryptonGroup1 = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
             this.tbNazwisko = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
-            this.bindSrcPlayerStance = new System.Windows.Forms.BindingSource(this.components);
             this.palettePlayer = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.tbKsywa = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.tbImie = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
@@ -44,15 +43,16 @@
             this.kryptonLabel3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.tbSmallPoints = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.tbTotalSmallPoints = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.bindSrcPlayerStance = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1.Panel)).BeginInit();
             this.kryptonGroup1.Panel.SuspendLayout();
             this.kryptonGroup1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindSrcPlayerStance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupPunkty)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupPunkty.Panel)).BeginInit();
             this.groupPunkty.Panel.SuspendLayout();
             this.groupPunkty.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindSrcPlayerStance)).BeginInit();
             this.SuspendLayout();
             // 
             // kryptonGroup1
@@ -83,11 +83,6 @@
             this.tbNazwisko.Size = new System.Drawing.Size(140, 26);
             this.tbNazwisko.TabIndex = 2;
             this.tbNazwisko.Text = "Nazwisko";
-            // 
-            // bindSrcPlayerStance
-            // 
-            this.bindSrcPlayerStance.AllowNew = false;
-            this.bindSrcPlayerStance.DataSource = typeof(Logic.PlayerStance);
             // 
             // palettePlayer
             // 
@@ -148,8 +143,8 @@
             this.groupPunkty.Panel.Controls.Add(this.tbTotalSmallPoints);
             this.groupPunkty.Size = new System.Drawing.Size(374, 98);
             this.groupPunkty.TabIndex = 12;
-            this.groupPunkty.Text = "Punkty:";
-            this.groupPunkty.Values.Heading = "Punkty:";
+            this.groupPunkty.Text = "Position:\r\n\r\nPoints:\r\n";
+            this.groupPunkty.Values.Heading = "Position:\r\n\r\nPoints:\r\n";
             // 
             // labelPosition
             // 
@@ -162,6 +157,7 @@
             this.labelPosition.StateCommon.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelPosition.TabIndex = 5;
             this.labelPosition.Values.Text = "01";
+            this.labelPosition.TextChanged += new System.EventHandler(this.labelPosition_TextChanged);
             // 
             // kryptonLabel2
             // 
@@ -253,6 +249,11 @@
             this.tbTotalSmallPoints.Text = "MP SUM";
             this.tbTotalSmallPoints.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // bindSrcPlayerStance
+            // 
+            this.bindSrcPlayerStance.AllowNew = false;
+            this.bindSrcPlayerStance.DataSource = typeof(Logic.PlayerStance);
+            // 
             // PlayerPositionCtrl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -266,12 +267,12 @@
             this.kryptonGroup1.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).EndInit();
             this.kryptonGroup1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.bindSrcPlayerStance)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupPunkty.Panel)).EndInit();
             this.groupPunkty.Panel.ResumeLayout(false);
             this.groupPunkty.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupPunkty)).EndInit();
             this.groupPunkty.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.bindSrcPlayerStance)).EndInit();
             this.ResumeLayout(false);
 
         }

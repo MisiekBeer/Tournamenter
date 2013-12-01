@@ -42,12 +42,38 @@ namespace Logic
             set { roundCount = value; OnPropertyChanged(PropNames.RoundCount); }
         }
 
+        private List<Tuple<int, int>> pointRanges;
+        public List<Tuple<int, int>> PointRanges 
+        {
+            get { return pointRanges; }
+            private set { pointRanges = value; OnPropertyChanged(PropNames.PointRanges); }
+        }
+
+        private TimeSpan roundTime;
+        public TimeSpan RoundTime
+        {
+            get { return roundTime; }
+            set { roundTime = value; OnPropertyChanged(PropNames.RoundTime); }
+        }
+
+        private int tablesCount;
+        public int TablesCount
+        {
+            get { return tablesCount; }
+            set { tablesCount = value; OnPropertyChanged(PropNames.TablesCount); }
+        }
+
+
+
         public static class PropNames
         {
             public const string PointsForDraw = "PointsForDraw";
             public const string PointsForBay = "PointsForBay";
             public const string WalkowerPoints = "WalkowerPoints";
             public const string RoundCount = "RoundCount";
+            public const string PointRanges = "PointRanges";
+            public const string RoundTime = "RoundTime";
+            public const string TablesCount = "TablesCount";
         } 
         #endregion
 
@@ -57,6 +83,16 @@ namespace Logic
             PointsForBay = 10;
             WalkowerPoints = 20;
             RoundCount = 3;
+            PointRanges = new List<Tuple<int, int>>(10);  //Small points difference ranges
+
+            for (int i = 0; i < 10; i++)
+            {
+                PointRanges.Add(new Tuple<int, int>(i, i+1));
+            }
+            var last = PointRanges.Last();
+            last = new Tuple<int,int>(last.Item1, 30);
+
+            RoundTime = new TimeSpan(2, 30, 0);
         }
 
         public override string ToString()

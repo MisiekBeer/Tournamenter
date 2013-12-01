@@ -116,7 +116,7 @@ namespace Logic
 
         public static Match CreateNewMatch(MatchSettings settings)
         {
-            Match match = new Match() { };
+            Match match = new Match() { Status = MatchStatus.PlayersEnlisting};
             match.Save();
             return match;
         }
@@ -175,8 +175,9 @@ namespace Logic
             Status = MatchStatus.RoundEnded;
 
             Round newRound = ActiveRound.CloseAndGenerateNext();
+            Rounds.Add(newRound);
 
-            if (settings.RoundCount > rounds.Count)
+            if (settings.RoundCount >= rounds.Count)
             {
                 Status = MatchStatus.RoundStarted;
             }
@@ -190,9 +191,9 @@ namespace Logic
             return true;        
         }
 
-        internal bool CheckIfPlayerWasOpponent(PlayerStance player, PlayerStance opponent)
+        internal bool CheckIfPlayerWasOpponent(PlayerStance player, int opponentId)
         {
-            return rounds.Any(n => n.GetOpponent(player) == opponent);
+            return rounds.Any(n => n.GetCurrentOpponent(player) == opponentId);
         }
         #endregion
     }

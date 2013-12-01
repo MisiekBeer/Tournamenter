@@ -30,6 +30,7 @@ namespace Tournamenter_WinFormsApp
             vsGroup.Panel.Controls.Add(player2);
 
             vsGroup.ValuesSecondary.Heading = string.Format("Table: {0}", player1.Stance.TableNumber.ToString());
+            vsGroup.ValuesPrimary.Heading = string.Format("{1}  VS  {0}", player1.Stance.Player.Nick, player2.Stance.Player.Nick);
 
             ResumeLayout();
         }

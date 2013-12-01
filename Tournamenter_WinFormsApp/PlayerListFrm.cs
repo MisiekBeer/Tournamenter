@@ -254,7 +254,7 @@ namespace Tournamenter_WinFormsApp
         {
             if (_selectedPlayer == null)
             {
-                MessageBox.Show("Select player to add");
+                MessageBox.Show(this, "Select player to add");
                 return;
             }
             _parentFrm.AddPlayerToMatch(_selectedPlayer);
@@ -262,6 +262,7 @@ namespace Tournamenter_WinFormsApp
 
         }
 
+        #region Drag&Drop
         private void dgvPlayers_MouseDown(object sender, MouseEventArgs e)
         {
             // Get the index of the item the mouse is below.
@@ -299,14 +300,21 @@ namespace Tournamenter_WinFormsApp
                 dgvPlayers.Rows[rowIndexFromMouseDown].DataBoundItem,
                 DragDropEffects.Link);
             }
-        }
+        } 
+        #endregion
 
         private void btnClose_Click(object sender, EventArgs e)
         {
             if (_editKind != EditKind.None)
                 btnEditCancel.PerformClick();
 
-            Close();
+            Hide();
+        }
+
+        private void dgvPlayers_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Left && _selectedPlayer != null)
+                btnAddToMatch.PerformClick();
         }
 
 

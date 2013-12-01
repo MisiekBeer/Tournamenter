@@ -188,9 +188,15 @@ namespace Tournamenter_WinFormsApp
             _startList.RoundName = _match.Name;
             _match.PlayerAdded += _match_PlayerAdded;
             _match.MatchStatusChanged += _match_MatchStatusChanged;
+            _match.RoundAdded += _match_RoundAdded;
 
             matchSettingsToolStripMenuItem.Visible = true;
             playerListToolStripMenuItem.PerformClick();
+        }
+
+        void _match_RoundAdded(object sender, Round e)
+        {
+            tableLayout.Controls.Add(new RoundCtrl(e));
         }
 
         void _match_MatchStatusChanged(object sender, MatchStatus e)
@@ -245,7 +251,7 @@ namespace Tournamenter_WinFormsApp
 
         private void startMatchToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (_match == null || _match.Status != MatchStatus.NotSet)
+            if (_match == null || _match.Status != MatchStatus.PlayersEnlisting)
             {
                 MessageBox.Show(this, "Cannot start match now.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;

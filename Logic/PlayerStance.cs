@@ -10,7 +10,7 @@ namespace Logic
     /// Player in- and pre-round stance
     /// </summary>
     [Serializable]
-    public class PlayerStance : BaseLogicClass
+    public class PlayerStance : BaseLogicClass, IComparable<PlayerStance>
     {
         #region properties
         private int place;
@@ -121,20 +121,40 @@ namespace Logic
             public const string TableNumber = "TableNumber";
         }
 
-        public bool PointsEntered { get { return smallVP > 0 && bigVP > 0; } }
+        public static readonly PlayerStance Empty = new PlayerStance() { Player = Player.Empty };
+        public bool PointsEntered { get { return smallVP >= 0; } }
         #endregion
 
 
         #region ctor
+
         public PlayerStance()
         {
-
+            SmallVP = -1;
         }
 
+        /// <summary>
+        /// Creates start stance
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="opponent"></param>
         public PlayerStance(Player player, Player opponent)
         {
             Player = player;
             Oponent = opponent;
+        }
+
+        /// <summary>
+        /// Creates new stance for next round
+        /// </summary>
+        /// <param name="playerStance"></param>
+        public PlayerStance(PlayerStance playerStance)
+        {
+            PlayerId = playerStance.PlayerId;
+            TotalBigVP = playerStance.TotalBigVP + playerStance.BigVP;
+            TotalSmallVP = playerStance.TotalSmallVP + playerStance.SmallVP;
+            BigVP = 0;
+            SmallVP = 0;
         }
         #endregion
 
@@ -143,6 +163,10 @@ namespace Logic
             return string.Format("Player: {0} place from {1} round", Player.ToString());
         }
 
-        //todo: add place and points comparers for generating next rounds
+        public int CompareTo(PlayerStance other)
+        {
+            int result = bigVP.CompareTo(other.bigVP);
+            return result != 0 ? result : smallVP.CompareTo(other.smallVP);
+        }
     }
 }
