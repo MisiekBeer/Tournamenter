@@ -197,6 +197,7 @@ namespace Tournamenter_WinFormsApp
         void _match_RoundAdded(object sender, Round e)
         {
             tableLayout.Controls.Add(new RoundCtrl(e));
+            SetStatus("Round {0} started", e.Number);
         }
 
         void _match_MatchStatusChanged(object sender, MatchStatus e)
@@ -204,11 +205,13 @@ namespace Tournamenter_WinFormsApp
             switch (e)
             {
                 case MatchStatus.PlayersEnlisting:
-
+                    SetStatus("Add players to match");
                     break;
                 case MatchStatus.RoundStarted:
+                    SetStatus("Round started");
                     break;
-                case MatchStatus.RoundEnded:
+                case MatchStatus.RoundClosed:
+                    SetStatus("Round closed");
                     break;
                 case MatchStatus.MatchEnded:
 
@@ -284,6 +287,10 @@ namespace Tournamenter_WinFormsApp
             _match.CloseRoundAndGenerateNext();
         }
 
+        private void SetStatus(string text, params object[] args)
+        {
+            statusLabel.Text = string.Format(text, args);
+        }
 
     }
 }

@@ -220,6 +220,15 @@ namespace Logic
             return pair.Item1.PlayerId == id ? pair.Item2.PlayerId : pair.Item1.PlayerId; 
         }
 
+        internal int GetPlayerTable(PlayerStance playerStance)
+        { 
+            int id = playerStance.PlayerId;
+            Tuple<PlayerStance, PlayerStance> pair =
+                playerPairs.First(n => n.Item1.PlayerId == id || n.Item2.PlayerId == id);
+            
+            return pair.Item1.TableNumber; 
+        }
+
         #endregion
         /// <summary>
         /// Closes round and calculates next with proper values

@@ -23,6 +23,7 @@ namespace Tournamenter_WinFormsApp
             Application.Run(new MainForm());
 
             PlayerList.Instance.Dispose();
+            Speaker.Instance.KillAll();
         }
     }
 }

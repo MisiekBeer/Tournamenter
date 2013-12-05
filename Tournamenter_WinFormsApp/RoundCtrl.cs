@@ -17,13 +17,17 @@ namespace Tournamenter_WinFormsApp
         public enum Mode
         {
             /// <summary>
-            /// Start or end
+            /// Start
             /// </summary>
-            MatchPlayersStance,
+            StartingRound,
             /// <summary>
             /// match rounds
             /// </summary>
-            RoundStance
+            RoundStance,
+            /// <summary>
+            /// Finished match players positions
+            /// </summary>
+            EndRound
         }
 
         #region props
@@ -37,6 +41,14 @@ namespace Tournamenter_WinFormsApp
         {
             get { return roundGroup.ValuesPrimary.Heading; }
             set { roundGroup.ValuesPrimary.Heading = value; }
+        }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [Browsable(false)]
+        public string RoundDescription
+        {
+            get { return roundGroup.ValuesSecondary.Heading; }
+            set { roundGroup.ValuesSecondary.Heading = value; }
         }
 
         #endregion
@@ -54,8 +66,9 @@ namespace Tournamenter_WinFormsApp
         {
             Initialize();
 
-            ControlMode = Mode.MatchPlayersStance;
+            ControlMode = Mode.StartingRound;
             RoundName = "Match players";
+            RoundDescription = "Add players and select start match.";
         }
 
         /// <summary>
@@ -70,7 +83,7 @@ namespace Tournamenter_WinFormsApp
 
             _round = matchRound;
             RoundName = string.Format("Round: {0}", matchRound.Number);
-
+            RoundDescription = string.Format("Round: {0} player points", matchRound.Number);
             AddVsControls();
         }
 
@@ -107,7 +120,7 @@ namespace Tournamenter_WinFormsApp
 
         public void AddPlayerCtrl(Player player)
         {
-            if (ControlMode != Mode.MatchPlayersStance)
+            if (ControlMode != Mode.StartingRound)
                 return;
 
             var ctrl = new PlayerPositionCtrl(player);

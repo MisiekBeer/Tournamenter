@@ -11,7 +11,8 @@ namespace Logic
         NotSet,
         PlayersEnlisting,
         RoundStarted,
-        RoundEnded,
+        RoundTimeEnded,
+        RoundClosed,
         MatchEnded
     }
 
@@ -96,9 +97,7 @@ namespace Logic
         }
 
         public int PlayerCount { get { return players.Count; } }
-
         public int ActiveRoundCount { get { return rounds.Count - 1; } }
-
         public Round ActiveRound { get { return rounds.Last(); } }
 
         #endregion
@@ -172,7 +171,7 @@ namespace Logic
         {
             if (!ActiveRound.AllPointsEntered)
                 return false;
-            Status = MatchStatus.RoundEnded;
+            Status = MatchStatus.RoundClosed;
 
             Round newRound = ActiveRound.CloseAndGenerateNext();
             Rounds.Add(newRound);
@@ -194,6 +193,11 @@ namespace Logic
         internal bool CheckIfPlayerWasOpponent(PlayerStance player, int opponentId)
         {
             return rounds.Any(n => n.GetCurrentOpponent(player) == opponentId);
+        }
+
+        internal IEnumerable<int> GetPlayerTables(PlayerStance player)
+        {
+            return rounds.Select(n=>n.GetPlayerTable(player));
         }
         #endregion
     }
