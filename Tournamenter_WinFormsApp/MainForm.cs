@@ -23,7 +23,7 @@ namespace Tournamenter_WinFormsApp
 
         private Match _match;
         private readonly RoundCtrl _startList = new RoundCtrl();
-        private RoundCtrl _endList;
+        private RoundCtrl _endList;//TODO: set final player list
         #endregion
 
         #region ctor
@@ -99,9 +99,6 @@ namespace Tournamenter_WinFormsApp
 
         private void playerListToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Application.OpenForms.OfType<PlayerListFrm>().Count() > 0)
-                _playerListFrm.Activate();
-            else
                 _playerListFrm.Show(this);
         }
 

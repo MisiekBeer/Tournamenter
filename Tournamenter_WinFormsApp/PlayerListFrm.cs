@@ -62,6 +62,14 @@ namespace Tournamenter_WinFormsApp
             PlayerList.Instance.PropertyChanged -= Instance_PropertyChanged;
         }
 
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            e.Cancel = true;
+            base.OnClosing(e);
+
+            this.Hide();
+        }
+
         private void dgvPlayers_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvPlayers.SelectedRows.Count == 0)

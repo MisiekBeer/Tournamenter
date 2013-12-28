@@ -512,6 +512,8 @@ namespace Tournamenter_WinFormsApp
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(640, 480);
             this.Name = "PlayerListFrm";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Player List";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PlayerListFrm_FormClosed);
