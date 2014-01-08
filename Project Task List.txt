@@ -1,0 +1,18 @@
+==============================================
+Winforms
+_______________
+
+Add Tables repeat verification for players
+Add point range table
+
+Match end messages
+Ranking report/board - maybe PDF???
+
+Speaking Clock
+
+Match resut/State saving/loading to xml files
+
+
+General testing
+
+==============================================

@@ -154,7 +154,7 @@ namespace Logic
 
             var newPairs = new List<Tuple<PlayerStance, PlayerStance>>(places.Count/2 + 1);
             while ((places.Count / 2) > 0)
-            {//TODO: Add table verification
+            {//TODO: Add tables repeat check
                 newPairs.Add(new Tuple<PlayerStance, PlayerStance>(
                     new PlayerStance(places[0]) { Place = ++place, TableNumber = table, OponentId = places[1].PlayerId },
                     new PlayerStance(places[1]) { Place = ++place, TableNumber = table, OponentId = places[0].PlayerId }
