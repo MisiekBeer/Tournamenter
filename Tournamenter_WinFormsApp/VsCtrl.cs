@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics.Contracts;
 
 namespace Tournamenter_WinFormsApp
 {
@@ -20,6 +21,8 @@ namespace Tournamenter_WinFormsApp
         public VsCtrl(PlayerPositionCtrl player1, PlayerPositionCtrl player2)
         {
             InitializeComponent();
+
+            Contract.Assert(player1 != null && player2 != null, "Player 1 and 2 cannot be null");
 
             SuspendLayout();
 

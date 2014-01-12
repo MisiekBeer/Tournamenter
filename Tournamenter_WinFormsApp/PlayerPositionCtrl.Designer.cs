@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.kryptonGroup1 = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
             this.tbNazwisko = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.bindSrcPlayerStance = new System.Windows.Forms.BindingSource(this.components);
             this.palettePlayer = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.tbKsywa = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.tbImie = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
@@ -43,16 +44,15 @@
             this.kryptonLabel3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.tbSmallPoints = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.tbTotalSmallPoints = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
-            this.bindSrcPlayerStance = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1.Panel)).BeginInit();
             this.kryptonGroup1.Panel.SuspendLayout();
             this.kryptonGroup1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindSrcPlayerStance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupPunkty)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupPunkty.Panel)).BeginInit();
             this.groupPunkty.Panel.SuspendLayout();
             this.groupPunkty.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindSrcPlayerStance)).BeginInit();
             this.SuspendLayout();
             // 
             // kryptonGroup1
@@ -67,7 +67,7 @@
             this.kryptonGroup1.Panel.Controls.Add(this.tbKsywa);
             this.kryptonGroup1.Panel.Controls.Add(this.tbImie);
             this.kryptonGroup1.Panel.Controls.Add(this.groupPunkty);
-            this.kryptonGroup1.Size = new System.Drawing.Size(376, 138);
+            this.kryptonGroup1.Size = new System.Drawing.Size(364, 138);
             this.kryptonGroup1.TabIndex = 0;
             // 
             // tbNazwisko
@@ -80,9 +80,14 @@
             this.tbNazwisko.Palette = this.palettePlayer;
             this.tbNazwisko.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
             this.tbNazwisko.ReadOnly = true;
-            this.tbNazwisko.Size = new System.Drawing.Size(140, 26);
+            this.tbNazwisko.Size = new System.Drawing.Size(129, 26);
             this.tbNazwisko.TabIndex = 2;
             this.tbNazwisko.Text = "Nazwisko";
+            // 
+            // bindSrcPlayerStance
+            // 
+            this.bindSrcPlayerStance.AllowNew = false;
+            this.bindSrcPlayerStance.DataSource = typeof(Logic.PlayerStance);
             // 
             // palettePlayer
             // 
@@ -141,7 +146,7 @@
             this.groupPunkty.Panel.Controls.Add(this.kryptonLabel3);
             this.groupPunkty.Panel.Controls.Add(this.tbSmallPoints);
             this.groupPunkty.Panel.Controls.Add(this.tbTotalSmallPoints);
-            this.groupPunkty.Size = new System.Drawing.Size(374, 98);
+            this.groupPunkty.Size = new System.Drawing.Size(362, 98);
             this.groupPunkty.TabIndex = 12;
             this.groupPunkty.Text = "Position:\r\n\r\nPoints:\r\n";
             this.groupPunkty.Values.Heading = "Position:\r\n\r\nPoints:\r\n";
@@ -204,7 +209,7 @@
             this.tbBigPoints.Name = "tbBigPoints";
             this.tbBigPoints.Palette = this.palettePlayer;
             this.tbBigPoints.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
-            this.tbBigPoints.Size = new System.Drawing.Size(75, 26);
+            this.tbBigPoints.Size = new System.Drawing.Size(74, 26);
             this.tbBigPoints.TabIndex = 4;
             this.tbBigPoints.Text = "DP";
             this.tbBigPoints.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -249,11 +254,6 @@
             this.tbTotalSmallPoints.Text = "MP SUM";
             this.tbTotalSmallPoints.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // bindSrcPlayerStance
-            // 
-            this.bindSrcPlayerStance.AllowNew = false;
-            this.bindSrcPlayerStance.DataSource = typeof(Logic.PlayerStance);
-            // 
             // PlayerPositionCtrl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -261,18 +261,18 @@
             this.Controls.Add(this.kryptonGroup1);
             this.Name = "PlayerPositionCtrl";
             this.Padding = new System.Windows.Forms.Padding(5);
-            this.Size = new System.Drawing.Size(386, 148);
+            this.Size = new System.Drawing.Size(374, 148);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1.Panel)).EndInit();
             this.kryptonGroup1.Panel.ResumeLayout(false);
             this.kryptonGroup1.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).EndInit();
             this.kryptonGroup1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.bindSrcPlayerStance)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupPunkty.Panel)).EndInit();
             this.groupPunkty.Panel.ResumeLayout(false);
             this.groupPunkty.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupPunkty)).EndInit();
             this.groupPunkty.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.bindSrcPlayerStance)).EndInit();
             this.ResumeLayout(false);
 
         }

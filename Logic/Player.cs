@@ -73,7 +73,13 @@ namespace Logic
         #region ctor
         static Player()
         {
-            Empty = new Player() { PlayerId = -1, Name = "-", Surname = "-", Nick = "-" };
+            Empty = new Player() { 
+                                    PlayerId = -1, 
+                                    Name = "-", 
+                                    Surname = "-", 
+                                    Nick = "-", 
+                                    Info = string.Empty, 
+                                    Tag = string.Empty };
         }
 
         public Player()

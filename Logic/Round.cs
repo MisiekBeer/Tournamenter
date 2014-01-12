@@ -15,6 +15,20 @@ namespace Logic
     }
 
     [Serializable]
+    public class PlayerPair
+    {
+        public PlayerStance Player1 { get; private set; }
+
+        public PlayerStance Player2 { get; private set; }
+
+        public PlayerPair(PlayerStance player1, PlayerStance player2)
+        {
+            Player1 = player1;
+            Player2 = player2;
+        }
+    }
+
+    [Serializable]
     public class Round : BaseLogicClass
     {
         #region properties
@@ -40,8 +54,8 @@ namespace Logic
             private set { playerPlaces = value; OnPropertyChanged(PropNames.PlayerPlaces); }
         }
 
-        private List<Tuple<PlayerStance, PlayerStance>> playerPairs;
-        public List<Tuple<PlayerStance, PlayerStance>> PlayerPairs
+        private List<PlayerPair> playerPairs;
+        public List<PlayerPair> PlayerPairs
         {
             get { return playerPairs; }
             private set { playerPairs = value; }
@@ -67,18 +81,18 @@ namespace Logic
         public Round()
         {
             PlayerPlaces = new List<PlayerStance>();
-            PlayerPairs = new List<Tuple<PlayerStance, PlayerStance>>();
+            PlayerPairs = new List<PlayerPair>();
             Number = 1;
         }
 
-        public Round(List<Tuple<PlayerStance, PlayerStance>> pairs) : this()
+        public Round(List<PlayerPair> pairs) : this()
         {
             PlayerPairs.AddRange(pairs);
 
             foreach (var pair in pairs)
             {
-                PlayerPlaces.Add(pair.Item1);
-                PlayerPlaces.Add(pair.Item2);
+                PlayerPlaces.Add(pair.Player1);
+                PlayerPlaces.Add(pair.Player2);
             }
         } 
         #endregion
@@ -118,7 +132,7 @@ namespace Logic
                 tableNumber++;
                 playerPlaces.Add(player1_Stance);
                 playerPlaces.Add(player2_Stance);
-                playerPairs.Add(new Tuple<PlayerStance, PlayerStance>(player1_Stance, player2_Stance));
+                playerPairs.Add(new PlayerPair(player1_Stance, player2_Stance));
             }
 
             if (players.Count == 1)
@@ -134,13 +148,13 @@ namespace Logic
                 tableNumber++;
                 playerPlaces.Add(player1_Stance);
                 playerPlaces.Add(player2_Stance);
-                playerPairs.Add(new Tuple<PlayerStance, PlayerStance>(player1_Stance, player2_Stance));
+                playerPairs.Add(new PlayerPair(player1_Stance, player2_Stance));
             }
             Status = RoundStatus.RoundStarted;
             Contract.Ensures(players.Count == 0, "Player generation list is not emptied");
         }
 
-        private List<Tuple<PlayerStance, PlayerStance>> GenerateRankingPairs()
+        private List<PlayerPair> GenerateRankingPairs()
         {
             //create pairs from compairing results
             List<PlayerStance> places = new List<PlayerStance>(PlayerPlaces);
@@ -152,10 +166,10 @@ namespace Logic
             int place = 0;
             int table = 1;
 
-            var newPairs = new List<Tuple<PlayerStance, PlayerStance>>(places.Count/2 + 1);
+            var newPairs = new List<PlayerPair>(places.Count/2 + 1);
             while ((places.Count / 2) > 0)
             {//TODO: Add tables repeat check
-                newPairs.Add(new Tuple<PlayerStance, PlayerStance>(
+                newPairs.Add(new PlayerPair(
                     new PlayerStance(places[0]) { Place = ++place, TableNumber = table, OponentId = places[1].PlayerId },
                     new PlayerStance(places[1]) { Place = ++place, TableNumber = table, OponentId = places[0].PlayerId }
                     ));
@@ -163,7 +177,7 @@ namespace Logic
             }
             if (places.Count == 1)
             {
-                newPairs.Add(new Tuple<PlayerStance, PlayerStance>(
+                newPairs.Add(new PlayerPair(
                     new PlayerStance(places[0]) { Place = ++place, TableNumber = -1, OponentId = PlayerStance.Empty.PlayerId }, 
                     PlayerStance.Empty));
             }
@@ -214,19 +228,19 @@ namespace Logic
         internal int GetCurrentOpponent(PlayerStance playerStance)
         {
             int id = playerStance.PlayerId;
-            Tuple<PlayerStance, PlayerStance> pair = 
-                playerPairs.First(n => n.Item1.PlayerId == id || n.Item2.PlayerId == id);
+            PlayerPair pair = 
+                playerPairs.First(n => n.Player1.PlayerId == id || n.Player2.PlayerId == id);
 
-            return pair.Item1.PlayerId == id ? pair.Item2.PlayerId : pair.Item1.PlayerId; 
+            return pair.Player1.PlayerId == id ? pair.Player2.PlayerId : pair.Player1.PlayerId; 
         }
 
         internal int GetPlayerTable(PlayerStance playerStance)
         { 
             int id = playerStance.PlayerId;
-            Tuple<PlayerStance, PlayerStance> pair =
-                playerPairs.First(n => n.Item1.PlayerId == id || n.Item2.PlayerId == id);
+            PlayerPair pair =
+                playerPairs.First(n => n.Player1.PlayerId == id || n.Player2.PlayerId == id);
             
-            return pair.Item1.TableNumber; 
+            return pair.Player1.TableNumber; 
         }
 
         #endregion
@@ -243,23 +257,29 @@ namespace Logic
 
         private void UpdateBigPoints()
         {
-            int drawPoints = Match.Settings.PointsForDraw;
+            int drawPoints = Match.Settings.PointRanges[0].WinnerPoints;
 
             foreach (var pair in PlayerPairs)
-            {//TODO: Dodać wczytywanie z tabeli zakresów
-                PlayerStance stance1 = pair.Item1;
-                PlayerStance stance2 = pair.Item2;
+            {
+                PlayerStance stance1 = pair.Player1;
+                PlayerStance stance2 = pair.Player2;
 
                 int diff = stance1.SmallVP - stance2.SmallVP;
                 if (diff == 0)
                 {
                     stance1.BigVP += drawPoints;
                     stance2.BigVP += drawPoints;
+                    continue;
                 }
-                else
+
+                if (stance1.SmallVP > stance2.SmallVP)
                 {
-                    stance1.BigVP += drawPoints + diff;
-                    stance2.BigVP += drawPoints - diff;
+                    stance1.BigVP += Match.Settings.GetWinnerPoints(diff);
+                    stance2.BigVP += Match.Settings.GetLooserPoints(diff);
+                }
+                else {
+                    stance1.BigVP += Match.Settings.GetLooserPoints(diff);
+                    stance2.BigVP += Match.Settings.GetWinnerPoints(diff);
                 }              
             }
         }

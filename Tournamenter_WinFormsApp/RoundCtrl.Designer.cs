@@ -46,7 +46,7 @@
             // 
             this.roundGroup.Panel.AutoScroll = true;
             this.roundGroup.Panel.Controls.Add(this.tableLayout);
-            this.roundGroup.Size = new System.Drawing.Size(397, 789);
+            this.roundGroup.Size = new System.Drawing.Size(431, 789);
             this.roundGroup.TabIndex = 0;
             this.roundGroup.ValuesPrimary.Heading = "Round";
             this.roundGroup.ValuesSecondary.Heading = "Round Description - player count etc.";
@@ -65,7 +65,7 @@
             this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayout.Size = new System.Drawing.Size(395, 736);
+            this.tableLayout.Size = new System.Drawing.Size(429, 736);
             this.tableLayout.TabIndex = 0;
             // 
             // RoundCtrl
@@ -75,8 +75,9 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.roundGroup);
             this.DoubleBuffered = true;
+            this.Name = "RoundCtrl";
             this.Padding = new System.Windows.Forms.Padding(5);
-            this.Size = new System.Drawing.Size(407, 799);
+            this.Size = new System.Drawing.Size(441, 799);
             ((System.ComponentModel.ISupportInitialize)(this.roundGroup.Panel)).EndInit();
             this.roundGroup.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.roundGroup)).EndInit();

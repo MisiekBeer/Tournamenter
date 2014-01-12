@@ -30,7 +30,6 @@ namespace Tournamenter_WinFormsApp
         internal void SetReadonly()
         {
             pointsForBayTextBox.ReadOnly = true;
-            pointsForDrawTextBox.ReadOnly = true;
             walkowerPointsTextBox.ReadOnly = true;
             roundCountTextBox.ReadOnly = true;
         }

@@ -7,17 +7,18 @@ using System.Threading.Tasks;
 namespace Logic
 {
     [Serializable]
+    public class PointsDiffRange
+    {
+        public int MinPoints { get; internal set; }
+        public int MaxPoints { get; internal set; }
+        public int WinnerPoints { get; internal set; }
+    }
+
+
+    [Serializable]
     public class MatchSettings : BaseLogicClass
     {
         #region properties
-        //Points for DRAW
-        private int pointsForDraw;
-        public int PointsForDraw
-        {
-            get { return pointsForDraw; }
-            set { pointsForDraw = value; OnPropertyChanged(PropNames.PointsForDraw); 
-            }
-        }
 
         //Points for BAY
         private int pointsForBAY;
@@ -42,8 +43,8 @@ namespace Logic
             set { roundCount = value; OnPropertyChanged(PropNames.RoundCount); }
         }
 
-        private List<Tuple<int, int>> pointRanges;
-        public List<Tuple<int, int>> PointRanges 
+        private List<PointsDiffRange> pointRanges;
+        public List<PointsDiffRange> PointRanges 
         {
             get { return pointRanges; }
             private set { pointRanges = value; OnPropertyChanged(PropNames.PointRanges); }
@@ -79,18 +80,23 @@ namespace Logic
 
         public MatchSettings()
         {
-            PointsForDraw = 10;
-            PointsForBay = 10;
             WalkowerPoints = 20;
             RoundCount = 3;
-            PointRanges = new List<Tuple<int, int>>(10);  //Small points difference ranges
 
-            for (int i = 0; i < 10; i++)
-            {
-                PointRanges.Add(new Tuple<int, int>(i, i+1));
-            }
-            var last = PointRanges.Last();
-            last = new Tuple<int,int>(last.Item1, 30);
+            PointRanges = new List<PointsDiffRange>()  {     //Points from, Points to , winner points
+                                new PointsDiffRange(){ MinPoints=0, MaxPoints=0, WinnerPoints = 10},
+                                new PointsDiffRange(){ MinPoints=1, MaxPoints=1, WinnerPoints = 11},
+                                new PointsDiffRange(){ MinPoints=2, MaxPoints=2, WinnerPoints = 12},
+                                new PointsDiffRange(){ MinPoints=3, MaxPoints=3, WinnerPoints = 13},
+                                new PointsDiffRange(){ MinPoints=4, MaxPoints=4, WinnerPoints = 14},
+                                new PointsDiffRange(){ MinPoints=5, MaxPoints=5, WinnerPoints = 15},
+                                new PointsDiffRange(){ MinPoints=6, MaxPoints=6, WinnerPoints = 16},
+                                new PointsDiffRange(){ MinPoints=7, MaxPoints=7, WinnerPoints = 17},
+                                new PointsDiffRange(){ MinPoints=8, MaxPoints=8, WinnerPoints = 18},
+                                new PointsDiffRange(){ MinPoints=9, MaxPoints=9, WinnerPoints = 19},
+                                new PointsDiffRange(){ MinPoints=10, MaxPoints=int.MaxValue, WinnerPoints = 20},
+                            };
+            PointsForBay = 10;
 
             RoundTime = new TimeSpan(2, 30, 0);
         }
@@ -98,9 +104,36 @@ namespace Logic
         public override string ToString()
         {
             return string.Format("Match settings: points for walkower:{0}; BAY: {1}; Draw {2}",
-                                  WalkowerPoints, PointsForBay, PointsForDraw);
+                                  WalkowerPoints, PointsForBay, PointRanges[0].WinnerPoints);
         }
 
         public static MatchSettings DefaultSettings = new MatchSettings() { };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pointsDiff">difference</param>
+        /// <returns></returns>
+        public int GetWinnerPoints(int pointsDiff)
+        {
+            if (pointsDiff < 0)
+                pointsDiff = -pointsDiff;
+
+            return PointRanges.Find(
+                n => n.MinPoints <= pointsDiff && n.MaxPoints >= pointsDiff).WinnerPoints;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pointsDiff">difference</param>
+        /// <returns></returns>
+        public int GetLooserPoints(int pointsDiff)
+        {
+            if (pointsDiff < 0)
+                pointsDiff = -pointsDiff;
+
+            return PointRanges.Last().WinnerPoints - GetWinnerPoints(pointsDiff);
+        }
     }
 }

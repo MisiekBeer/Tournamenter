@@ -2,17 +2,21 @@
 Winforms
 _______________
 
-Add Tables repeat verification for players
-Add point range table
+OK ->>>Add point range table
 
-Match end messages
-Ranking report/board - maybe PDF???
-
-Speaking Clock
-
-Match resut/State saving/loading to xml files
+-Add Tables repeat verification for players
+-Check for all points entered condition on round closing
 
 
-General testing
+-Match end messages
+
+-Ranking report/board - maybe PDF???
+
+-Speaking Clock + match time
+
+-Match resut/State saving/loading to xml files
+
+
+-General testing
 
 ==============================================

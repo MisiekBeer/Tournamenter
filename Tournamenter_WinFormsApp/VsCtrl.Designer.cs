@@ -48,7 +48,7 @@
             // vsGroup.Panel
             // 
             this.vsGroup.Panel.AllowDrop = true;
-            this.vsGroup.Size = new System.Drawing.Size(480, 308);
+            this.vsGroup.Size = new System.Drawing.Size(466, 308);
             this.vsGroup.StateCommon.HeaderPrimary.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.vsGroup.TabIndex = 0;
             this.vsGroup.ValuesPrimary.Heading = "VS";
@@ -64,7 +64,7 @@
             this.DoubleBuffered = true;
             this.Name = "VsCtrl";
             this.Padding = new System.Windows.Forms.Padding(5);
-            this.Size = new System.Drawing.Size(490, 318);
+            this.Size = new System.Drawing.Size(476, 318);
             ((System.ComponentModel.ISupportInitialize)(this.vsGroup.Panel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vsGroup)).EndInit();
             this.vsGroup.ResumeLayout(false);

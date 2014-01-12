@@ -25,8 +25,13 @@ namespace Logic
         {
             get { return playerId; }
             set { playerId = value;
-                    if (Player == null) 
-                        Player = PlayerList.Instance[value];
+            if (Player == null)
+            {
+                if (playerId == Player.Empty.PlayerId)
+                    Player = Player.Empty;
+                else
+                    Player = PlayerList.Instance[value];
+            }
                     OnPropertyChanged(PropNames.PlayerId); }
         }
 

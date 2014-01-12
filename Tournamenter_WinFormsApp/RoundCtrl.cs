@@ -108,7 +108,7 @@ namespace Tournamenter_WinFormsApp
         {
             foreach (var pair in _round.PlayerPairs)
             {
-                AddPlayerPair(pair.Item1, pair.Item2);
+                AddPlayerPair(pair.Player1, pair.Player2);
             }
         }
 

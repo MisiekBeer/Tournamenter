@@ -30,19 +30,16 @@ namespace Tournamenter_WinFormsApp
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label pointsForBayLabel;
-            System.Windows.Forms.Label pointsForDrawLabel;
             System.Windows.Forms.Label roundCountLabel;
             System.Windows.Forms.Label walkowerPointsLabel;
             this.kryptonPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.settingsGroupBox = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
             this.btnOK = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.pointsForBayTextBox = new ComponentFactory.Krypton.Toolkit.KryptonNumericUpDown();
-            this.pointsForDrawTextBox = new ComponentFactory.Krypton.Toolkit.KryptonNumericUpDown();
+            this.matchSettingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.walkowerPointsTextBox = new ComponentFactory.Krypton.Toolkit.KryptonNumericUpDown();
             this.roundCountTextBox = new ComponentFactory.Krypton.Toolkit.KryptonNumericUpDown();
-            this.matchSettingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             pointsForBayLabel = new System.Windows.Forms.Label();
-            pointsForDrawLabel = new System.Windows.Forms.Label();
             roundCountLabel = new System.Windows.Forms.Label();
             walkowerPointsLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel)).BeginInit();
@@ -63,15 +60,6 @@ namespace Tournamenter_WinFormsApp
             pointsForBayLabel.TabIndex = 0;
             pointsForBayLabel.Text = "Points For Bay:";
             // 
-            // pointsForDrawLabel
-            // 
-            pointsForDrawLabel.AutoSize = true;
-            pointsForDrawLabel.Location = new System.Drawing.Point(10, 98);
-            pointsForDrawLabel.Name = "pointsForDrawLabel";
-            pointsForDrawLabel.Size = new System.Drawing.Size(85, 13);
-            pointsForDrawLabel.TabIndex = 2;
-            pointsForDrawLabel.Text = "Points For Draw:";
-            // 
             // roundCountLabel
             // 
             roundCountLabel.AutoSize = true;
@@ -84,7 +72,7 @@ namespace Tournamenter_WinFormsApp
             // walkowerPointsLabel
             // 
             walkowerPointsLabel.AutoSize = true;
-            walkowerPointsLabel.Location = new System.Drawing.Point(10, 135);
+            walkowerPointsLabel.Location = new System.Drawing.Point(10, 99);
             walkowerPointsLabel.Name = "walkowerPointsLabel";
             walkowerPointsLabel.Size = new System.Drawing.Size(90, 13);
             walkowerPointsLabel.TabIndex = 6;
@@ -110,9 +98,7 @@ namespace Tournamenter_WinFormsApp
             this.settingsGroupBox.Panel.Controls.Add(this.btnOK);
             this.settingsGroupBox.Panel.Controls.Add(pointsForBayLabel);
             this.settingsGroupBox.Panel.Controls.Add(this.pointsForBayTextBox);
-            this.settingsGroupBox.Panel.Controls.Add(pointsForDrawLabel);
             this.settingsGroupBox.Panel.Controls.Add(walkowerPointsLabel);
-            this.settingsGroupBox.Panel.Controls.Add(this.pointsForDrawTextBox);
             this.settingsGroupBox.Panel.Controls.Add(this.walkowerPointsTextBox);
             this.settingsGroupBox.Panel.Controls.Add(roundCountLabel);
             this.settingsGroupBox.Panel.Controls.Add(this.roundCountTextBox);
@@ -133,7 +119,7 @@ namespace Tournamenter_WinFormsApp
             // 
             // pointsForBayTextBox
             // 
-            this.pointsForBayTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.matchSettingsBindingSource, "PointsForBay", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.pointsForBayTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.matchSettingsBindingSource, "PointsForBay", true));
             this.pointsForBayTextBox.Location = new System.Drawing.Point(127, 58);
             this.pointsForBayTextBox.Maximum = new decimal(new int[] {
             25,
@@ -144,33 +130,15 @@ namespace Tournamenter_WinFormsApp
             this.pointsForBayTextBox.Size = new System.Drawing.Size(80, 22);
             this.pointsForBayTextBox.TabIndex = 1;
             // 
-            // pointsForDrawTextBox
+            // matchSettingsBindingSource
             // 
-            this.pointsForDrawTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.matchSettingsBindingSource, "PointsForDraw", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.pointsForDrawTextBox.Location = new System.Drawing.Point(127, 95);
-            this.pointsForDrawTextBox.Maximum = new decimal(new int[] {
-            25,
-            0,
-            0,
-            0});
-            this.pointsForDrawTextBox.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.pointsForDrawTextBox.Name = "pointsForDrawTextBox";
-            this.pointsForDrawTextBox.Size = new System.Drawing.Size(80, 22);
-            this.pointsForDrawTextBox.TabIndex = 3;
-            this.pointsForDrawTextBox.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.matchSettingsBindingSource.AllowNew = false;
+            this.matchSettingsBindingSource.DataSource = typeof(Logic.MatchSettings);
             // 
             // walkowerPointsTextBox
             // 
-            this.walkowerPointsTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.matchSettingsBindingSource, "WalkowerPoints", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.walkowerPointsTextBox.Location = new System.Drawing.Point(127, 132);
+            this.walkowerPointsTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.matchSettingsBindingSource, "WalkowerPoints", true));
+            this.walkowerPointsTextBox.Location = new System.Drawing.Point(127, 96);
             this.walkowerPointsTextBox.Maximum = new decimal(new int[] {
             25,
             0,
@@ -192,7 +160,7 @@ namespace Tournamenter_WinFormsApp
             // 
             // roundCountTextBox
             // 
-            this.roundCountTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.matchSettingsBindingSource, "RoundCount", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.roundCountTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.matchSettingsBindingSource, "RoundCount", true));
             this.roundCountTextBox.Location = new System.Drawing.Point(127, 21);
             this.roundCountTextBox.Maximum = new decimal(new int[] {
             10,
@@ -212,11 +180,6 @@ namespace Tournamenter_WinFormsApp
             0,
             0,
             0});
-            // 
-            // matchSettingsBindingSource
-            // 
-            this.matchSettingsBindingSource.AllowNew = false;
-            this.matchSettingsBindingSource.DataSource = typeof(Logic.MatchSettings);
             // 
             // MatchSettingsFrm
             // 
@@ -248,7 +211,6 @@ namespace Tournamenter_WinFormsApp
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel;
         private ComponentFactory.Krypton.Toolkit.KryptonNumericUpDown pointsForBayTextBox;
         private System.Windows.Forms.BindingSource matchSettingsBindingSource;
-        private ComponentFactory.Krypton.Toolkit.KryptonNumericUpDown pointsForDrawTextBox;
         private ComponentFactory.Krypton.Toolkit.KryptonNumericUpDown roundCountTextBox;
         private ComponentFactory.Krypton.Toolkit.KryptonNumericUpDown walkowerPointsTextBox;
         private ComponentFactory.Krypton.Toolkit.KryptonGroupBox settingsGroupBox;
