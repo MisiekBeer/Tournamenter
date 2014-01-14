@@ -11,7 +11,8 @@ namespace Logic
     {
         public int MinPoints { get; internal set; }
         public int MaxPoints { get; internal set; }
-        public int WinnerPoints { get; internal set; }
+        public int WinPts { get; internal set; }
+        public int LoosePts { get; internal set; }
     }
 
 
@@ -84,17 +85,17 @@ namespace Logic
             RoundCount = 3;
 
             PointRanges = new List<PointsDiffRange>()  {     //Points from, Points to , winner points
-                                new PointsDiffRange(){ MinPoints=0, MaxPoints=0, WinnerPoints = 10},
-                                new PointsDiffRange(){ MinPoints=1, MaxPoints=1, WinnerPoints = 11},
-                                new PointsDiffRange(){ MinPoints=2, MaxPoints=2, WinnerPoints = 12},
-                                new PointsDiffRange(){ MinPoints=3, MaxPoints=3, WinnerPoints = 13},
-                                new PointsDiffRange(){ MinPoints=4, MaxPoints=4, WinnerPoints = 14},
-                                new PointsDiffRange(){ MinPoints=5, MaxPoints=5, WinnerPoints = 15},
-                                new PointsDiffRange(){ MinPoints=6, MaxPoints=6, WinnerPoints = 16},
-                                new PointsDiffRange(){ MinPoints=7, MaxPoints=7, WinnerPoints = 17},
-                                new PointsDiffRange(){ MinPoints=8, MaxPoints=8, WinnerPoints = 18},
-                                new PointsDiffRange(){ MinPoints=9, MaxPoints=9, WinnerPoints = 19},
-                                new PointsDiffRange(){ MinPoints=10, MaxPoints=int.MaxValue, WinnerPoints = 20},
+                                new PointsDiffRange(){ MinPoints=0, MaxPoints=0, WinPts = 10, LoosePts = 10},
+                                new PointsDiffRange(){ MinPoints=1, MaxPoints=1, WinPts = 11, LoosePts = 9},
+                                new PointsDiffRange(){ MinPoints=2, MaxPoints=2, WinPts = 12, LoosePts = 8},
+                                new PointsDiffRange(){ MinPoints=3, MaxPoints=3, WinPts = 13, LoosePts = 7},
+                                new PointsDiffRange(){ MinPoints=4, MaxPoints=4, WinPts = 14, LoosePts = 6},
+                                new PointsDiffRange(){ MinPoints=5, MaxPoints=5, WinPts = 15, LoosePts = 5},
+                                new PointsDiffRange(){ MinPoints=6, MaxPoints=6, WinPts = 16, LoosePts = 4},
+                                new PointsDiffRange(){ MinPoints=7, MaxPoints=7, WinPts = 17, LoosePts = 3},
+                                new PointsDiffRange(){ MinPoints=8, MaxPoints=8, WinPts = 18, LoosePts = 2},
+                                new PointsDiffRange(){ MinPoints=9, MaxPoints=9, WinPts = 19, LoosePts = 1},
+                                new PointsDiffRange(){ MinPoints=10, MaxPoints=int.MaxValue, WinPts = 20, LoosePts = 0},
                             };
             PointsForBay = 10;
 
@@ -104,7 +105,7 @@ namespace Logic
         public override string ToString()
         {
             return string.Format("Match settings: points for walkower:{0}; BAY: {1}; Draw {2}",
-                                  WalkowerPoints, PointsForBay, PointRanges[0].WinnerPoints);
+                                  WalkowerPoints, PointsForBay, PointRanges[0].WinPts);
         }
 
         public static MatchSettings DefaultSettings = new MatchSettings() { };
@@ -120,7 +121,7 @@ namespace Logic
                 pointsDiff = -pointsDiff;
 
             return PointRanges.Find(
-                n => n.MinPoints <= pointsDiff && n.MaxPoints >= pointsDiff).WinnerPoints;
+                n => n.MinPoints <= pointsDiff && n.MaxPoints >= pointsDiff).WinPts;
         }
 
         /// <summary>
@@ -133,7 +134,8 @@ namespace Logic
             if (pointsDiff < 0)
                 pointsDiff = -pointsDiff;
 
-            return PointRanges.Last().WinnerPoints - GetWinnerPoints(pointsDiff);
+            return PointRanges.Find(
+                n => n.MinPoints <= pointsDiff && n.MaxPoints >= pointsDiff).LoosePts;
         }
     }
 }

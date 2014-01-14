@@ -257,7 +257,7 @@ namespace Logic
 
         private void UpdateBigPoints()
         {
-            int drawPoints = Match.Settings.PointRanges[0].WinnerPoints;
+            int drawPoints = Match.Settings.PointRanges[0].WinPts;
 
             foreach (var pair in PlayerPairs)
             {

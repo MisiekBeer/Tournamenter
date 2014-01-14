@@ -33,5 +33,16 @@ namespace Tournamenter_WinFormsApp
             walkowerPointsTextBox.ReadOnly = true;
             roundCountTextBox.ReadOnly = true;
         }
+
+        private void dgvPointRanges_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.ColumnIndex == maxPointsDataGridViewTextBoxColumn.Index && e.RowIndex > 0)
+                if (e.Value != null && (int)e.Value == int.MaxValue)
+                {
+                    e.PaintBackground(e.CellBounds, true);
+                    e.Graphics.DrawString("...", maxPointsDataGridViewTextBoxColumn.InheritedStyle.Font, Brushes.Black, e.CellBounds);
+                    e.Handled = true;
+                }
+        }
     }
 }

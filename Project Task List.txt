@@ -2,8 +2,6 @@
 Winforms
 _______________
 
-OK ->>>Add point range table
-
 -Add Tables repeat verification for players
 -Check for all points entered condition on round closing
 

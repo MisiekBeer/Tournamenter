@@ -6,3 +6,11 @@ D:\Work + stuff\VS2013\Tournamenter\Tournamenter_ConsoleApp\bin\Debug\Logic.pdb
 D:\Work + stuff\VS2013\Tournamenter\Tournamenter_ConsoleApp\obj\Debug\Tournamenter_ConsoleApp.csprojResolveAssemblyReference.cache
 D:\Work + stuff\VS2013\Tournamenter\Tournamenter_ConsoleApp\obj\Debug\Tournamenter_ConsoleApp.exe
 D:\Work + stuff\VS2013\Tournamenter\Tournamenter_ConsoleApp\obj\Debug\Tournamenter_ConsoleApp.pdb
+C:\Users\Misiaki\Documents\Visual Studio 2013\Projects\Tournamenter\Tournamenter_ConsoleApp\bin\Debug\Tournamenter_ConsoleApp.exe.config
+C:\Users\Misiaki\Documents\Visual Studio 2013\Projects\Tournamenter\Tournamenter_ConsoleApp\bin\Debug\Tournamenter_ConsoleApp.exe
+C:\Users\Misiaki\Documents\Visual Studio 2013\Projects\Tournamenter\Tournamenter_ConsoleApp\bin\Debug\Tournamenter_ConsoleApp.pdb
+C:\Users\Misiaki\Documents\Visual Studio 2013\Projects\Tournamenter\Tournamenter_ConsoleApp\bin\Debug\Logic.dll
+C:\Users\Misiaki\Documents\Visual Studio 2013\Projects\Tournamenter\Tournamenter_ConsoleApp\bin\Debug\Logic.pdb
+C:\Users\Misiaki\Documents\Visual Studio 2013\Projects\Tournamenter\Tournamenter_ConsoleApp\obj\Debug\Tournamenter_ConsoleApp.csprojResolveAssemblyReference.cache
+C:\Users\Misiaki\Documents\Visual Studio 2013\Projects\Tournamenter\Tournamenter_ConsoleApp\obj\Debug\Tournamenter_ConsoleApp.exe
+C:\Users\Misiaki\Documents\Visual Studio 2013\Projects\Tournamenter\Tournamenter_ConsoleApp\obj\Debug\Tournamenter_ConsoleApp.pdb
