@@ -27,6 +27,8 @@ namespace Logic
             Player1 = player1;
             Player2 = player2;
         }
+
+        public bool IsBay { get { return Player1 == PlayerStance.Empty || Player2 == PlayerStance.Empty; } }
     }
 
     [Serializable]
@@ -79,6 +81,9 @@ namespace Logic
         #endregion
 
         #region ctor
+        /// <summary>
+        /// Empty round
+        /// </summary>
         public Round()
         {
             PlayerPlaces = new List<PlayerStance>();
@@ -86,6 +91,10 @@ namespace Logic
             Number = 1;
         }
 
+        /// <summary>
+        /// Match round with points
+        /// </summary>
+        /// <param name="pairs"></param>
         public Round(List<PlayerPair> pairs) : this()
         {
             PlayerPairs.AddRange(pairs);
@@ -95,6 +104,17 @@ namespace Logic
                 PlayerPlaces.Add(pair.Player1);
                 PlayerPlaces.Add(pair.Player2);
             }
+        }
+
+        /// <summary>
+        /// Final Player List
+        /// </summary>
+        /// <param name="playerPlaces"></param>
+        public Round(List<PlayerStance> playerPlaces) : this()
+        {
+            PlayerPlaces.AddRange(playerPlaces);
+            PlayerPlaces.Remove(PlayerStance.Empty); //remove bay player
+            PlayerPlaces.Sort();
         } 
         #endregion
 
@@ -125,9 +145,11 @@ namespace Logic
                 player2 = players.First();
                 players.RemoveAt(0);
 
-                player1_Stance = new PlayerStance(player1, player2) { Place = place, TableNumber = tableNumber};
+                player1_Stance = new PlayerStance(player1, player2) { 
+                                        Place = place, TableNumber = tableNumber};
                 place++;
-                player2_Stance = new PlayerStance(player2, player1) { Place = place, TableNumber = tableNumber};
+                player2_Stance = new PlayerStance(player2, player1) { 
+                                        Place = place, TableNumber = tableNumber};
                 place++;
 
                 tableNumber++;
@@ -141,9 +163,10 @@ namespace Logic
                 player1 = players.First();
                 players.RemoveAt(0);
 
-                player1_Stance = new PlayerStance(player1, Player.Empty) { Place = place, TableNumber = tableNumber };
+                player1_Stance = new PlayerStance(player1, Player.Empty) { 
+                    Place = place, TableNumber = -1 };
                 place++;
-                player2_Stance = new PlayerStance(Player.Empty, player1) { Place = place, TableNumber = tableNumber };
+                player2_Stance = PlayerStance.Empty;
                 place++;
 
                 tableNumber++;
@@ -171,15 +194,18 @@ namespace Logic
             while ((places.Count / 2) > 0)
             {//TODO: Add tables repeat check
                 newPairs.Add(new PlayerPair(
-                    new PlayerStance(places[0]) { Place = ++place, TableNumber = table, OponentId = places[1].PlayerId },
-                    new PlayerStance(places[1]) { Place = ++place, TableNumber = table, OponentId = places[0].PlayerId }
-                    ));
+                    new PlayerStance(places[0]) { 
+                            Place = ++place, TableNumber = table, OponentId = places[1].PlayerId },
+                    new PlayerStance(places[1]) { 
+                            Place = ++place, TableNumber = table, OponentId = places[0].PlayerId })
+                            );
                 places.RemoveRange(0, 2);
             }
             if (places.Count == 1)
             {
                 newPairs.Add(new PlayerPair(
-                    new PlayerStance(places[0]) { Place = ++place, TableNumber = -1, OponentId = PlayerStance.Empty.PlayerId }, 
+                    new PlayerStance(places[0]) { 
+                        Place = ++place, TableNumber = -1, OponentId = Player.EmptyPlayerId}, 
                     PlayerStance.Empty));
             }
             return newPairs;
@@ -265,6 +291,21 @@ namespace Logic
                 PlayerStance stance1 = pair.Player1;
                 PlayerStance stance2 = pair.Player2;
 
+                if (pair.IsBay)
+                {
+                    if (stance1 != PlayerStance.Empty)
+                    {
+                        stance1.SmallVP = 0;
+                        stance1.BigVP = Match.Settings.PointsForBay;
+                    }
+                    if (stance2 != PlayerStance.Empty)
+                    {
+                        stance2.SmallVP = 0;
+                        stance2.BigVP = Match.Settings.PointsForBay;
+                    }
+                    continue;
+                }
+
                 int diff = stance1.SmallVP - stance2.SmallVP;
                 if (diff == 0)
                 {
@@ -283,6 +324,15 @@ namespace Logic
                     stance2.BigVP += Match.Settings.GetWinnerPoints(diff);
                 }              
             }
+        }
+
+        internal Round CloseMatchEndRound()
+        {
+            Round lastRound = new Round(this.PlayerPlaces)
+            { 
+                Number = this.Number + 1, Match = this.Match, Status = RoundStatus.MatchResult};
+            
+            return lastRound;
         }
     }
 }

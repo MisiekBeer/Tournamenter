@@ -27,7 +27,7 @@ namespace Logic
             set { playerId = value;
             if (Player == null)
             {
-                if (playerId == Player.Empty.PlayerId)
+                if (playerId == Player.EmptyPlayerId)
                     Player = Player.Empty;
                 else
                     Player = PlayerList.Instance[value];
@@ -127,7 +127,12 @@ namespace Logic
         }
 
         public static readonly PlayerStance Empty = new PlayerStance() { Player = Player.Empty };
-        public bool PointsEntered { get { return smallVP >= 0; } }
+        public bool PointsEntered { 
+            get {
+                if (this == Empty) 
+                    return true;
+                return smallVP >= 0; } 
+        }
         #endregion
 
 
@@ -162,6 +167,18 @@ namespace Logic
             SmallVP = 0;
         }
         #endregion
+
+        public override bool Equals(object obj)
+        {
+            PlayerStance playerStance = obj as PlayerStance;
+            if (playerStance == null)
+                return false;
+
+            if (playerStance.playerId == Player.EmptyPlayerId && this.playerId == Player.EmptyPlayerId)
+                return true;
+
+            return base.Equals(obj);
+        }
 
         public override string ToString()
         {

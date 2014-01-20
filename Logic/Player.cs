@@ -67,6 +67,7 @@ namespace Logic
             public const string Info = "Info";
         }
 
+        public const int EmptyPlayerId = -1;
         public static readonly Player Empty;
         #endregion
 
@@ -74,10 +75,10 @@ namespace Logic
         static Player()
         {
             Empty = new Player() { 
-                                    PlayerId = -1, 
-                                    Name = "-", 
+                                    PlayerId = EmptyPlayerId, 
+                                    Name = "Empty", 
                                     Surname = "-", 
-                                    Nick = "-", 
+                                    Nick = "Empty", 
                                     Info = string.Empty, 
                                     Tag = string.Empty };
         }
@@ -87,6 +88,15 @@ namespace Logic
 
         } 
         #endregion
+
+        public override bool Equals(object obj)
+        {
+            Player player = obj as Player;
+            if (player == null)
+                return false;
+
+            return (player.playerId == this.playerId);
+        }
 
         public override string ToString()
         {

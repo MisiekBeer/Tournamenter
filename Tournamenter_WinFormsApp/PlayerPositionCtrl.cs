@@ -17,7 +17,8 @@ namespace Tournamenter_WinFormsApp
         public PlayerStance Stance { get { return _playerStance; } }
         public bool PointsEntered { 
             get {
-                if (_player == Player.Empty) return true;
+                if (_player == Player.Empty || _playerStance == PlayerStance.Empty) 
+                    return true;
                 return _playerStance != null && _valueEntered; } }
         #endregion
 
@@ -46,19 +47,25 @@ namespace Tournamenter_WinFormsApp
 
         }
 
-        public PlayerPositionCtrl(PlayerStance playerStance)
+        public PlayerPositionCtrl(PlayerStance playerStance, bool lastRound = false)
         {
             InitializeComponent();
 
-            SetWorkingMode(PlayerPosCtrlMode.RoundPointsEdit);
+            if (lastRound)
+                SetWorkingMode(PlayerPosCtrlMode.MatchEndResult);
+            else
+                SetWorkingMode(PlayerPosCtrlMode.RoundPointsEdit);
 
             _playerStance = playerStance;
+            if (_playerStance == PlayerStance.Empty)
+                _player = Player.Empty;
+
             bindSrcPlayerStance.DataSource = _playerStance;
 
             if (_playerStance == PlayerStance.Empty)
             {
                 _valueEntered = true;
-                btValEnteredChk.Checked = true;
+                DisablePointsShow();
             }
         }
 
@@ -72,6 +79,8 @@ namespace Tournamenter_WinFormsApp
                 throw new ArgumentNullException("Null player in control");
             
             _player = player;
+            if (_player == Player.Empty)
+                _playerStance = PlayerStance.Empty;
 
             tbImie.Text = _player.Name;
             tbKsywa.Text = _player.Nick;

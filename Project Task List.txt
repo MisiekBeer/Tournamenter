@@ -4,7 +4,6 @@ Winforms
 TODO:
 _______________
 
--Check for all points entered condition on round closing
 
 -Add Tables repeat verification for players
 
@@ -23,7 +22,7 @@ _______________
 DONE:
 __________________
 
-
+-Check for all points entered condition on round closing
 ___________________
 
 ==============================================

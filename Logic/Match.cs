@@ -173,17 +173,12 @@ namespace Logic
                 return false;
             Status = MatchStatus.RoundClosed;
 
-            Round newRound = ActiveRound.CloseAndGenerateNext();
+            Round newRound = (Rounds.Count + 1 != settings.RoundCount) ? 
+                ActiveRound.CloseAndGenerateNext() : ActiveRound.CloseMatchEndRound();
             Rounds.Add(newRound);
 
-            if (settings.RoundCount >= rounds.Count)
-            {
-                Status = MatchStatus.RoundStarted;
-            }
-            else
-            {
-                Status = MatchStatus.MatchEnded;
-            }
+            Status = settings.RoundCount >= Rounds.Count ?
+                MatchStatus.RoundStarted : MatchStatus.MatchEnded;
 
             if (RoundAdded != null)
                 RoundAdded(this, newRound);

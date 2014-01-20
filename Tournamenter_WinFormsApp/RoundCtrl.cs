@@ -79,12 +79,30 @@ namespace Tournamenter_WinFormsApp
         {
             Initialize();
 
-            ControlMode = Mode.RoundStance;
+            ControlMode = (matchRound.Status == RoundStatus.MatchResult) ? 
+                Mode.EndRound : Mode.RoundStance;
 
             _round = matchRound;
-            RoundName = string.Format("Round: {0}", matchRound.Number);
-            RoundDescription = string.Format("Round: {0} player points", matchRound.Number);
-            AddVsControls();
+
+            switch (ControlMode)
+            {
+                case Mode.EndRound:
+                    RoundName = "Match ended";
+                    RoundDescription = "Players match results.";
+                    foreach (PlayerStance player in _round.PlayerPlaces)
+                    {
+                        AddPlayerCtrl(player);
+                    }
+                    break;
+                
+                case Mode.RoundStance:
+                default:
+                    RoundName = string.Format("Round: {0}", matchRound.Number);
+                    RoundDescription = string.Format("Round: {0} player points.", matchRound.Number);
+                    AddVsControls();
+                    break;
+            }
+
         }
 
         private void Initialize()
@@ -124,6 +142,16 @@ namespace Tournamenter_WinFormsApp
                 return;
 
             var ctrl = new PlayerPositionCtrl(player);
+            _posControls.Add(ctrl);
+            tableLayout.Controls.Add(ctrl);
+        }
+
+        public void AddPlayerCtrl(PlayerStance player)
+        {
+            if (ControlMode != Mode.EndRound)
+                return;
+
+            var ctrl = new PlayerPositionCtrl(player, true);
             _posControls.Add(ctrl);
             tableLayout.Controls.Add(ctrl);
         }
