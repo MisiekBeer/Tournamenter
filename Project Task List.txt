@@ -4,17 +4,17 @@ Winforms
 TODO:
 _______________
 
+-Proper match end points
+-Match end messages
+
 
 -Add Tables repeat verification for players
 
-
--Match end messages
-
--Ranking report/board - maybe PDF???
+-Match resut/State saving/loading to xml files
 
 -Speaking Clock + match time
 
--Match resut/State saving/loading to xml files
+-Ranking report/board - maybe PDF???
 
 
 -General testing

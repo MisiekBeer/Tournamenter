@@ -98,6 +98,11 @@ namespace Logic
             return (player.playerId == this.playerId);
         }
 
+		public override int GetHashCode()
+		{
+			return this.playerId;
+		}
+
         public override string ToString()
         {
             return string.Format("{0} {1} '{2}'", surname, name, nick);

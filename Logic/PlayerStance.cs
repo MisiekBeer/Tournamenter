@@ -96,19 +96,19 @@ namespace Logic
             set { totalBigVP = value; OnPropertyChanged(PropNames.TotalBigVP); }
         }
 
-        //private Round matchRound;
-        //public Round MatchRound
-        //{
-        //    get { return matchRound; }
-        //    set { matchRound = value; OnPropertyChanged(PropNames.Round); }
-        //}
-
         private int tableNumber;
         public int TableNumber
         {
             get { return tableNumber; }
             set { tableNumber = value; OnPropertyChanged(PropNames.TableNumber); }
         }
+
+		private bool isBuy;
+		public bool IsBuy
+		{
+			get { return isBuy; }
+			set { isBuy = value; OnPropertyChanged(PropNames.IsBuy); }
+		}
 
         
         public static class PropNames
@@ -124,6 +124,7 @@ namespace Logic
             //public const string Round = "MatchRound";
             public const string Player = "Player";
             public const string TableNumber = "TableNumber";
+			public const string IsBuy = "IsBuy";
         }
 
         public static readonly PlayerStance Empty = new PlayerStance() { Player = Player.Empty };
@@ -179,6 +180,14 @@ namespace Logic
 
             return base.Equals(obj);
         }
+
+		public override int GetHashCode()
+		{
+			if (playerId == Player.EmptyPlayerId)
+				return Player.EmptyPlayerId.GetHashCode();
+
+			return base.GetHashCode();
+		}
 
         public override string ToString()
         {

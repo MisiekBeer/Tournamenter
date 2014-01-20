@@ -193,7 +193,12 @@ namespace Tournamenter_WinFormsApp
 
         void _match_RoundAdded(object sender, Round e)
         {
-            tableLayout.Controls.Add(new RoundCtrl(e));
+			RoundCtrl roundCtrl = new RoundCtrl(e);
+            tableLayout.Controls.Add(roundCtrl);
+
+			if (e.Status == RoundStatus.MatchResult)
+				_endList = roundCtrl;
+
             SetStatus("Round {0} started", e.Number);
         }
 
@@ -229,6 +234,7 @@ namespace Tournamenter_WinFormsApp
             _match.PlayerAdded -= _match_PlayerAdded;
             _match.MatchStatusChanged -= _match_MatchStatusChanged;
             _startList.ClearPlayers();
+			_endList = null;
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)

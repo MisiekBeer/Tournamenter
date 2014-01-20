@@ -204,8 +204,13 @@ namespace Logic
             if (places.Count == 1)
             {
                 newPairs.Add(new PlayerPair(
-                    new PlayerStance(places[0]) { 
-                        Place = ++place, TableNumber = -1, OponentId = Player.EmptyPlayerId}, 
+                    new PlayerStance(places[0]) {
+						Place = ++place,
+						TableNumber = -1,
+						OponentId = Player.EmptyPlayerId,
+						IsBuy = true,
+						BigVP = Match.Settings.PointsForBay
+					}, 
                     PlayerStance.Empty));
             }
             return newPairs;
@@ -295,11 +300,13 @@ namespace Logic
                 {
                     if (stance1 != PlayerStance.Empty)
                     {
+						stance1.IsBuy = true;
                         stance1.SmallVP = 0;
                         stance1.BigVP = Match.Settings.PointsForBay;
                     }
                     if (stance2 != PlayerStance.Empty)
                     {
+						stance2.IsBuy = true;
                         stance2.SmallVP = 0;
                         stance2.BigVP = Match.Settings.PointsForBay;
                     }
@@ -328,9 +335,10 @@ namespace Logic
 
         internal Round CloseMatchEndRound()
         {
-            Round lastRound = new Round(this.PlayerPlaces)
-            { 
+			UpdateBigPoints();
+            Round lastRound = new Round(this.PlayerPlaces){ 
                 Number = this.Number + 1, Match = this.Match, Status = RoundStatus.MatchResult};
+			lastRound.PlayerPlaces.Reverse();
             
             return lastRound;
         }

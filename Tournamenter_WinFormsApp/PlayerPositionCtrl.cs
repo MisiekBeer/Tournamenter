@@ -67,6 +67,14 @@ namespace Tournamenter_WinFormsApp
                 _valueEntered = true;
                 DisablePointsShow();
             }
+
+			if (_playerStance.IsBuy)
+			{
+				_valueEntered = true;
+				btValEnteredChk.Checked = true;
+				tbSmallPoints.Enabled = false;
+				tbBigPoints.Text = "10";
+			}
         }
 
         public PlayerPositionCtrl(Player player)
