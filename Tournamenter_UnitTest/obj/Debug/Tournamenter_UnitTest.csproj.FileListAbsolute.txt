@@ -12,3 +12,10 @@ C:\Users\Misiaki\Documents\Visual Studio 2013\Projects\Tournamenter\Tournamenter
 C:\Users\Misiaki\Documents\Visual Studio 2013\Projects\Tournamenter\Tournamenter_UnitTest\obj\Debug\Tournamenter_UnitTest.csprojResolveAssemblyReference.cache
 C:\Users\Misiaki\Documents\Visual Studio 2013\Projects\Tournamenter\Tournamenter_UnitTest\obj\Debug\Tournamenter_UnitTest.dll
 C:\Users\Misiaki\Documents\Visual Studio 2013\Projects\Tournamenter\Tournamenter_UnitTest\obj\Debug\Tournamenter_UnitTest.pdb
+C:\Users\JSkalski.POLAND-AVP\Documents\GitHub\Tournamenter\Tournamenter_UnitTest\bin\Debug\Tournamenter_UnitTest.dll
+C:\Users\JSkalski.POLAND-AVP\Documents\GitHub\Tournamenter\Tournamenter_UnitTest\bin\Debug\Tournamenter_UnitTest.pdb
+C:\Users\JSkalski.POLAND-AVP\Documents\GitHub\Tournamenter\Tournamenter_UnitTest\bin\Debug\Logic.dll
+C:\Users\JSkalski.POLAND-AVP\Documents\GitHub\Tournamenter\Tournamenter_UnitTest\bin\Debug\Logic.pdb
+C:\Users\JSkalski.POLAND-AVP\Documents\GitHub\Tournamenter\Tournamenter_UnitTest\obj\Debug\Tournamenter_UnitTest.csprojResolveAssemblyReference.cache
+C:\Users\JSkalski.POLAND-AVP\Documents\GitHub\Tournamenter\Tournamenter_UnitTest\obj\Debug\Tournamenter_UnitTest.dll
+C:\Users\JSkalski.POLAND-AVP\Documents\GitHub\Tournamenter\Tournamenter_UnitTest\obj\Debug\Tournamenter_UnitTest.pdb

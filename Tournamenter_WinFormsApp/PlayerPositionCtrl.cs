@@ -18,28 +18,59 @@ namespace Tournamenter_WinFormsApp
         public bool PointsEntered { 
             get {
                 if (_player == Player.Empty) return true;
-                return _playerStance != null && _playerStance.PointsEntered; } }
+                return _playerStance != null && _valueEntered; } }
         #endregion
+
+        private enum PlayerPosCtrlMode
+        {
+            NotSet,
+            EnterPlayer,
+            RoundPointsEdit,
+            MatchEndResult
+        }
 
         #region fields
         private Player _player;
-        private PlayerStance _playerStance; 
+        private PlayerStance _playerStance;
+
+        private PlayerPosCtrlMode _workingMode;
+        private bool _valueEntered;
         #endregion
 
         #region ctor
         public PlayerPositionCtrl()
         {
             InitializeComponent();
-        } 
-        #endregion
+
+            SetWorkingMode(PlayerPosCtrlMode.NotSet);
+
+        }
+
+        public PlayerPositionCtrl(PlayerStance playerStance)
+        {
+            InitializeComponent();
+
+            SetWorkingMode(PlayerPosCtrlMode.RoundPointsEdit);
+
+            _playerStance = playerStance;
+            bindSrcPlayerStance.DataSource = _playerStance;
+
+            if (_playerStance == PlayerStance.Empty)
+            {
+                _valueEntered = true;
+                btValEnteredChk.Checked = true;
+            }
+        }
 
         public PlayerPositionCtrl(Player player)
         {
             InitializeComponent();
 
-            if (player != Player.Empty)
-                SetShowPoints(false);
+            SetWorkingMode(PlayerPosCtrlMode.EnterPlayer);
 
+            if (player == null)
+                throw new ArgumentNullException("Null player in control");
+            
             _player = player;
 
             tbImie.Text = _player.Name;
@@ -47,16 +78,28 @@ namespace Tournamenter_WinFormsApp
             tbNazwisko.Text = _player.Surname;
         }
 
-        public PlayerPositionCtrl(PlayerStance playerStance)
+        private void SetWorkingMode(PlayerPosCtrlMode mode)
         {
-            InitializeComponent();
+            _workingMode = mode;
 
-            _playerStance = playerStance;
+            switch (mode)
+            {
+                case PlayerPosCtrlMode.EnterPlayer:
+                    btValEnteredChk.Visible = false;
+                    DisablePointsShow();
+                    break;
 
-            bindSrcPlayerStance.DataSource = _playerStance;
+                case PlayerPosCtrlMode.RoundPointsEdit:
+                    btValEnteredChk.Visible = true;
+                    break;
+
+                case PlayerPosCtrlMode.MatchEndResult:
+                    btValEnteredChk.Visible = false;
+                    break;
+            }
         }
 
-        private void SetShowPoints(bool _showPoints)
+        private void DisablePointsShow()
         {
             SuspendLayout();
 
@@ -67,11 +110,23 @@ namespace Tournamenter_WinFormsApp
             ResumeLayout();
         }
 
+        #endregion
+
         private void labelPosition_TextChanged(object sender, EventArgs e)
         {
             if (labelPosition.Text == "0" || labelPosition.Text == "-1" ||
                 labelPosition.Text == "00" || labelPosition.Text == "-1")
                 labelPosition.Text = "BAY";
+        }
+
+        private void tbSmallPoints_ValueChanged(object sender, EventArgs e)
+        {
+            btValEnteredChk.Enabled = true;
+        }
+
+        private void btValEnteredChk_Click(object sender, EventArgs e)
+        {
+            _valueEntered = btValEnteredChk.Checked;
         }
 
 

@@ -239,10 +239,16 @@ namespace Tournamenter_WinFormsApp
         internal void AddPlayerToMatch(Player player)
         {
             if (_match == null)
+            {
+                MessageBox.Show(this, "No match started. Cannot add player now");
                 return;
+            }
 
             if (_match.Status != MatchStatus.PlayersEnlisting)
+            {
                 MessageBox.Show(this, "Cannot add player now");
+                return;
+            }
 
             if (!_match.AddPlayer(player))
                 MessageBox.Show(this, string.Format("Player {0} is already added to match.", player));

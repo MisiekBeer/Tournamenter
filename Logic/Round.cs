@@ -12,6 +12,7 @@ namespace Logic
         CalculatingPairings,
         RoundStarted,
         RoundClosed,
+        MatchResult
     }
 
     [Serializable]

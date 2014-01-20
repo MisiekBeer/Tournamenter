@@ -58,12 +58,12 @@ namespace Tournamenter_WinFormsApp
             this.kryptonGroupBox1 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
             this.btnEditCancel = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnEditOK = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.infoTextBox = new System.Windows.Forms.TextBox();
-            this.tagTextBox = new System.Windows.Forms.TextBox();
-            this.nickTextBox = new System.Windows.Forms.TextBox();
-            this.surnameTextBox = new System.Windows.Forms.TextBox();
-            this.nameTextBox = new System.Windows.Forms.TextBox();
-            this.playerIdTextBox = new System.Windows.Forms.TextBox();
+            this.infoTextBox = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.tagTextBox = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.nickTextBox = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.surnameTextBox = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.nameTextBox = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.playerIdTextBox = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.toolStripContainer2 = new System.Windows.Forms.ToolStripContainer();
             this.toolStripContainer3 = new System.Windows.Forms.ToolStripContainer();
             this.checkSet = new ComponentFactory.Krypton.Toolkit.KryptonCheckSet(this.components);
@@ -450,11 +450,12 @@ namespace Tournamenter_WinFormsApp
             // 
             // playerIdTextBox
             // 
+            this.playerIdTextBox.Enabled = false;
             this.playerIdTextBox.Location = new System.Drawing.Point(103, 20);
             this.playerIdTextBox.Name = "playerIdTextBox";
             this.playerIdTextBox.ReadOnly = true;
             this.playerIdTextBox.Size = new System.Drawing.Size(141, 20);
-            this.playerIdTextBox.TabIndex = 0;
+            this.playerIdTextBox.TabIndex = 100;
             this.playerIdTextBox.TabStop = false;
             // 
             // toolStripContainer2
@@ -571,12 +572,12 @@ namespace Tournamenter_WinFormsApp
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel;
         private System.Windows.Forms.DataGridView dgvPlayers;
         private ComponentFactory.Krypton.Toolkit.KryptonGroupBox kryptonGroupBox1;
-        private System.Windows.Forms.TextBox infoTextBox;
-        private System.Windows.Forms.TextBox tagTextBox;
-        private System.Windows.Forms.TextBox nickTextBox;
-        private System.Windows.Forms.TextBox surnameTextBox;
-        private System.Windows.Forms.TextBox nameTextBox;
-        private System.Windows.Forms.TextBox playerIdTextBox;
+        private ComponentFactory.Krypton.Toolkit.KryptonTextBox infoTextBox;
+        private ComponentFactory.Krypton.Toolkit.KryptonTextBox tagTextBox;
+        private ComponentFactory.Krypton.Toolkit.KryptonTextBox nickTextBox;
+        private ComponentFactory.Krypton.Toolkit.KryptonTextBox surnameTextBox;
+        private ComponentFactory.Krypton.Toolkit.KryptonTextBox nameTextBox;
+        private ComponentFactory.Krypton.Toolkit.KryptonTextBox playerIdTextBox;
         private System.Windows.Forms.ToolStripContainer toolStripContainer2;
         private System.Windows.Forms.ToolStripContainer toolStripContainer3;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnAddToMatch;

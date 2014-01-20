@@ -29,9 +29,10 @@ namespace Tournamenter_WinFormsApp
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Label pointsForBayLabel;
-            System.Windows.Forms.Label roundCountLabel;
-            System.Windows.Forms.Label walkowerPointsLabel;
+            ComponentFactory.Krypton.Toolkit.KryptonLabel pointsForBayLabel;
+            ComponentFactory.Krypton.Toolkit.KryptonLabel roundCountLabel;
+            ComponentFactory.Krypton.Toolkit.KryptonLabel walkowerPointsLabel;
+            ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
             this.kryptonPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.settingsGroupBox = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
             this.kryptonGroupBox1 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
@@ -41,14 +42,16 @@ namespace Tournamenter_WinFormsApp
             this.pointsForBayTextBox = new ComponentFactory.Krypton.Toolkit.KryptonNumericUpDown();
             this.walkowerPointsTextBox = new ComponentFactory.Krypton.Toolkit.KryptonNumericUpDown();
             this.roundCountTextBox = new ComponentFactory.Krypton.Toolkit.KryptonNumericUpDown();
+            this.kryptonNumericUpDown1 = new ComponentFactory.Krypton.Toolkit.KryptonNumericUpDown();
             this.matchSettingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.minPointsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.maxPointsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WinPts = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LoosePts = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            pointsForBayLabel = new System.Windows.Forms.Label();
-            roundCountLabel = new System.Windows.Forms.Label();
-            walkowerPointsLabel = new System.Windows.Forms.Label();
+            pointsForBayLabel = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            roundCountLabel = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            walkowerPointsLabel = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel)).BeginInit();
             this.kryptonPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.settingsGroupBox)).BeginInit();
@@ -66,30 +69,27 @@ namespace Tournamenter_WinFormsApp
             // 
             // pointsForBayLabel
             // 
-            pointsForBayLabel.AutoSize = true;
             pointsForBayLabel.Location = new System.Drawing.Point(193, 24);
             pointsForBayLabel.Name = "pointsForBayLabel";
-            pointsForBayLabel.Size = new System.Drawing.Size(78, 13);
+            pointsForBayLabel.Size = new System.Drawing.Size(90, 20);
             pointsForBayLabel.TabIndex = 0;
-            pointsForBayLabel.Text = "Points For Bay:";
+            pointsForBayLabel.Values.Text = "Points For Bay:";
             // 
             // roundCountLabel
             // 
-            roundCountLabel.AutoSize = true;
             roundCountLabel.Location = new System.Drawing.Point(10, 24);
             roundCountLabel.Name = "roundCountLabel";
-            roundCountLabel.Size = new System.Drawing.Size(73, 13);
+            roundCountLabel.Size = new System.Drawing.Size(86, 20);
             roundCountLabel.TabIndex = 4;
-            roundCountLabel.Text = "Round Count:";
+            roundCountLabel.Values.Text = "Round Count:";
             // 
             // walkowerPointsLabel
             // 
-            walkowerPointsLabel.AutoSize = true;
             walkowerPointsLabel.Location = new System.Drawing.Point(193, 62);
             walkowerPointsLabel.Name = "walkowerPointsLabel";
-            walkowerPointsLabel.Size = new System.Drawing.Size(90, 13);
+            walkowerPointsLabel.Size = new System.Drawing.Size(104, 20);
             walkowerPointsLabel.TabIndex = 6;
-            walkowerPointsLabel.Text = "Walkower Points:";
+            walkowerPointsLabel.Values.Text = "Walkower Points:";
             // 
             // kryptonPanel
             // 
@@ -108,6 +108,8 @@ namespace Tournamenter_WinFormsApp
             // 
             // settingsGroupBox.Panel
             // 
+            this.settingsGroupBox.Panel.Controls.Add(this.kryptonNumericUpDown1);
+            this.settingsGroupBox.Panel.Controls.Add(kryptonLabel1);
             this.settingsGroupBox.Panel.Controls.Add(this.kryptonGroupBox1);
             this.settingsGroupBox.Panel.Controls.Add(this.btnOK);
             this.settingsGroupBox.Panel.Controls.Add(pointsForBayLabel);
@@ -172,20 +174,21 @@ namespace Tournamenter_WinFormsApp
             // pointsForBayTextBox
             // 
             this.pointsForBayTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.matchSettingsBindingSource, "PointsForBay", true));
-            this.pointsForBayTextBox.Location = new System.Drawing.Point(288, 21);
+            this.pointsForBayTextBox.Location = new System.Drawing.Point(303, 21);
             this.pointsForBayTextBox.Maximum = new decimal(new int[] {
             25,
             0,
             0,
             0});
             this.pointsForBayTextBox.Name = "pointsForBayTextBox";
-            this.pointsForBayTextBox.Size = new System.Drawing.Size(80, 22);
+            this.pointsForBayTextBox.Size = new System.Drawing.Size(65, 22);
             this.pointsForBayTextBox.TabIndex = 1;
+            this.pointsForBayTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // walkowerPointsTextBox
             // 
             this.walkowerPointsTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.matchSettingsBindingSource, "WalkowerPoints", true));
-            this.walkowerPointsTextBox.Location = new System.Drawing.Point(288, 59);
+            this.walkowerPointsTextBox.Location = new System.Drawing.Point(303, 59);
             this.walkowerPointsTextBox.Maximum = new decimal(new int[] {
             25,
             0,
@@ -197,8 +200,9 @@ namespace Tournamenter_WinFormsApp
             0,
             0});
             this.walkowerPointsTextBox.Name = "walkowerPointsTextBox";
-            this.walkowerPointsTextBox.Size = new System.Drawing.Size(80, 22);
+            this.walkowerPointsTextBox.Size = new System.Drawing.Size(65, 22);
             this.walkowerPointsTextBox.TabIndex = 7;
+            this.walkowerPointsTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.walkowerPointsTextBox.Value = new decimal(new int[] {
             1,
             0,
@@ -208,7 +212,7 @@ namespace Tournamenter_WinFormsApp
             // roundCountTextBox
             // 
             this.roundCountTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.matchSettingsBindingSource, "RoundCount", true));
-            this.roundCountTextBox.Location = new System.Drawing.Point(101, 21);
+            this.roundCountTextBox.Location = new System.Drawing.Point(116, 21);
             this.roundCountTextBox.Maximum = new decimal(new int[] {
             10,
             0,
@@ -220,10 +224,38 @@ namespace Tournamenter_WinFormsApp
             0,
             0});
             this.roundCountTextBox.Name = "roundCountTextBox";
-            this.roundCountTextBox.Size = new System.Drawing.Size(80, 22);
+            this.roundCountTextBox.Size = new System.Drawing.Size(65, 22);
             this.roundCountTextBox.TabIndex = 5;
+            this.roundCountTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.roundCountTextBox.Value = new decimal(new int[] {
             1,
+            0,
+            0,
+            0});
+            // 
+            // kryptonLabel1
+            // 
+            kryptonLabel1.Location = new System.Drawing.Point(10, 62);
+            kryptonLabel1.Name = "kryptonLabel1";
+            kryptonLabel1.Size = new System.Drawing.Size(84, 20);
+            kryptonLabel1.TabIndex = 11;
+            kryptonLabel1.Values.Text = "Tables Count:";
+            // 
+            // kryptonNumericUpDown1
+            // 
+            this.kryptonNumericUpDown1.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.matchSettingsBindingSource, "TablesCount", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.kryptonNumericUpDown1.Location = new System.Drawing.Point(116, 62);
+            this.kryptonNumericUpDown1.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.kryptonNumericUpDown1.Name = "kryptonNumericUpDown1";
+            this.kryptonNumericUpDown1.Size = new System.Drawing.Size(65, 22);
+            this.kryptonNumericUpDown1.TabIndex = 12;
+            this.kryptonNumericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.kryptonNumericUpDown1.Value = new decimal(new int[] {
+            2,
             0,
             0,
             0});
@@ -238,7 +270,7 @@ namespace Tournamenter_WinFormsApp
             this.minPointsDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.minPointsDataGridViewTextBoxColumn.DataPropertyName = "MinPoints";
             this.minPointsDataGridViewTextBoxColumn.FillWeight = 25F;
-            this.minPointsDataGridViewTextBoxColumn.HeaderText = "MinPoints";
+            this.minPointsDataGridViewTextBoxColumn.HeaderText = "Min Points";
             this.minPointsDataGridViewTextBoxColumn.Name = "minPointsDataGridViewTextBoxColumn";
             this.minPointsDataGridViewTextBoxColumn.ReadOnly = true;
             // 
@@ -247,7 +279,7 @@ namespace Tournamenter_WinFormsApp
             this.maxPointsDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.maxPointsDataGridViewTextBoxColumn.DataPropertyName = "MaxPoints";
             this.maxPointsDataGridViewTextBoxColumn.FillWeight = 25F;
-            this.maxPointsDataGridViewTextBoxColumn.HeaderText = "MaxPoints";
+            this.maxPointsDataGridViewTextBoxColumn.HeaderText = "Max Points";
             this.maxPointsDataGridViewTextBoxColumn.Name = "maxPointsDataGridViewTextBoxColumn";
             this.maxPointsDataGridViewTextBoxColumn.ReadOnly = true;
             // 
@@ -256,7 +288,7 @@ namespace Tournamenter_WinFormsApp
             this.WinPts.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.WinPts.DataPropertyName = "WinPts";
             this.WinPts.FillWeight = 25F;
-            this.WinPts.HeaderText = "WinPts";
+            this.WinPts.HeaderText = "Winner Pts";
             this.WinPts.Name = "WinPts";
             this.WinPts.ReadOnly = true;
             // 
@@ -265,7 +297,7 @@ namespace Tournamenter_WinFormsApp
             this.LoosePts.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.LoosePts.DataPropertyName = "LoosePts";
             this.LoosePts.FillWeight = 25F;
-            this.LoosePts.HeaderText = "LoosePts";
+            this.LoosePts.HeaderText = "Looser Pts";
             this.LoosePts.Name = "LoosePts";
             this.LoosePts.ReadOnly = true;
             // 
@@ -312,6 +344,7 @@ namespace Tournamenter_WinFormsApp
         private ComponentFactory.Krypton.Toolkit.KryptonGroupBox kryptonGroupBox1;
         private System.Windows.Forms.DataGridView dgvPointRanges;
         private System.Windows.Forms.BindingSource pointRangesBindingSource;
+        private ComponentFactory.Krypton.Toolkit.KryptonNumericUpDown kryptonNumericUpDown1;
         private System.Windows.Forms.DataGridViewTextBoxColumn minPointsDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn maxPointsDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn WinPts;

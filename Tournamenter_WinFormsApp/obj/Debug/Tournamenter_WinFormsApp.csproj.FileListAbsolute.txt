@@ -30,3 +30,19 @@ C:\Users\Misiaki\Documents\Visual Studio 2013\Projects\Tournamenter\Tournamenter
 C:\Users\Misiaki\Documents\Visual Studio 2013\Projects\Tournamenter\Tournamenter_WinFormsApp\obj\Debug\Tournamenter_WinFormsApp.VsCtrl.resources
 C:\Users\Misiaki\Documents\Visual Studio 2013\Projects\Tournamenter\Tournamenter_WinFormsApp\obj\Debug\Tournamenter_WinFormsApp.RoundCtrl.resources
 C:\Users\Misiaki\Documents\Visual Studio 2013\Projects\Tournamenter\Tournamenter_WinFormsApp\obj\Debug\Tournamenter_WinFormsApp.csproj.GenerateResource.Cache
+C:\Users\JSkalski.POLAND-AVP\Documents\GitHub\Tournamenter\Tournamenter_WinFormsApp\bin\Debug\Tournamenter_WinFormsApp.exe.config
+C:\Users\JSkalski.POLAND-AVP\Documents\GitHub\Tournamenter\Tournamenter_WinFormsApp\bin\Debug\Tournamenter_WinFormsApp.exe
+C:\Users\JSkalski.POLAND-AVP\Documents\GitHub\Tournamenter\Tournamenter_WinFormsApp\bin\Debug\Tournamenter_WinFormsApp.pdb
+C:\Users\JSkalski.POLAND-AVP\Documents\GitHub\Tournamenter\Tournamenter_WinFormsApp\bin\Debug\Logic.dll
+C:\Users\JSkalski.POLAND-AVP\Documents\GitHub\Tournamenter\Tournamenter_WinFormsApp\bin\Debug\Logic.pdb
+C:\Users\JSkalski.POLAND-AVP\Documents\GitHub\Tournamenter\Tournamenter_WinFormsApp\obj\Debug\Tournamenter_WinFormsApp.csprojResolveAssemblyReference.cache
+C:\Users\JSkalski.POLAND-AVP\Documents\GitHub\Tournamenter\Tournamenter_WinFormsApp\obj\Debug\Tournamenter_WinFormsApp.MainForm.resources
+C:\Users\JSkalski.POLAND-AVP\Documents\GitHub\Tournamenter\Tournamenter_WinFormsApp\obj\Debug\Tournamenter_WinFormsApp.MatchSettingsFrm.resources
+C:\Users\JSkalski.POLAND-AVP\Documents\GitHub\Tournamenter\Tournamenter_WinFormsApp\obj\Debug\Tournamenter_WinFormsApp.PlayerListFrm.resources
+C:\Users\JSkalski.POLAND-AVP\Documents\GitHub\Tournamenter\Tournamenter_WinFormsApp\obj\Debug\Tournamenter_WinFormsApp.PlayerPositionCtrl.resources
+C:\Users\JSkalski.POLAND-AVP\Documents\GitHub\Tournamenter\Tournamenter_WinFormsApp\obj\Debug\Tournamenter_WinFormsApp.Properties.Resources.resources
+C:\Users\JSkalski.POLAND-AVP\Documents\GitHub\Tournamenter\Tournamenter_WinFormsApp\obj\Debug\Tournamenter_WinFormsApp.VsCtrl.resources
+C:\Users\JSkalski.POLAND-AVP\Documents\GitHub\Tournamenter\Tournamenter_WinFormsApp\obj\Debug\Tournamenter_WinFormsApp.RoundCtrl.resources
+C:\Users\JSkalski.POLAND-AVP\Documents\GitHub\Tournamenter\Tournamenter_WinFormsApp\obj\Debug\Tournamenter_WinFormsApp.csproj.GenerateResource.Cache
+C:\Users\JSkalski.POLAND-AVP\Documents\GitHub\Tournamenter\Tournamenter_WinFormsApp\obj\Debug\Tournamenter_WinFormsApp.exe
+C:\Users\JSkalski.POLAND-AVP\Documents\GitHub\Tournamenter\Tournamenter_WinFormsApp\obj\Debug\Tournamenter_WinFormsApp.pdb

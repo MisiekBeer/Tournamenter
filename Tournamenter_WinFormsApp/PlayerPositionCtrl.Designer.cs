@@ -35,13 +35,14 @@
             this.tbKsywa = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.tbImie = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.groupPunkty = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
+            this.btValEnteredChk = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
             this.labelPosition = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.tbTotalBigPoints = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.kryptonLabel4 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.tbBigPoints = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.kryptonLabel3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.tbSmallPoints = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.tbSmallPoints = new ComponentFactory.Krypton.Toolkit.KryptonNumericUpDown();
             this.tbTotalSmallPoints = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.bindSrcPlayerStance = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).BeginInit();
@@ -133,6 +134,7 @@
             // 
             // groupPunkty.Panel
             // 
+            this.groupPunkty.Panel.Controls.Add(this.btValEnteredChk);
             this.groupPunkty.Panel.Controls.Add(this.labelPosition);
             this.groupPunkty.Panel.Controls.Add(this.kryptonLabel2);
             this.groupPunkty.Panel.Controls.Add(this.tbTotalBigPoints);
@@ -145,6 +147,16 @@
             this.groupPunkty.TabIndex = 12;
             this.groupPunkty.Text = "Position:\r\n\r\nPoints:\r\n";
             this.groupPunkty.Values.Heading = "Position:\r\n\r\nPoints:\r\n";
+            // 
+            // btValEnteredChk
+            // 
+            this.btValEnteredChk.Enabled = false;
+            this.btValEnteredChk.Location = new System.Drawing.Point(163, 36);
+            this.btValEnteredChk.Name = "btValEnteredChk";
+            this.btValEnteredChk.Size = new System.Drawing.Size(32, 25);
+            this.btValEnteredChk.TabIndex = 11;
+            this.btValEnteredChk.Values.Text = "Ok";
+            this.btValEnteredChk.Click += new System.EventHandler(this.btValEnteredChk_Click);
             // 
             // labelPosition
             // 
@@ -174,7 +186,7 @@
             this.tbTotalBigPoints.AlwaysActive = false;
             this.tbTotalBigPoints.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindSrcPlayerStance, "TotalBigVP", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null, "N0"));
             this.tbTotalBigPoints.Enabled = false;
-            this.tbTotalBigPoints.Location = new System.Drawing.Point(204, 65);
+            this.tbTotalBigPoints.Location = new System.Drawing.Point(216, 65);
             this.tbTotalBigPoints.MaxLength = 7;
             this.tbTotalBigPoints.Name = "tbTotalBigPoints";
             this.tbTotalBigPoints.Palette = this.palettePlayer;
@@ -201,7 +213,7 @@
             this.tbBigPoints.AlwaysActive = false;
             this.tbBigPoints.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindSrcPlayerStance, "BigVP", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null, "N0"));
             this.tbBigPoints.Enabled = false;
-            this.tbBigPoints.Location = new System.Drawing.Point(204, 35);
+            this.tbBigPoints.Location = new System.Drawing.Point(216, 36);
             this.tbBigPoints.MaxLength = 6;
             this.tbBigPoints.Name = "tbBigPoints";
             this.tbBigPoints.Palette = this.palettePlayer;
@@ -226,28 +238,27 @@
             // 
             this.tbSmallPoints.AlwaysActive = false;
             this.tbSmallPoints.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindSrcPlayerStance, "SmallVP", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null, "N0"));
-            this.tbSmallPoints.Location = new System.Drawing.Point(95, 35);
-            this.tbSmallPoints.MaxLength = 6;
+            this.tbSmallPoints.Location = new System.Drawing.Point(84, 35);
             this.tbSmallPoints.Name = "tbSmallPoints";
             this.tbSmallPoints.Palette = this.palettePlayer;
             this.tbSmallPoints.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
-            this.tbSmallPoints.Size = new System.Drawing.Size(78, 26);
+            this.tbSmallPoints.Size = new System.Drawing.Size(73, 28);
             this.tbSmallPoints.TabIndex = 3;
-            this.tbSmallPoints.Text = "MP";
-            this.tbSmallPoints.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbSmallPoints.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbSmallPoints.ValueChanged += new System.EventHandler(this.tbSmallPoints_ValueChanged);
             // 
             // tbTotalSmallPoints
             // 
             this.tbTotalSmallPoints.AlwaysActive = false;
             this.tbTotalSmallPoints.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindSrcPlayerStance, "TotalSmallVP", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null, "N0"));
             this.tbTotalSmallPoints.Enabled = false;
-            this.tbTotalSmallPoints.Location = new System.Drawing.Point(95, 65);
+            this.tbTotalSmallPoints.Location = new System.Drawing.Point(84, 65);
             this.tbTotalSmallPoints.MaxLength = 7;
             this.tbTotalSmallPoints.Name = "tbTotalSmallPoints";
             this.tbTotalSmallPoints.Palette = this.palettePlayer;
             this.tbTotalSmallPoints.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
             this.tbTotalSmallPoints.ReadOnly = true;
-            this.tbTotalSmallPoints.Size = new System.Drawing.Size(78, 26);
+            this.tbTotalSmallPoints.Size = new System.Drawing.Size(73, 26);
             this.tbTotalSmallPoints.StateCommon.Content.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.tbTotalSmallPoints.TabIndex = 6;
             this.tbTotalSmallPoints.Text = "MP SUM";
@@ -294,10 +305,11 @@
         private ComponentFactory.Krypton.Toolkit.KryptonTextBox tbBigPoints;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel2;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel3;
-        private ComponentFactory.Krypton.Toolkit.KryptonTextBox tbSmallPoints;
+        private ComponentFactory.Krypton.Toolkit.KryptonNumericUpDown tbSmallPoints;
         private ComponentFactory.Krypton.Toolkit.KryptonTextBox tbTotalSmallPoints;
         private ComponentFactory.Krypton.Toolkit.KryptonPalette palettePlayer;
         private System.Windows.Forms.BindingSource bindSrcPlayerStance;
+        private ComponentFactory.Krypton.Toolkit.KryptonCheckButton btValEnteredChk;
 
 
     }

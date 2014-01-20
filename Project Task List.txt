@@ -1,9 +1,12 @@
 ==============================================
 Winforms
+
+TODO:
 _______________
 
--Add Tables repeat verification for players
 -Check for all points entered condition on round closing
+
+-Add Tables repeat verification for players
 
 
 -Match end messages
@@ -16,5 +19,11 @@ _______________
 
 
 -General testing
+
+DONE:
+__________________
+
+
+___________________
 
 ==============================================

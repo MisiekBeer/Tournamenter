@@ -65,8 +65,6 @@ namespace Logic
             set { tablesCount = value; OnPropertyChanged(PropNames.TablesCount); }
         }
 
-
-
         public static class PropNames
         {
             public const string PointsForDraw = "PointsForDraw";
