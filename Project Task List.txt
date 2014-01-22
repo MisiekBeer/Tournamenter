@@ -4,11 +4,11 @@ Winforms
 TODO:
 _______________
 
--Proper match end points
 -Match end messages
 
 
 -Add Tables repeat verification for players
+-Remove player from match/ walkover
 
 -Match resut/State saving/loading to xml files
 
@@ -23,6 +23,7 @@ DONE:
 __________________
 
 -Check for all points entered condition on round closing
+-Proper match end points
 ___________________
 
 ==============================================

@@ -29,6 +29,11 @@ namespace Logic
         }
 
         public bool IsBay { get { return Player1 == PlayerStance.Empty || Player2 == PlayerStance.Empty; } }
+
+        public override string ToString()
+        {
+            return string.Concat(Player1.ToString(), " vs ", Player2.ToString());
+        }
     }
 
     [Serializable]
@@ -110,11 +115,19 @@ namespace Logic
         /// Final Player List
         /// </summary>
         /// <param name="playerPlaces"></param>
-        public Round(List<PlayerStance> playerPlaces) : this()
+        public Round(List<PlayerStance> finalPlaces) : this()
         {
-            PlayerPlaces.AddRange(playerPlaces);
+            foreach (PlayerStance place in finalPlaces)
+            {
+                PlayerPlaces.Add(new PlayerStance(place));
+            }
             PlayerPlaces.Remove(PlayerStance.Empty); //remove bay player
             PlayerPlaces.Sort();
+
+            foreach (PlayerStance place in PlayerPlaces)
+            {
+                place.Place = playerPlaces.IndexOf(place) + 1;
+            }
         } 
         #endregion
 
@@ -128,8 +141,7 @@ namespace Logic
         {
             Status = RoundStatus.CalculatingPairings;
 
-            players = new List<Player>(players);
-            players.Randomize();
+            players = new List<Player>(players.Randomize());
 
             int place = 1;
             int tableNumber = 1;
@@ -162,9 +174,9 @@ namespace Logic
             {
                 player1 = players.First();
                 players.RemoveAt(0);
-
+                //BAY playa 
                 player1_Stance = new PlayerStance(player1, Player.Empty) { 
-                    Place = place, TableNumber = -1 };
+                    Place = place, TableNumber = -1, BigVP = 10, IsBay = true };
                 place++;
                 player2_Stance = PlayerStance.Empty;
                 place++;
@@ -205,12 +217,12 @@ namespace Logic
             {
                 newPairs.Add(new PlayerPair(
                     new PlayerStance(places[0]) {
-						Place = ++place,
-						TableNumber = -1,
-						OponentId = Player.EmptyPlayerId,
-						IsBuy = true,
-						BigVP = Match.Settings.PointsForBay
-					}, 
+                        Place = ++place,
+                        TableNumber = -1,
+                        OponentId = Player.EmptyPlayerId,
+                        IsBay = true,
+                        BigVP = Match.Settings.PointsForBay
+                    }, 
                     PlayerStance.Empty));
             }
             return newPairs;
@@ -300,13 +312,13 @@ namespace Logic
                 {
                     if (stance1 != PlayerStance.Empty)
                     {
-						stance1.IsBuy = true;
+                        stance1.IsBay = true;
                         stance1.SmallVP = 0;
                         stance1.BigVP = Match.Settings.PointsForBay;
                     }
                     if (stance2 != PlayerStance.Empty)
                     {
-						stance2.IsBuy = true;
+                        stance2.IsBay = true;
                         stance2.SmallVP = 0;
                         stance2.BigVP = Match.Settings.PointsForBay;
                     }
@@ -333,12 +345,23 @@ namespace Logic
             }
         }
 
+        /// <summary>
+        /// Generates final result for display as round
+        /// </summary>
+        /// <returns></returns>
         internal Round CloseMatchEndRound()
         {
-			UpdateBigPoints();
+            UpdateBigPoints();
+
+            List<PlayerStance> finalPlaces = new List<PlayerStance>(PlayerPlaces);
+            foreach (PlayerPair pair in PlayerPairs)
+            {
+                finalPlaces.Add(pair.Player1);
+                finalPlaces.Add(pair.Player2);
+            }
+
             Round lastRound = new Round(this.PlayerPlaces){ 
                 Number = this.Number + 1, Match = this.Match, Status = RoundStatus.MatchResult};
-			lastRound.PlayerPlaces.Reverse();
             
             return lastRound;
         }

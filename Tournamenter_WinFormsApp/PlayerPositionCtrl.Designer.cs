@@ -169,7 +169,6 @@
             this.labelPosition.StateCommon.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelPosition.TabIndex = 5;
             this.labelPosition.Values.Text = "01";
-            this.labelPosition.TextChanged += new System.EventHandler(this.labelPosition_TextChanged);
             // 
             // kryptonLabel2
             // 

@@ -103,12 +103,12 @@ namespace Logic
             set { tableNumber = value; OnPropertyChanged(PropNames.TableNumber); }
         }
 
-		private bool isBuy;
-		public bool IsBuy
-		{
-			get { return isBuy; }
-			set { isBuy = value; OnPropertyChanged(PropNames.IsBuy); }
-		}
+        private bool isBay;
+        public bool IsBay
+        {
+            get { return isBay; }
+            set { isBay = value; OnPropertyChanged(PropNames.IsBay); }
+        }
 
         
         public static class PropNames
@@ -124,7 +124,7 @@ namespace Logic
             //public const string Round = "MatchRound";
             public const string Player = "Player";
             public const string TableNumber = "TableNumber";
-			public const string IsBuy = "IsBuy";
+            public const string IsBay = "IsBay";
         }
 
         public static readonly PlayerStance Empty = new PlayerStance() { Player = Player.Empty };
@@ -158,14 +158,12 @@ namespace Logic
         /// <summary>
         /// Creates new stance for next round
         /// </summary>
-        /// <param name="playerStance"></param>
-        public PlayerStance(PlayerStance playerStance)
+        /// <param name="lastStance"></param>
+        public PlayerStance(PlayerStance lastStance)
         {
-            PlayerId = playerStance.PlayerId;
-            TotalBigVP = playerStance.TotalBigVP + playerStance.BigVP;
-            TotalSmallVP = playerStance.TotalSmallVP + playerStance.SmallVP;
-            BigVP = 0;
-            SmallVP = 0;
+            PlayerId = lastStance.PlayerId;
+            TotalBigVP = lastStance.TotalBigVP + lastStance.BigVP;
+            TotalSmallVP = lastStance.TotalSmallVP + lastStance.SmallVP;
         }
         #endregion
 
@@ -181,13 +179,13 @@ namespace Logic
             return base.Equals(obj);
         }
 
-		public override int GetHashCode()
-		{
-			if (playerId == Player.EmptyPlayerId)
-				return Player.EmptyPlayerId.GetHashCode();
+        public override int GetHashCode()
+        {
+            if (playerId == Player.EmptyPlayerId)
+                return Player.EmptyPlayerId.GetHashCode();
 
-			return base.GetHashCode();
-		}
+            return base.GetHashCode();
+        }
 
         public override string ToString()
         {

@@ -32,7 +32,8 @@ namespace Tournamenter_WinFormsApp
             player2.Location = new Point(0, player1.Height + 4);
             vsGroup.Panel.Controls.Add(player2);
 
-            vsGroup.ValuesSecondary.Heading = string.Format("Table: {0}", player1.Stance.TableNumber.ToString());
+            vsGroup.ValuesSecondary.Heading = string.Format("Table: {0}", 
+                player1.Stance.TableNumber > 0 ? player1.Stance.TableNumber.ToString() : "BAY");
             vsGroup.ValuesPrimary.Heading = string.Format("{1}  VS  {0}", player1.Stance.Player.Nick, player2.Stance.Player.Nick);
 
             ResumeLayout();

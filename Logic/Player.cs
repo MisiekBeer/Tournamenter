@@ -98,10 +98,10 @@ namespace Logic
             return (player.playerId == this.playerId);
         }
 
-		public override int GetHashCode()
-		{
-			return this.playerId;
-		}
+        public override int GetHashCode()
+        {
+            return this.playerId;
+        }
 
         public override string ToString()
         {

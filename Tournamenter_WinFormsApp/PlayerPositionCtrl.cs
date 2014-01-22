@@ -68,13 +68,13 @@ namespace Tournamenter_WinFormsApp
                 DisablePointsShow();
             }
 
-			if (_playerStance.IsBuy)
-			{
-				_valueEntered = true;
-				btValEnteredChk.Checked = true;
-				tbSmallPoints.Enabled = false;
-				tbBigPoints.Text = "10";
-			}
+            if (_playerStance.IsBay)
+            {
+                _valueEntered = true;
+                btValEnteredChk.Checked = true;
+                tbSmallPoints.Enabled = false;
+                tbBigPoints.Text = "10";
+            }
         }
 
         public PlayerPositionCtrl(Player player)
@@ -112,6 +112,8 @@ namespace Tournamenter_WinFormsApp
 
                 case PlayerPosCtrlMode.MatchEndResult:
                     btValEnteredChk.Visible = false;
+                    tbSmallPoints.Visible = false;
+                    tbBigPoints.Visible = false;
                     break;
             }
         }
@@ -128,13 +130,6 @@ namespace Tournamenter_WinFormsApp
         }
 
         #endregion
-
-        private void labelPosition_TextChanged(object sender, EventArgs e)
-        {
-            if (labelPosition.Text == "0" || labelPosition.Text == "-1" ||
-                labelPosition.Text == "00" || labelPosition.Text == "-1")
-                labelPosition.Text = "BAY";
-        }
 
         private void tbSmallPoints_ValueChanged(object sender, EventArgs e)
         {
