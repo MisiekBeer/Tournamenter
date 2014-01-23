@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Xml.Serialization;
 
 namespace Logic
 {
@@ -18,9 +19,14 @@ namespace Logic
     [Serializable]
     public class PlayerPair
     {
-        public PlayerStance Player1 { get; private set; }
+        public PlayerStance Player1 { get; set; }
 
-        public PlayerStance Player2 { get; private set; }
+        public PlayerStance Player2 { get; set; }
+
+        public PlayerPair()
+        {
+
+        }
 
         public PlayerPair(PlayerStance player1, PlayerStance player2)
         {
@@ -39,8 +45,9 @@ namespace Logic
     [Serializable]
     public class Round : BaseLogicClass
     {
-        #region properties
+        #region Properties
 
+        #region Serializable
         private RoundStatus status;
         public RoundStatus Status
         {
@@ -54,7 +61,7 @@ namespace Logic
             get { return number; }
             set { number = value; OnPropertyChanged(PropNames.Number); }
         }
-        
+
         private List<PlayerStance> playerPlaces;
         public List<PlayerStance> PlayerPlaces
         {
@@ -66,8 +73,9 @@ namespace Logic
         public List<PlayerPair> PlayerPairs
         {
             get { return playerPairs; }
-            private set { playerPairs = value; }
-        }
+            set { playerPairs = value; }
+        } 
+        #endregion
 
         public static class PropNames
         {
@@ -82,6 +90,7 @@ namespace Logic
             get { return playerPlaces.All(n => n.PointsEntered); }
         }
 
+        [XmlIgnore]
         public Match Match { get; set; }
         #endregion
 
@@ -132,6 +141,7 @@ namespace Logic
         #endregion
 
         #region methods
+
         public override string ToString()
         {
             return string.Format("Round number: {0}", Number);

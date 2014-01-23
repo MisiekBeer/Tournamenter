@@ -54,8 +54,8 @@ namespace Tournamenter_WinFormsApp
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.startMatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeRoundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.matchSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.matchSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveRoundStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -292,6 +292,11 @@ namespace Tournamenter_WinFormsApp
             this.closeRoundToolStripMenuItem.Text = "Close round";
             this.closeRoundToolStripMenuItem.Click += new System.EventHandler(this.closeRoundToolStripMenuItem_Click);
             // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(150, 6);
+            // 
             // matchSettingsToolStripMenuItem
             // 
             this.matchSettingsToolStripMenuItem.Name = "matchSettingsToolStripMenuItem";
@@ -299,11 +304,6 @@ namespace Tournamenter_WinFormsApp
             this.matchSettingsToolStripMenuItem.Text = "Match Settings";
             this.matchSettingsToolStripMenuItem.Visible = false;
             this.matchSettingsToolStripMenuItem.Click += new System.EventHandler(this.matchSettingsToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(150, 6);
             // 
             // toolsToolStripMenuItem
             // 
@@ -327,6 +327,7 @@ namespace Tournamenter_WinFormsApp
             this.saveRoundStatusToolStripMenuItem.Name = "saveRoundStatusToolStripMenuItem";
             this.saveRoundStatusToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.saveRoundStatusToolStripMenuItem.Text = "Save round status";
+            this.saveRoundStatusToolStripMenuItem.Click += new System.EventHandler(this.saveRoundStatusToolStripMenuItem_Click);
             // 
             // toolStripSeparator6
             // 

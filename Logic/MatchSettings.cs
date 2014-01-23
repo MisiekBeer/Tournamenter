@@ -9,10 +9,10 @@ namespace Logic
     [Serializable]
     public class PointsDiffRange
     {
-        public int MinPoints { get; internal set; }
-        public int MaxPoints { get; internal set; }
-        public int WinPts { get; internal set; }
-        public int LoosePts { get; internal set; }
+        public int MinPoints { get; set; }
+        public int MaxPoints { get; set; }
+        public int WinPts { get; set; }
+        public int LoosePts { get; set; }
     }
 
 
@@ -48,7 +48,7 @@ namespace Logic
         public List<PointsDiffRange> PointRanges 
         {
             get { return pointRanges; }
-            private set { pointRanges = value; OnPropertyChanged(PropNames.PointRanges); }
+            set { pointRanges = value; OnPropertyChanged(PropNames.PointRanges); }
         }
 
         private TimeSpan roundTime;

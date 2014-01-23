@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Logic
 {
@@ -31,7 +33,7 @@ namespace Logic
         public MatchStatus Status
         {
             get { return status; }
-            private set { status = value; OnPropertyChanged(PropNames.Status);
+            set { status = value; OnPropertyChanged(PropNames.Status);
                 if (MatchStatusChanged != null) MatchStatusChanged(this, value);
             }
         }
@@ -47,14 +49,14 @@ namespace Logic
         public DateTime MatchDate
         {
             get { return matchDate; }
-            private set { matchDate = value; OnPropertyChanged(PropNames.MatchDate); }
+            set { matchDate = value; OnPropertyChanged(PropNames.MatchDate); }
         }
 
         private MatchSettings settings;
         public MatchSettings Settings
         {
             get { return settings; }
-            private set { settings = value; OnPropertyChanged(PropNames.Settings); }
+            set { settings = value; OnPropertyChanged(PropNames.Settings); }
         }
 
         private List<Player> players;
@@ -64,7 +66,7 @@ namespace Logic
         public List<Player> Players
         {
             get { return players; }
-            private set { players = value; OnPropertyChanged(PropNames.Players); }
+            set { players = value; OnPropertyChanged(PropNames.Players); }
         }
 
         private List<Round> rounds;
@@ -74,7 +76,7 @@ namespace Logic
         public List<Round> Rounds
         {
             get { return rounds; }
-            private set { rounds = value; OnPropertyChanged(PropNames.Rounds); }
+            set { rounds = value; OnPropertyChanged(PropNames.Rounds); }
         }
 
         public static class PropNames
@@ -116,7 +118,9 @@ namespace Logic
         public static Match CreateNewMatch(MatchSettings settings)
         {
             Match match = new Match() { Status = MatchStatus.PlayersEnlisting};
-            match.Save();
+
+            string result = string.Empty;
+            match.AutoSave(out result);
             return match;
         }
 
@@ -147,11 +151,6 @@ namespace Logic
             if (PlayerAdded != null)
                 PlayerAdded(this, player);
             return true;
-        }
-
-        public void Save()
-        {
-            //throw new NotImplementedException();
         }
 
         public Round StartMatch()
@@ -194,6 +193,75 @@ namespace Logic
         {
             return rounds.Select(n=>n.GetPlayerTable(player));
         }
+
+        #region save Match
+        public bool AutoSave(out string result)
+        {
+            //throw new NotImplementedException();
+
+            result = "OK";
+            return true;
+        }
+
+        public bool Save(string filePath, out string result)
+        {
+            TextWriter writer = null;
+            XmlSerializer serializer = null;
+            try
+            {
+                writer = new StreamWriter(filePath);
+
+                serializer = new XmlSerializer(typeof(Match));
+                serializer.Serialize(writer, this);
+            }
+            catch (Exception e)
+            {
+                result = e.ToString();
+                return false;
+            }
+            finally
+            {
+                if (writer != null)
+                {
+                    writer.Dispose();
+                    writer = null;
+                }
+            }
+            result = "OK";
+            return true;
+        }
+
+        public static Match Load(string filePath, out string result)
+        {
+            TextReader reader = null;
+            XmlSerializer serializer = null;
+            Match match = null;
+
+            try
+            {
+                reader = new StreamReader(filePath);
+
+                serializer = new XmlSerializer(typeof(Match));
+                match = serializer.Deserialize(reader) as Match;
+            }
+            catch (Exception e)
+            {
+                result = e.ToString();
+                return null;
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Dispose();
+                    reader = null;
+                }
+            }
+
+            result = "OK";
+            return match;
+        }
+        #endregion
         #endregion
     }
 }

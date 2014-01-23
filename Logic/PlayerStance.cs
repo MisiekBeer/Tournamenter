@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Logic
 {
@@ -25,22 +26,23 @@ namespace Logic
         {
             get { return playerId; }
             set { playerId = value;
-            if (Player == null)
-            {
-                if (playerId == Player.EmptyPlayerId)
-                    Player = Player.Empty;
-                else
-                    Player = PlayerList.Instance[value];
-            }
-                    OnPropertyChanged(PropNames.PlayerId); }
+                    if (Player == null)
+                    {
+                        if (playerId == Player.EmptyPlayerId)
+                            Player = Player.Empty;
+                        else
+                            Player = PlayerList.Instance[value];
+                    }
+                            OnPropertyChanged(PropNames.PlayerId); }
         }
 
         [NonSerialized]
         private Player player;
+        [XmlIgnore]
         public Player Player
         {
             get { return player; }
-            private set { player = value;
+            set { player = value;
                             if (PlayerId == 0)
                                 PlayerId = value.PlayerId;
                           OnPropertyChanged(PropNames.Player); }
@@ -58,6 +60,7 @@ namespace Logic
 
         [NonSerialized]
         private Player oponent;
+        [XmlIgnore]
         public Player Oponent
         {
             get { return oponent; }

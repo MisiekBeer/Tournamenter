@@ -7,6 +7,8 @@ using System.Text;
 using System.Windows.Forms;
 using ComponentFactory.Krypton.Toolkit;
 using Logic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Tournamenter_WinFormsApp
 {
@@ -43,6 +45,10 @@ namespace Tournamenter_WinFormsApp
             RefreshList();
 
             PlayerList.Instance.PropertyChanged += Instance_PropertyChanged;
+
+#if !DEBUG
+            btnAddDebugPlayers.Visible = false;
+#endif
         }
         #endregion
 
@@ -323,6 +329,21 @@ namespace Tournamenter_WinFormsApp
         {
             if (e.KeyCode == Keys.Left && _selectedPlayer != null)
                 btnAddToMatch.PerformClick();
+        }
+
+        private void addDebugPlayers_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                foreach (var player in PlayerList.Instance.Players.Take(3))
+                {
+                    _parentFrm.AddPlayerToMatch(player);
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.ToString(), "Error");
+            }
         }
 
 

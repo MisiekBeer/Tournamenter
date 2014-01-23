@@ -67,6 +67,7 @@ namespace Tournamenter_WinFormsApp
             this.toolStripContainer2 = new System.Windows.Forms.ToolStripContainer();
             this.toolStripContainer3 = new System.Windows.Forms.ToolStripContainer();
             this.checkSet = new ComponentFactory.Krypton.Toolkit.KryptonCheckSet(this.components);
+            this.btnAddDebugPlayers = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             playerIdLabel = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             nameLabel = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             surnameLabel = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
@@ -327,6 +328,7 @@ namespace Tournamenter_WinFormsApp
             // 
             // kryptonGroupBox2.Panel
             // 
+            this.kryptonGroupBox2.Panel.Controls.Add(this.btnAddDebugPlayers);
             this.kryptonGroupBox2.Panel.Controls.Add(this.checkBtnAddPlayer);
             this.kryptonGroupBox2.Panel.Controls.Add(this.checkButtonEditPlayer);
             this.kryptonGroupBox2.Panel.Controls.Add(this.checkButtonRemovePlayer);
@@ -503,6 +505,15 @@ namespace Tournamenter_WinFormsApp
             this.checkSet.CheckButtons.Add(this.checkButtonRemovePlayer);
             this.checkSet.CheckedButtonChanged += new System.EventHandler(this.checkSet_CheckedButtonChanged);
             // 
+            // btnAddDebugPlayers
+            // 
+            this.btnAddDebugPlayers.Location = new System.Drawing.Point(139, 44);
+            this.btnAddDebugPlayers.Name = "btnAddDebugPlayers";
+            this.btnAddDebugPlayers.Size = new System.Drawing.Size(119, 25);
+            this.btnAddDebugPlayers.TabIndex = 13;
+            this.btnAddDebugPlayers.Values.Text = "Add debug players";
+            this.btnAddDebugPlayers.Click += new System.EventHandler(this.addDebugPlayers_Click);
+            // 
             // PlayerListFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -591,6 +602,7 @@ namespace Tournamenter_WinFormsApp
         private ComponentFactory.Krypton.Toolkit.KryptonSplitContainer splitContainer;
         private ComponentFactory.Krypton.Toolkit.KryptonGroupBox kryptonGroupBox2;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnClose;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnAddDebugPlayers;
     }
 }
 
