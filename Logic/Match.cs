@@ -197,10 +197,12 @@ namespace Logic
         #region save Match
         public bool AutoSave(out string result)
         {
-            //throw new NotImplementedException();
+            string resultInner = string.Empty;
+            bool success = Save(string.Format(
+                "match{0:yyyyMMdd_HHmmssff}SaveRound{1}.xml", MatchDate, Rounds.Count), out resultInner);
 
-            result = "OK";
-            return true;
+            result = resultInner;
+            return success;
         }
 
         public bool Save(string filePath, out string result)
@@ -256,6 +258,11 @@ namespace Logic
                     reader.Dispose();
                     reader = null;
                 }
+            }
+
+            foreach (Round round in match.Rounds)
+            {
+                round.Match = match;
             }
 
             result = "OK";

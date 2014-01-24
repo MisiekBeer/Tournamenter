@@ -43,7 +43,7 @@ namespace Logic
         {
             get { return player; }
             set { player = value;
-                            if (PlayerId == 0)
+                            if (PlayerId == 0 && value != null)
                                 PlayerId = value.PlayerId;
                           OnPropertyChanged(PropNames.Player); }
         }
@@ -65,7 +65,7 @@ namespace Logic
         {
             get { return oponent; }
             private set { oponent = value;
-                            if (OponentId == 0)
+                            if (OponentId == 0 && value != null)
                                 OponentId = value.PlayerId;
                         OnPropertyChanged(PropNames.Oponent); }
         }

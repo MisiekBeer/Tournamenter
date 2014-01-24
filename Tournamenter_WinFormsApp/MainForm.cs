@@ -23,7 +23,7 @@ namespace Tournamenter_WinFormsApp
 
         private Match _match;
         private readonly RoundCtrl _startList = new RoundCtrl();
-        private RoundCtrl _endList;//TODO: set final player list
+        private RoundCtrl _endList;
         #endregion
 
         #region ctor
@@ -180,6 +180,14 @@ namespace Tournamenter_WinFormsApp
             }
 
             _match = Match.CreateNewMatch();
+
+            InitMatchGUI();
+
+            playerListToolStripMenuItem.PerformClick();
+        }
+
+        private void InitMatchGUI()
+        {
             _startList.Visible = true;
 
             _startList.RoundName = _match.Name;
@@ -188,7 +196,29 @@ namespace Tournamenter_WinFormsApp
             _match.RoundAdded += _match_RoundAdded;
 
             matchSettingsToolStripMenuItem.Visible = true;
-            playerListToolStripMenuItem.PerformClick();
+        }
+
+        private void RestartMatch()
+        {
+            string result;
+            if (_match != null)
+            {
+                _match.AutoSave(out result);//???
+
+                _match.PlayerAdded -= _match_PlayerAdded;
+                _match.MatchStatusChanged -= _match_MatchStatusChanged;
+                _match.RoundAdded -= _match_RoundAdded;
+                _match = null;
+            }
+
+            tableLayout.Controls.Clear();
+
+            _startList.ClearPlayers();
+            if (_endList != null)
+                _endList.ClearPlayers();
+            _endList = null;
+
+            tableLayout.Controls.Add(_startList);
         }
 
         void _match_RoundAdded(object sender, Round e)
@@ -227,22 +257,6 @@ namespace Tournamenter_WinFormsApp
         {
             _startList.AddPlayerCtrl(e);
         }
-
-        private void RestartMatch()
-        {
-            string result;
-            _match.AutoSave(out result);
-
-            _match.PlayerAdded -= _match_PlayerAdded;
-            _match.MatchStatusChanged -= _match_MatchStatusChanged;
-            _startList.ClearPlayers();
-            _endList = null;
-        }
-
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        } 
 
         internal void AddPlayerToMatch(Player player)
         {
@@ -298,11 +312,14 @@ namespace Tournamenter_WinFormsApp
             _match.CloseRoundAndGenerateNext();
         }
 
+        #region Logging/Status change
         private void SetStatus(string text, params object[] args)
         {
             statusLabel.Text = string.Format(text, args);
-        }
+        } 
+        #endregion
 
+        #region Save/Load
         private void saveRoundStatusToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string result;
@@ -310,6 +327,35 @@ namespace Tournamenter_WinFormsApp
 
             SetStatus(result);
         }
+
+        private void tsBtnLoadMatch_Click(object sender, EventArgs e)
+        {
+            string result;
+            Match match = Match.Load(@"D:\match.xml", out result);
+            SetStatus(result);
+
+            if (match == null)
+                return;
+
+            RestartMatch();
+
+            _match = match;
+
+            InitMatchGUI();
+
+            foreach (var player in _match.Players)
+            {
+                _match_PlayerAdded(_match, player);
+            }
+
+            foreach (var round in _match.Rounds)
+            {
+                _match_RoundAdded(_match, round);
+            }
+
+            _match_MatchStatusChanged(_match, _match.Status);
+        } 
+        #endregion
 
     }
 }
