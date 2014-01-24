@@ -34,7 +34,7 @@ namespace Logic
         {
             get { return status; }
             set { status = value; OnPropertyChanged(PropNames.Status);
-                if (MatchStatusChanged != null) MatchStatusChanged(this, value);
+                    RaiseMatchStatusChanged();
             }
         }
 
@@ -270,5 +270,11 @@ namespace Logic
         }
         #endregion
         #endregion
+
+        public void RaiseMatchStatusChanged()
+        {
+            if (MatchStatusChanged != null) 
+                MatchStatusChanged(this, status);
+        }
     }
 }

@@ -50,28 +50,28 @@ namespace Tournamenter_WinFormsApp
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnExit = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.playerListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnPlayerList = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.startMatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.closeRoundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnStartMatch = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnCloseRound = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.matchSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnMatchSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnHelpContents = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.kryptonPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.tableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
-            this.newToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.printToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.tsBtnNewMatch = new System.Windows.Forms.ToolStripButton();
+            this.tsBtnOpenMatch = new System.Windows.Forms.ToolStripButton();
+            this.tsBtnSaveMatch = new System.Windows.Forms.ToolStripButton();
+            this.tsBtnPrintMatchState = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.tsBtnHelp = new System.Windows.Forms.ToolStripButton();
             this.timerTime = new System.Windows.Forms.Timer(this.components);
             this.statusStrip.SuspendLayout();
             this.menuStrip.SuspendLayout();
@@ -182,7 +182,7 @@ namespace Tournamenter_WinFormsApp
             this.btnNewMatch.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.btnNewMatch.Size = new System.Drawing.Size(211, 22);
             this.btnNewMatch.Text = "&New match";
-            this.btnNewMatch.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            this.btnNewMatch.Click += new System.EventHandler(this.newMatch_Click);
             // 
             // btnOpenMatch
             // 
@@ -192,7 +192,7 @@ namespace Tournamenter_WinFormsApp
             this.btnOpenMatch.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.btnOpenMatch.Size = new System.Drawing.Size(211, 22);
             this.btnOpenMatch.Text = "&Open match";
-            this.btnOpenMatch.Click += new System.EventHandler(this.tsBtnLoadMatch_Click);
+            this.btnOpenMatch.Click += new System.EventHandler(this.loadMatch_Click);
             // 
             // toolStripSeparator2
             // 
@@ -207,7 +207,7 @@ namespace Tournamenter_WinFormsApp
             this.btnSaveMatch.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.btnSaveMatch.Size = new System.Drawing.Size(211, 22);
             this.btnSaveMatch.Text = "&Save match";
-            this.btnSaveMatch.Click += new System.EventHandler(this.saveRoundStatusToolStripMenuItem_Click);
+            this.btnSaveMatch.Click += new System.EventHandler(this.saveMatchStatus_Click);
             // 
             // btnSaveMatchAs
             // 
@@ -249,100 +249,101 @@ namespace Tournamenter_WinFormsApp
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(211, 22);
             this.btnExit.Text = "E&xit";
-            this.btnExit.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            this.btnExit.Click += new System.EventHandler(this.exit_Click);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.playerListToolStripMenuItem,
+            this.btnPlayerList,
             this.toolStripSeparator1,
-            this.startMatchToolStripMenuItem,
-            this.closeRoundToolStripMenuItem,
+            this.btnStartMatch,
+            this.btnCloseRound,
             this.toolStripSeparator5,
-            this.matchSettingsToolStripMenuItem});
+            this.btnMatchSettings});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "&Edit";
             // 
-            // playerListToolStripMenuItem
+            // btnPlayerList
             // 
-            this.playerListToolStripMenuItem.Name = "playerListToolStripMenuItem";
-            this.playerListToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.playerListToolStripMenuItem.Text = "Player List";
-            this.playerListToolStripMenuItem.Click += new System.EventHandler(this.playerListToolStripMenuItem_Click);
+            this.btnPlayerList.Name = "btnPlayerList";
+            this.btnPlayerList.Size = new System.Drawing.Size(153, 22);
+            this.btnPlayerList.Text = "Player List";
+            this.btnPlayerList.Click += new System.EventHandler(this.playerList_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(150, 6);
             // 
-            // startMatchToolStripMenuItem
+            // btnStartMatch
             // 
-            this.startMatchToolStripMenuItem.Name = "startMatchToolStripMenuItem";
-            this.startMatchToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.startMatchToolStripMenuItem.Text = "Start match";
-            this.startMatchToolStripMenuItem.Click += new System.EventHandler(this.startMatchToolStripMenuItem_Click);
+            this.btnStartMatch.Name = "btnStartMatch";
+            this.btnStartMatch.Size = new System.Drawing.Size(153, 22);
+            this.btnStartMatch.Text = "Start match";
+            this.btnStartMatch.Click += new System.EventHandler(this.startMatch_Click);
             // 
-            // closeRoundToolStripMenuItem
+            // btnCloseRound
             // 
-            this.closeRoundToolStripMenuItem.Name = "closeRoundToolStripMenuItem";
-            this.closeRoundToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.closeRoundToolStripMenuItem.Text = "Close round";
-            this.closeRoundToolStripMenuItem.Click += new System.EventHandler(this.closeRoundToolStripMenuItem_Click);
+            this.btnCloseRound.Name = "btnCloseRound";
+            this.btnCloseRound.Size = new System.Drawing.Size(153, 22);
+            this.btnCloseRound.Text = "Close round";
+            this.btnCloseRound.Click += new System.EventHandler(this.closeRound_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(150, 6);
             // 
-            // matchSettingsToolStripMenuItem
+            // btnMatchSettings
             // 
-            this.matchSettingsToolStripMenuItem.Name = "matchSettingsToolStripMenuItem";
-            this.matchSettingsToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.matchSettingsToolStripMenuItem.Text = "Match Settings";
-            this.matchSettingsToolStripMenuItem.Visible = false;
-            this.matchSettingsToolStripMenuItem.Click += new System.EventHandler(this.matchSettingsToolStripMenuItem_Click);
+            this.btnMatchSettings.Name = "btnMatchSettings";
+            this.btnMatchSettings.Size = new System.Drawing.Size(153, 22);
+            this.btnMatchSettings.Text = "Match Settings";
+            this.btnMatchSettings.Click += new System.EventHandler(this.matchSettings_Click);
             // 
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.optionsToolStripMenuItem});
+            this.btnOptions});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.toolsToolStripMenuItem.Text = "&Tools";
             // 
-            // optionsToolStripMenuItem
+            // btnOptions
             // 
-            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.optionsToolStripMenuItem.Text = "&Options";
+            this.btnOptions.Name = "btnOptions";
+            this.btnOptions.Size = new System.Drawing.Size(152, 22);
+            this.btnOptions.Text = "&Options";
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.contentsToolStripMenuItem,
+            this.btnHelpContents,
             this.toolStripSeparator7,
-            this.aboutToolStripMenuItem});
+            this.btnAbout});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "&Help";
             // 
-            // contentsToolStripMenuItem
+            // btnHelpContents
             // 
-            this.contentsToolStripMenuItem.Name = "contentsToolStripMenuItem";
-            this.contentsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.contentsToolStripMenuItem.Text = "&Contents";
+            this.btnHelpContents.Name = "btnHelpContents";
+            this.btnHelpContents.Size = new System.Drawing.Size(152, 22);
+            this.btnHelpContents.Text = "&Contents";
+            this.btnHelpContents.Click += new System.EventHandler(this.helpContents_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
             this.toolStripSeparator7.Size = new System.Drawing.Size(149, 6);
             // 
-            // aboutToolStripMenuItem
+            // btnAbout
             // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.aboutToolStripMenuItem.Text = "&About...";
+            this.btnAbout.Name = "btnAbout";
+            this.btnAbout.Size = new System.Drawing.Size(152, 22);
+            this.btnAbout.Text = "&About...";
+            this.btnAbout.Click += new System.EventHandler(this.about_Click);
             // 
             // toolStripContainer1
             // 
@@ -400,69 +401,71 @@ namespace Tournamenter_WinFormsApp
             this.toolStrip.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStrip.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newToolStripButton,
-            this.openToolStripButton,
-            this.saveToolStripButton,
-            this.printToolStripButton,
+            this.tsBtnNewMatch,
+            this.tsBtnOpenMatch,
+            this.tsBtnSaveMatch,
+            this.tsBtnPrintMatchState,
             this.toolStripSeparator,
-            this.helpToolStripButton});
+            this.tsBtnHelp});
             this.toolStrip.Location = new System.Drawing.Point(3, 24);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(133, 25);
             this.toolStrip.TabIndex = 2;
             // 
-            // newToolStripButton
+            // tsBtnNewMatch
             // 
-            this.newToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.newToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripButton.Image")));
-            this.newToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.newToolStripButton.Name = "newToolStripButton";
-            this.newToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.newToolStripButton.Text = "&New";
-            this.newToolStripButton.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            this.tsBtnNewMatch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsBtnNewMatch.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnNewMatch.Image")));
+            this.tsBtnNewMatch.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnNewMatch.Name = "tsBtnNewMatch";
+            this.tsBtnNewMatch.Size = new System.Drawing.Size(23, 22);
+            this.tsBtnNewMatch.Text = "&New";
+            this.tsBtnNewMatch.Click += new System.EventHandler(this.newMatch_Click);
             // 
-            // openToolStripButton
+            // tsBtnOpenMatch
             // 
-            this.openToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.openToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripButton.Image")));
-            this.openToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.openToolStripButton.Name = "openToolStripButton";
-            this.openToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.openToolStripButton.Text = "&Open";
-            this.openToolStripButton.Click += new System.EventHandler(this.tsBtnLoadMatch_Click);
+            this.tsBtnOpenMatch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsBtnOpenMatch.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnOpenMatch.Image")));
+            this.tsBtnOpenMatch.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnOpenMatch.Name = "tsBtnOpenMatch";
+            this.tsBtnOpenMatch.Size = new System.Drawing.Size(23, 22);
+            this.tsBtnOpenMatch.Text = "&Open";
+            this.tsBtnOpenMatch.Click += new System.EventHandler(this.loadMatch_Click);
             // 
-            // saveToolStripButton
+            // tsBtnSaveMatch
             // 
-            this.saveToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.saveToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripButton.Image")));
-            this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.saveToolStripButton.Name = "saveToolStripButton";
-            this.saveToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.saveToolStripButton.Text = "&Save";
-            this.saveToolStripButton.Click += new System.EventHandler(this.saveRoundStatusToolStripMenuItem_Click);
+            this.tsBtnSaveMatch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsBtnSaveMatch.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnSaveMatch.Image")));
+            this.tsBtnSaveMatch.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnSaveMatch.Name = "tsBtnSaveMatch";
+            this.tsBtnSaveMatch.Size = new System.Drawing.Size(23, 22);
+            this.tsBtnSaveMatch.Text = "&Save";
+            this.tsBtnSaveMatch.Click += new System.EventHandler(this.saveMatchStatus_Click);
             // 
-            // printToolStripButton
+            // tsBtnPrintMatchState
             // 
-            this.printToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.printToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("printToolStripButton.Image")));
-            this.printToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.printToolStripButton.Name = "printToolStripButton";
-            this.printToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.printToolStripButton.Text = "&Print";
+            this.tsBtnPrintMatchState.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsBtnPrintMatchState.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnPrintMatchState.Image")));
+            this.tsBtnPrintMatchState.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnPrintMatchState.Name = "tsBtnPrintMatchState";
+            this.tsBtnPrintMatchState.Size = new System.Drawing.Size(23, 22);
+            this.tsBtnPrintMatchState.Text = "&Print";
+            this.tsBtnPrintMatchState.Click += new System.EventHandler(this.printMatchToolStripMenuItem_Click);
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
             this.toolStripSeparator.Size = new System.Drawing.Size(6, 25);
             // 
-            // helpToolStripButton
+            // tsBtnHelp
             // 
-            this.helpToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.helpToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("helpToolStripButton.Image")));
-            this.helpToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.helpToolStripButton.Name = "helpToolStripButton";
-            this.helpToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.helpToolStripButton.Text = "He&lp";
+            this.tsBtnHelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsBtnHelp.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnHelp.Image")));
+            this.tsBtnHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnHelp.Name = "tsBtnHelp";
+            this.tsBtnHelp.Size = new System.Drawing.Size(23, 22);
+            this.tsBtnHelp.Text = "He&lp";
+            this.tsBtnHelp.Click += new System.EventHandler(this.helpContents_Click);
             // 
             // timerTime
             // 
@@ -515,32 +518,32 @@ namespace Tournamenter_WinFormsApp
         private System.Windows.Forms.ToolStripMenuItem btnExit;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnOptions;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem contentsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnHelpContents;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnAbout;
         private System.Windows.Forms.ToolStripContainer toolStripContainer1;
         private System.Windows.Forms.ToolStrip toolStrip;
-        private System.Windows.Forms.ToolStripButton newToolStripButton;
-        private System.Windows.Forms.ToolStripButton openToolStripButton;
-        private System.Windows.Forms.ToolStripButton saveToolStripButton;
-        private System.Windows.Forms.ToolStripButton printToolStripButton;
+        private System.Windows.Forms.ToolStripButton tsBtnNewMatch;
+        private System.Windows.Forms.ToolStripButton tsBtnOpenMatch;
+        private System.Windows.Forms.ToolStripButton tsBtnSaveMatch;
+        private System.Windows.Forms.ToolStripButton tsBtnPrintMatchState;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
-        private System.Windows.Forms.ToolStripButton helpToolStripButton;
+        private System.Windows.Forms.ToolStripButton tsBtnHelp;
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel;
         private System.Windows.Forms.TableLayoutPanel tableLayout;
-        private System.Windows.Forms.ToolStripMenuItem playerListToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnPlayerList;
         private ComponentFactory.Krypton.Toolkit.KryptonPalette globalPalette;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.ToolStripProgressBar statusProgress;
         private System.Windows.Forms.ToolStripStatusLabel statusRound;
         private System.Windows.Forms.ToolStripStatusLabel statusTime;
-        private System.Windows.Forms.ToolStripMenuItem startMatchToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem closeRoundToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnStartMatch;
+        private System.Windows.Forms.ToolStripMenuItem btnCloseRound;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.Timer timerTime;
-        private System.Windows.Forms.ToolStripMenuItem matchSettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnMatchSettings;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }

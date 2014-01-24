@@ -38,8 +38,353 @@ namespace Tournamenter_WinFormsApp
             _playerListFrm.Location = new Point(Screen.FromControl(this).WorkingArea.Size - this.Size);
 
             tableLayout.Controls.Add(_startList);
+
+            SetMenuAndToolboxItems(MatchStatus.NotSet);
         } 
         #endregion
+
+        private void playerList_Click(object sender, EventArgs e)
+        {
+                _playerListFrm.Show(this);
+        }
+
+        private void timerTime_Tick(object sender, EventArgs e)
+        {
+            statusTime.Text = DateTime.Now.ToString("h:mm:ss   d MMMM yyyy");
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            if (_match != null && !_match.CanCloseSafe &&
+                MessageBox.Show(this,
+                "There is already match in progress. Are you sure you want to quit?",
+                "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning,
+                MessageBoxDefaultButton.Button2) == DialogResult.No)
+                e.Cancel = true;
+
+            base.OnClosing(e);
+        }
+
+        protected override void OnSizeChanged(EventArgs e)
+        {
+            base.OnSizeChanged(e);
+
+            int statusWidth = statusStrip.ClientSize.Width;
+            statusWidth -= statusProgress.Width + statusRound.Width + statusTime.Width + 50;
+
+            if (statusWidth >= 50)
+                statusLabel.Width = statusWidth;
+        }
+
+        private void exit_Click(object sender, EventArgs e)
+        {
+                Close();
+        }
+
+        private void matchSettings_Click(object sender, EventArgs e)
+        {
+            if (_match == null || _match.Status != MatchStatus.PlayersEnlisting)
+                return;
+            using (MatchSettingsFrm frm = new MatchSettingsFrm(_match.Settings))
+            {
+                //frm.SetReadonly();
+                frm.ShowDialog(this);
+            }
+        }
+
+        private void tableLayout_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Link;
+        }
+
+        private void tableLayout_DragDrop(object sender, DragEventArgs e)
+        {
+            Player player = e.Data.GetData(typeof(Player)) as Player;
+            if (player == null || _match == null || _match.Status != MatchStatus.PlayersEnlisting)
+            {
+                e.Effect = DragDropEffects.None;
+                return;
+            }
+            e.Effect = DragDropEffects.Link;
+            AddPlayerToMatch(player);
+        }
+
+        #region Match GUI -> Logic
+        private void newMatch_Click(object sender, EventArgs e)
+        {
+            if (_match != null && !_match.CanCloseSafe &&
+                MessageBox.Show(this,
+                "There is already match in progress. Are you sure you want to quit it and start new match?",
+                "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning,
+                MessageBoxDefaultButton.Button2) == DialogResult.No)
+                return;
+
+            if (_match != null)
+                RestartMatch();
+
+            MatchSettings settings = new MatchSettings();
+            using (MatchSettingsFrm frm = new MatchSettingsFrm(settings))
+            {
+                frm.ShowDialog(this);
+            }
+
+            _match = Match.CreateNewMatch();
+
+            InitMatchGUI();
+
+            btnPlayerList.PerformClick();
+        }
+
+        private void InitMatchGUI()
+        {
+            _startList.Visible = true;
+
+            _startList.RoundName = _match.Name;
+            _match.PlayerAdded += matchPlayerAdded;
+            _match.MatchStatusChanged += matchStatusChanged;
+            _match.RoundAdded += matchRoundAdded;
+
+            _match.RaiseMatchStatusChanged();
+        }
+
+        private void RestartMatch()
+        {
+            string result;
+            if (_match != null)
+            {
+                _match.AutoSave(out result);//???
+
+                _match.PlayerAdded -= matchPlayerAdded;
+                _match.MatchStatusChanged -= matchStatusChanged;
+                _match.RoundAdded -= matchRoundAdded;
+                _match = null;
+            }
+
+            tableLayout.Controls.Clear();
+
+            _startList.ClearPlayers();
+            if (_endList != null)
+                _endList.ClearPlayers();
+            _endList = null;
+
+            tableLayout.Controls.Add(_startList);
+        }
+
+        void matchRoundAdded(object sender, Round e)
+        {
+            RoundCtrl roundCtrl = new RoundCtrl(e);
+            tableLayout.Controls.Add(roundCtrl);
+
+            if (e.Status == RoundStatus.MatchResult)
+                _endList = roundCtrl;
+
+            SetStatus("Round {0} started", e.Number);
+        }
+
+        void matchStatusChanged(object sender, MatchStatus e)
+        {
+            switch (e)
+            {
+                case MatchStatus.PlayersEnlisting:
+                    SetStatus("Add players to match");
+                    break;
+                case MatchStatus.RoundStarted:
+                    SetStatus("Round started");
+                    break;
+                case MatchStatus.RoundClosed:
+                    SetStatus("Round closed");
+                    break;
+                case MatchStatus.MatchEnded:
+
+                    break;
+                default:
+                    break;
+            }
+            SetMenuAndToolboxItems(e);
+        }
+
+        private void matchPlayerAdded(object sender, Player e)
+        {
+            _startList.AddPlayerCtrl(e);
+        }
+
+        internal void AddPlayerToMatch(Player player)
+        {
+            if (_match == null)
+            {
+                MessageBox.Show(this, "No match started. Cannot add player now");
+                return;
+            }
+
+            if (_match.Status != MatchStatus.PlayersEnlisting)
+            {
+                MessageBox.Show(this, "Cannot add player now");
+                return;
+            }
+
+            if (!_match.AddPlayer(player))
+                MessageBox.Show(this, string.Format("Player {0} is already added to match.", player));
+        }
+
+        private void SetMenuAndToolboxItems(MatchStatus status)
+        {
+            menuStrip.SuspendLayout();
+
+            //match
+            btnNewMatch.Enabled = true;
+            tsBtnNewMatch.Enabled = true;
+            btnStartMatch.Enabled = true;
+            btnCloseRound.Enabled = true;
+
+            btnSaveMatch.Enabled = true;
+            tsBtnSaveMatch.Enabled = true;
+            btnSaveMatchAs.Enabled = true;
+            btnOpenMatch.Enabled = true;
+            tsBtnOpenMatch.Enabled = true;
+            btnPrintMatch.Enabled = true;
+            tsBtnPrintMatchState.Enabled = true;
+            btnPrintMatchPreview.Enabled = true;
+
+            btnMatchSettings.Enabled = true;
+            //general settings
+            btnPlayerList.Enabled = true;
+            btnOptions.Enabled = true;
+
+            switch (status)
+            {
+                case MatchStatus.PlayersEnlisting:
+                    btnNewMatch.Enabled = false;
+                    tsBtnNewMatch.Enabled = false;
+                    btnCloseRound.Enabled = false;
+                    break;
+                case MatchStatus.RoundStarted:
+                    btnNewMatch.Enabled = false;
+                    tsBtnNewMatch.Enabled = false;
+                    btnStartMatch.Enabled = false;
+                    break;
+                case MatchStatus.RoundTimeEnded:
+                    btnNewMatch.Enabled = false;
+                    tsBtnNewMatch.Enabled = false;
+                    btnStartMatch.Enabled = false;
+                    break;
+                case MatchStatus.RoundClosed:
+                    btnNewMatch.Enabled = false;
+                    tsBtnNewMatch.Enabled = false;
+                    btnStartMatch.Enabled = false;
+                    btnCloseRound.Enabled = false;
+                    break;
+                case MatchStatus.MatchEnded:
+                case MatchStatus.NotSet:                        
+                default:
+                    btnStartMatch.Enabled = false;
+                    btnCloseRound.Enabled = false;
+                    btnSaveMatch.Enabled = false;
+                    tsBtnSaveMatch.Enabled = false;
+                    btnSaveMatchAs.Enabled = false;
+                    btnPrintMatch.Enabled = false;
+                    tsBtnPrintMatchState.Enabled = false;
+                    btnPrintMatchPreview.Enabled = false;
+
+                    btnMatchSettings.Enabled = false;
+                    break;
+            }
+            menuStrip.ResumeLayout();
+        }
+        #endregion
+
+        private void startMatch_Click(object sender, EventArgs e)
+        {
+            if (_match == null || _match.Status != MatchStatus.PlayersEnlisting)
+            {
+                MessageBox.Show(this, "Cannot start match now.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (_match.PlayerCount < 3)
+            {
+                MessageBox.Show(this, "You need more players to start.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            RoundCtrl roundCtrl = new RoundCtrl(_match.StartMatch());
+            _rounds.Add(roundCtrl);
+            tableLayout.Controls.Add(roundCtrl);
+        }
+
+        private void closeRound_Click(object sender, EventArgs e)
+        {
+            if (_match == null || _match.Status != MatchStatus.RoundStarted)
+            {
+                MessageBox.Show(this, "No active round now to close.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (!ActiveRound.CheckIfAllPointsEntered())
+            {
+                MessageBox.Show(this, "Please enter all player's results.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            _match.CloseRoundAndGenerateNext();
+        }
+
+        #region Help
+        private void about_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(this, "Tournamenter by Misiek", "Info",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void helpContents_Click(object sender, EventArgs e)
+        {
+
+        } 
+        #endregion
+
+        #region Logging/Status change
+        private void SetStatus(string text, params object[] args)
+        {
+            statusLabel.Text = string.Format(text, args);
+        } 
+        #endregion
+
+        #region Save/Load
+        private void saveMatchStatus_Click(object sender, EventArgs e)
+        {
+            string result;
+            _match.Save(@"D:\match.xml", out result);
+
+            SetStatus(result);
+        }
+
+        private void loadMatch_Click(object sender, EventArgs e)
+        {
+            string result;
+            Match match = Match.Load(@"D:\match.xml", out result);
+            SetStatus(result);
+
+            if (match == null)
+                return;
+
+            RestartMatch();
+
+            _match = match;
+
+            InitMatchGUI();
+
+            foreach (var player in _match.Players)
+            {
+                matchPlayerAdded(_match, player);
+            }
+
+            foreach (var round in _match.Rounds)
+            {
+                matchRoundAdded(_match, round);
+            }
+
+            matchStatusChanged(_match, _match.Status);
+        } 
+        #endregion
+
 
         #region test code
 
@@ -96,266 +441,5 @@ namespace Tournamenter_WinFormsApp
         }
 
         #endregion
-
-        private void playerListToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-                _playerListFrm.Show(this);
-        }
-
-        private void timerTime_Tick(object sender, EventArgs e)
-        {
-            statusTime.Text = DateTime.Now.ToString("h:mm:ss   d MMMM yyyy");
-        }
-
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            if (_match != null && !_match.CanCloseSafe &&
-                MessageBox.Show(this,
-                "There is already match in progress. Are you sure you want to quit?",
-                "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning,
-                MessageBoxDefaultButton.Button2) == DialogResult.No)
-                e.Cancel = true;
-
-            base.OnClosing(e);
-        }
-
-        protected override void OnSizeChanged(EventArgs e)
-        {
-            base.OnSizeChanged(e);
-
-            int statusWidth = statusStrip.ClientSize.Width;
-            statusWidth -= statusProgress.Width + statusRound.Width + statusTime.Width + 50;
-
-            if (statusWidth >= 50)
-                statusLabel.Width = statusWidth;
-        }
-
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-                Close();
-        }
-
-        private void matchSettingsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (_match == null || _match.Status != MatchStatus.PlayersEnlisting)
-                return;
-            using (MatchSettingsFrm frm = new MatchSettingsFrm(_match.Settings))
-            {
-                //frm.SetReadonly();
-                frm.ShowDialog(this);
-            }
-        }
-
-        private void tableLayout_DragOver(object sender, DragEventArgs e)
-        {
-            e.Effect = DragDropEffects.Link;
-        }
-
-        private void tableLayout_DragDrop(object sender, DragEventArgs e)
-        {
-            Player player = e.Data.GetData(typeof(Player)) as Player;
-            if (player == null || _match == null || _match.Status != MatchStatus.PlayersEnlisting)
-                return;
-
-            AddPlayerToMatch(player);
-        }
-
-        #region Match GUI -> Logic
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (_match != null && !_match.CanCloseSafe &&
-                MessageBox.Show(this,
-                "There is already match in progress. Are you sure you want to quit it and start new match?",
-                "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning,
-                MessageBoxDefaultButton.Button2) == DialogResult.No)
-                return;
-
-            if (_match != null)
-                RestartMatch();
-
-            MatchSettings settings = new MatchSettings();
-            using (MatchSettingsFrm frm = new MatchSettingsFrm(settings))
-            {
-                frm.ShowDialog(this);
-            }
-
-            _match = Match.CreateNewMatch();
-
-            InitMatchGUI();
-
-            playerListToolStripMenuItem.PerformClick();
-        }
-
-        private void InitMatchGUI()
-        {
-            _startList.Visible = true;
-
-            _startList.RoundName = _match.Name;
-            _match.PlayerAdded += _match_PlayerAdded;
-            _match.MatchStatusChanged += _match_MatchStatusChanged;
-            _match.RoundAdded += _match_RoundAdded;
-
-            matchSettingsToolStripMenuItem.Visible = true;
-        }
-
-        private void RestartMatch()
-        {
-            string result;
-            if (_match != null)
-            {
-                _match.AutoSave(out result);//???
-
-                _match.PlayerAdded -= _match_PlayerAdded;
-                _match.MatchStatusChanged -= _match_MatchStatusChanged;
-                _match.RoundAdded -= _match_RoundAdded;
-                _match = null;
-            }
-
-            tableLayout.Controls.Clear();
-
-            _startList.ClearPlayers();
-            if (_endList != null)
-                _endList.ClearPlayers();
-            _endList = null;
-
-            tableLayout.Controls.Add(_startList);
-        }
-
-        void _match_RoundAdded(object sender, Round e)
-        {
-            RoundCtrl roundCtrl = new RoundCtrl(e);
-            tableLayout.Controls.Add(roundCtrl);
-
-            if (e.Status == RoundStatus.MatchResult)
-                _endList = roundCtrl;
-
-            SetStatus("Round {0} started", e.Number);
-        }
-
-        void _match_MatchStatusChanged(object sender, MatchStatus e)
-        {
-            switch (e)
-            {
-                case MatchStatus.PlayersEnlisting:
-                    SetStatus("Add players to match");
-                    break;
-                case MatchStatus.RoundStarted:
-                    SetStatus("Round started");
-                    break;
-                case MatchStatus.RoundClosed:
-                    SetStatus("Round closed");
-                    break;
-                case MatchStatus.MatchEnded:
-
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        private void _match_PlayerAdded(object sender, Player e)
-        {
-            _startList.AddPlayerCtrl(e);
-        }
-
-        internal void AddPlayerToMatch(Player player)
-        {
-            if (_match == null)
-            {
-                MessageBox.Show(this, "No match started. Cannot add player now");
-                return;
-            }
-
-            if (_match.Status != MatchStatus.PlayersEnlisting)
-            {
-                MessageBox.Show(this, "Cannot add player now");
-                return;
-            }
-
-            if (!_match.AddPlayer(player))
-                MessageBox.Show(this, string.Format("Player {0} is already added to match.", player));
-        } 
-        #endregion
-
-        private void startMatchToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (_match == null || _match.Status != MatchStatus.PlayersEnlisting)
-            {
-                MessageBox.Show(this, "Cannot start match now.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            if (_match.PlayerCount < 3)
-            {
-                MessageBox.Show(this, "You need more players to start.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            RoundCtrl roundCtrl = new RoundCtrl(_match.StartMatch());
-            _rounds.Add(roundCtrl);
-            tableLayout.Controls.Add(roundCtrl);
-        }
-
-        private void closeRoundToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (_match == null || _match.Status != MatchStatus.RoundStarted)
-            {
-                MessageBox.Show(this, "No active round now to close.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            if (!ActiveRound.CheckIfAllPointsEntered())
-            {
-                MessageBox.Show(this, "Please enter all player's results.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            _match.CloseRoundAndGenerateNext();
-        }
-
-        #region Logging/Status change
-        private void SetStatus(string text, params object[] args)
-        {
-            statusLabel.Text = string.Format(text, args);
-        } 
-        #endregion
-
-        #region Save/Load
-        private void saveRoundStatusToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string result;
-            _match.Save(@"D:\match.xml", out result);
-
-            SetStatus(result);
-        }
-
-        private void tsBtnLoadMatch_Click(object sender, EventArgs e)
-        {
-            string result;
-            Match match = Match.Load(@"D:\match.xml", out result);
-            SetStatus(result);
-
-            if (match == null)
-                return;
-
-            RestartMatch();
-
-            _match = match;
-
-            InitMatchGUI();
-
-            foreach (var player in _match.Players)
-            {
-                _match_PlayerAdded(_match, player);
-            }
-
-            foreach (var round in _match.Rounds)
-            {
-                _match_RoundAdded(_match, round);
-            }
-
-            _match_MatchStatusChanged(_match, _match.Status);
-        } 
-        #endregion
-
     }
 }
