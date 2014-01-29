@@ -350,6 +350,9 @@ namespace Tournamenter_WinFormsApp
         #region Save/Load
         private void saveMatchStatus_Click(object sender, EventArgs e)
         {
+            if (saveFileDialog.ShowDialog(this) != DialogResult.OK)
+                return;
+
             string result;
             _match.Save(@"D:\match.xml", out result);
 

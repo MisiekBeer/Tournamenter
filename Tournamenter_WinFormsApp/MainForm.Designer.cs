@@ -40,13 +40,13 @@ namespace Tournamenter_WinFormsApp
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnNewMatch = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnOpenMatch = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnOpenMatch = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSaveMatch = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSaveMatchAs = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnPrintMatch = new System.Windows.Forms.ToolStripMenuItem();
             this.btnPrintMatchPreview = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnPrintMatch = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnExit = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,6 +73,9 @@ namespace Tournamenter_WinFormsApp
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.tsBtnHelp = new System.Windows.Forms.ToolStripButton();
             this.timerTime = new System.Windows.Forms.Timer(this.components);
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.statusStrip.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
@@ -184,6 +187,11 @@ namespace Tournamenter_WinFormsApp
             this.btnNewMatch.Text = "&New match";
             this.btnNewMatch.Click += new System.EventHandler(this.newMatch_Click);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(208, 6);
+            // 
             // btnOpenMatch
             // 
             this.btnOpenMatch.Image = ((System.Drawing.Image)(resources.GetObject("btnOpenMatch.Image")));
@@ -193,11 +201,6 @@ namespace Tournamenter_WinFormsApp
             this.btnOpenMatch.Size = new System.Drawing.Size(211, 22);
             this.btnOpenMatch.Text = "&Open match";
             this.btnOpenMatch.Click += new System.EventHandler(this.loadMatch_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(208, 6);
             // 
             // btnSaveMatch
             // 
@@ -220,6 +223,15 @@ namespace Tournamenter_WinFormsApp
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(208, 6);
             // 
+            // btnPrintMatchPreview
+            // 
+            this.btnPrintMatchPreview.Image = ((System.Drawing.Image)(resources.GetObject("btnPrintMatchPreview.Image")));
+            this.btnPrintMatchPreview.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPrintMatchPreview.Name = "btnPrintMatchPreview";
+            this.btnPrintMatchPreview.Size = new System.Drawing.Size(211, 22);
+            this.btnPrintMatchPreview.Text = "Print Pre&view";
+            this.btnPrintMatchPreview.Click += new System.EventHandler(this.printMatchPreviewToolStripMenuItem_Click);
+            // 
             // btnPrintMatch
             // 
             this.btnPrintMatch.Image = ((System.Drawing.Image)(resources.GetObject("btnPrintMatch.Image")));
@@ -229,15 +241,6 @@ namespace Tournamenter_WinFormsApp
             this.btnPrintMatch.Size = new System.Drawing.Size(211, 22);
             this.btnPrintMatch.Text = "&Print match status";
             this.btnPrintMatch.Click += new System.EventHandler(this.printMatchToolStripMenuItem_Click);
-            // 
-            // btnPrintMatchPreview
-            // 
-            this.btnPrintMatchPreview.Image = ((System.Drawing.Image)(resources.GetObject("btnPrintMatchPreview.Image")));
-            this.btnPrintMatchPreview.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnPrintMatchPreview.Name = "btnPrintMatchPreview";
-            this.btnPrintMatchPreview.Size = new System.Drawing.Size(211, 22);
-            this.btnPrintMatchPreview.Text = "Print Pre&view";
-            this.btnPrintMatchPreview.Click += new System.EventHandler(this.printMatchPreviewToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
@@ -313,7 +316,7 @@ namespace Tournamenter_WinFormsApp
             // btnOptions
             // 
             this.btnOptions.Name = "btnOptions";
-            this.btnOptions.Size = new System.Drawing.Size(152, 22);
+            this.btnOptions.Size = new System.Drawing.Size(116, 22);
             this.btnOptions.Text = "&Options";
             // 
             // helpToolStripMenuItem
@@ -329,19 +332,19 @@ namespace Tournamenter_WinFormsApp
             // btnHelpContents
             // 
             this.btnHelpContents.Name = "btnHelpContents";
-            this.btnHelpContents.Size = new System.Drawing.Size(152, 22);
+            this.btnHelpContents.Size = new System.Drawing.Size(122, 22);
             this.btnHelpContents.Text = "&Contents";
             this.btnHelpContents.Click += new System.EventHandler(this.helpContents_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(119, 6);
             // 
             // btnAbout
             // 
             this.btnAbout.Name = "btnAbout";
-            this.btnAbout.Size = new System.Drawing.Size(152, 22);
+            this.btnAbout.Size = new System.Drawing.Size(122, 22);
             this.btnAbout.Text = "&About...";
             this.btnAbout.Click += new System.EventHandler(this.about_Click);
             // 
@@ -473,6 +476,20 @@ namespace Tournamenter_WinFormsApp
             this.timerTime.Interval = 1000;
             this.timerTime.Tick += new System.EventHandler(this.timerTime_Tick);
             // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "Open match file";
+            // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.Filter = "XML match files|*.xml|All files|*.*";
+            this.saveFileDialog.InitialDirectory = "d:\\";
+            this.saveFileDialog.Title = "Save match file";
+            // 
+            // folderBrowserDialog
+            // 
+            this.folderBrowserDialog.Description = "Select folder to store match saves";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -545,6 +562,9 @@ namespace Tournamenter_WinFormsApp
         private System.Windows.Forms.Timer timerTime;
         private System.Windows.Forms.ToolStripMenuItem btnMatchSettings;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
     }
 }
 
