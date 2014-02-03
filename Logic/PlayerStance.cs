@@ -26,9 +26,9 @@ namespace Logic
         {
             get { return playerId; }
             set { playerId = value;
-                    if (Player == null)
+                    if (player == null)
                     {
-                        if (playerId == Player.EmptyPlayerId)
+                        if (playerId == EmptyPlayer.EmptyPlayerId)
                             Player = Player.Empty;
                         else
                             Player = PlayerList.Instance[value];
@@ -41,11 +41,11 @@ namespace Logic
         [XmlIgnore]
         public Player Player
         {
-            get { return player; }
+            get { return (playerId == EmptyPlayer.EmptyPlayerId) ? EmptyPlayer.Instance : player; }
             set { player = value;
-                            if (PlayerId == 0 && value != null)
-                                PlayerId = value.PlayerId;
-                          OnPropertyChanged(PropNames.Player); }
+					if (PlayerId == 0 && value != null)
+						PlayerId = value.PlayerId;
+					OnPropertyChanged(PropNames.Player); }
         }
 
         private int oponentId;
@@ -130,7 +130,13 @@ namespace Logic
             public const string IsBay = "IsBay";
         }
 
-        public static readonly PlayerStance Empty = new PlayerStance() { Player = Player.Empty };
+        public static readonly PlayerStance Empty;
+
+		static PlayerStance ()
+		{
+			Empty = EmptyPlayerStance.Instance;
+		}
+
         public bool PointsEntered { 
             get {
                 if (this == Empty) 
@@ -176,7 +182,7 @@ namespace Logic
             if (playerStance == null)
                 return false;
 
-            if (playerStance.playerId == Player.EmptyPlayerId && this.playerId == Player.EmptyPlayerId)
+            if (playerStance.playerId == EmptyPlayer.EmptyPlayerId && this.playerId == EmptyPlayer.EmptyPlayerId)
                 return true;
 
             return base.Equals(obj);
@@ -184,8 +190,8 @@ namespace Logic
 
         public override int GetHashCode()
         {
-            if (playerId == Player.EmptyPlayerId)
-                return Player.EmptyPlayerId.GetHashCode();
+            if (this == PlayerStance.Empty)
+				return PlayerStance.Empty.GetHashCode();
 
             return base.GetHashCode();
         }
@@ -201,4 +207,24 @@ namespace Logic
             return result != 0 ? result : smallVP.CompareTo(other.smallVP);
         }
     }
+
+	[Serializable]
+	public sealed class EmptyPlayerStance : PlayerStance
+	{
+		private static EmptyPlayerStance _instance;
+		public static EmptyPlayerStance Instance { 
+			get { 
+					if (_instance == null)
+						_instance = new EmptyPlayerStance();
+					return _instance;
+			} 
+		}
+
+		private EmptyPlayerStance():base()
+		{
+			PlayerId = EmptyPlayer.EmptyPlayerId;
+			Player = Player.Empty;
+			IsBay = true;
+		}
+	}
 }

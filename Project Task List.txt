@@ -4,12 +4,14 @@ Winforms
 TODO:
 _______________
 
--Match result/State saving/loading to xml files
+-Match result/State saving/loading to xml files 
+	- fix loading match with BAY in progress - cannot close round
+
 -Remove player from match/ walkover
 -Add Tables repeat verification for players
 
 -Match end messages
-
+-Bonus/penality points
 
 -Logging, messaging in app
 

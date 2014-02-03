@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Logic
 {
@@ -67,20 +68,13 @@ namespace Logic
             public const string Info = "Info";
         }
 
-        public const int EmptyPlayerId = -1;
-        public static readonly Player Empty;
+        public static readonly EmptyPlayer Empty;
         #endregion
 
         #region ctor
         static Player()
         {
-            Empty = new Player() { 
-                                    PlayerId = EmptyPlayerId, 
-                                    Name = "Empty", 
-                                    Surname = "-", 
-                                    Nick = "Empty", 
-                                    Info = string.Empty, 
-                                    Tag = string.Empty };
+			Empty = EmptyPlayer.Instance;                        
         }
 
         public Player()
@@ -88,6 +82,14 @@ namespace Logic
 
         } 
         #endregion
+
+		public bool Equals(Player player)
+		{
+			if (player == null)
+				return false;
+
+			return (player.playerId == this.playerId);
+		}
 
         public override bool Equals(object obj)
         {
@@ -108,4 +110,32 @@ namespace Logic
             return string.Format("{0} {1} '{2}'", surname, name, nick);
         }
     }
+
+	[Serializable]
+	public sealed class EmptyPlayer : Player
+	{
+		[NonSerialized]
+		public const int EmptyPlayerId = -1;
+
+		[NonSerialized]
+		private static EmptyPlayer _instance;
+		[XmlIgnore]
+		public static EmptyPlayer Instance { 
+			get { 
+				if (_instance == null)
+					_instance = new EmptyPlayer();
+				return _instance;
+			} 
+		}
+
+		private EmptyPlayer() : base()
+		{
+			PlayerId = EmptyPlayerId;
+ 			Name = "Empty";
+ 			Surname = "-"; 
+            Nick = "Empty";
+            Info = "Virtual BAY player"; 
+            Tag = "BAY";
+		}
+	}
 }

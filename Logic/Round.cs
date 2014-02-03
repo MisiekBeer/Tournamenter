@@ -229,7 +229,7 @@ namespace Logic
                     new PlayerStance(places[0]) {
                         Place = ++place,
                         TableNumber = -1,
-                        OponentId = Player.EmptyPlayerId,
+                        OponentId = EmptyPlayer.EmptyPlayerId,
                         IsBay = true,
                         BigVP = Match.Settings.PointsForBay
                     }, 

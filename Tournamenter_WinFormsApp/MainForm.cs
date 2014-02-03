@@ -120,7 +120,7 @@ namespace Tournamenter_WinFormsApp
                 return;
 
             if (_match != null)
-                RestartMatch();
+                RestartMatchUI();
 
             MatchSettings settings = new MatchSettings();
             using (MatchSettingsFrm frm = new MatchSettingsFrm(settings))
@@ -147,7 +147,7 @@ namespace Tournamenter_WinFormsApp
             _match.RaiseMatchStatusChanged();
         }
 
-        private void RestartMatch()
+        private void RestartMatchUI()
         {
             string result;
             if (_match != null)
@@ -350,25 +350,33 @@ namespace Tournamenter_WinFormsApp
         #region Save/Load
         private void saveMatchStatus_Click(object sender, EventArgs e)
         {
+			saveFileDialog.FileName = string.Format(
+				"Match{0}_Round{1}.xml", _match.Name, _match.ActiveRoundCount);
+
             if (saveFileDialog.ShowDialog(this) != DialogResult.OK)
                 return;
 
             string result;
-            _match.Save(@"D:\match.xml", out result);
-
-            SetStatus(result);
+            if (_match.Save(saveFileDialog.FileName, out result))
+				SetStatus(String.Format("Match file saved to: {0}", result));
+			else 
+				SetStatus(String.Format("Match saving operation failed: {0}", result));
         }
 
         private void loadMatch_Click(object sender, EventArgs e)
         {
+			if (openFileDialog.ShowDialog(this) != DialogResult.OK)
+				return;
+
             string result;
-            Match match = Match.Load(@"D:\match.xml", out result);
-            SetStatus(result);
+            Match match = Match.Load(openFileDialog.FileName, out result);
+			if (match == null)
+			{
+				SetStatus(String.Format("Match loading operation failed: {0}", result));
+				return;
+			}
 
-            if (match == null)
-                return;
-
-            RestartMatch();
+            RestartMatchUI();
 
             _match = match;
 
@@ -385,7 +393,9 @@ namespace Tournamenter_WinFormsApp
             }
 
             matchStatusChanged(_match, _match.Status);
-        } 
+
+			SetStatus(String.Format("Match file loaded from: {0}", result));
+		} 
         #endregion
 
 
