@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace Logic
@@ -198,7 +196,7 @@ namespace Logic
 
         public override string ToString()
         {
-            return string.Format("Player: {0} place from {1} round", Player.ToString());
+            return string.Format("Player: {0} place", Player);
         }
 
         public int CompareTo(PlayerStance other)

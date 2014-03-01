@@ -7,198 +7,211 @@ using System.Xml.Serialization;
 
 namespace Logic
 {
-    public enum RoundStatus
-    {
-        NotSet,
-        CalculatingPairings,
-        RoundStarted,
-        RoundClosed,
-        MatchResult
-    }
+	public enum RoundStatus
+	{
+		NotSet,
+		CalculatingPairings,
+		RoundStarted,
+		RoundClosed,
+		MatchResult
+	}
 
-    [Serializable]
-    public class PlayerPair
-    {
-        public PlayerStance Player1 { get; set; }
+	[Serializable]
+	public class PlayerPair
+	{
+		public PlayerStance Player1 { get; set; }
 
-        public PlayerStance Player2 { get; set; }
+		public PlayerStance Player2 { get; set; }
 
-        public PlayerPair()
-        {
+		public PlayerPair()
+		{
 
-        }
+		}
 
-        public PlayerPair(PlayerStance player1, PlayerStance player2)
-        {
-            Player1 = player1;
-            Player2 = player2;
-        }
+		public PlayerPair(PlayerStance player1, PlayerStance player2)
+		{
+			Player1 = player1;
+			Player2 = player2;
+		}
 
-        public bool IsBay { get { return Player1 == PlayerStance.Empty || Player2 == PlayerStance.Empty; } }
+		public bool IsBay { get { return Player1 == PlayerStance.Empty || Player2 == PlayerStance.Empty; } }
 
-        public override string ToString()
-        {
-            return string.Concat(Player1.ToString(), " vs ", Player2.ToString());
-        }
-    }
+		public override string ToString()
+		{
+			return string.Concat(Player1.ToString(), " vs ", Player2.ToString());
+		}
+	}
 
-    [Serializable]
-    public class Round : BaseLogicClass
-    {
-        #region Properties
+	[Serializable]
+	public class Round : BaseLogicClass
+	{
+		#region Properties
 
-        #region Serializable
-        private RoundStatus status;
-        public RoundStatus Status
-        {
-            get { return status; }
-            set { status = value; OnPropertyChanged(PropNames.Status); }
-        }
+		#region Serializable
+		private RoundStatus status;
+		public RoundStatus Status
+		{
+			get { return status; }
+			set { status = value; OnPropertyChanged(PropNames.Status); }
+		}
 
-        private int number;
-        public int Number
-        {
-            get { return number; }
-            set { number = value; OnPropertyChanged(PropNames.Number); }
-        }
+		private int number;
+		public int Number
+		{
+			get { return number; }
+			set { number = value; OnPropertyChanged(PropNames.Number); }
+		}
 
-        private List<PlayerStance> playerPlaces;
-        public List<PlayerStance> PlayerPlaces
-        {
-            get { return playerPlaces; }
-            private set { playerPlaces = value; OnPropertyChanged(PropNames.PlayerPlaces); }
-        }
+		private List<PlayerStance> playerPlaces;
+		public List<PlayerStance> PlayerPlaces
+		{
+			get { return playerPlaces; }
+			private set { playerPlaces = value; OnPropertyChanged(PropNames.PlayerPlaces); }
+		}
 
-        private List<PlayerPair> playerPairs;
-        public List<PlayerPair> PlayerPairs
-        {
-            get { return playerPairs; }
-            set { playerPairs = value; }
-        } 
-        #endregion
+		private List<PlayerPair> playerPairs;
+		public List<PlayerPair> PlayerPairs
+		{
+			get { return playerPairs; }
+			set { playerPairs = value; }
+		}
+		#endregion
 
-        public static class PropNames
-        {
-            public const string Status = "Status";
-            public const string Number = "Number";
-            public const string PlayerPlaces = "PlayerPlaces";
-            public const string PlayerPairs = "PlayerPairs";
-        }
+		public static class PropNames
+		{
+			public const string Status = "Status";
+			public const string Number = "Number";
+			public const string PlayerPlaces = "PlayerPlaces";
+			public const string PlayerPairs = "PlayerPairs";
+		}
 
-        public bool AllPointsEntered
-        {
-            get { return playerPlaces.All(n => n.PointsEntered); }
-        }
+		public bool AllPointsEntered
+		{
+			get { return playerPlaces.All(n => n.PointsEntered); }
+		}
 
-        [XmlIgnore]
-        public Match Match { get; set; }
-        #endregion
+		[XmlIgnore]
+		public Match Match { get; set; }
+		#endregion
 
-        #region ctor
-        /// <summary>
-        /// Empty round
-        /// </summary>
-        public Round()
-        {
-            PlayerPlaces = new List<PlayerStance>();
-            PlayerPairs = new List<PlayerPair>();
-            Number = 1;
-        }
+		#region ctor
+		/// <summary>
+		/// Empty round
+		/// </summary>
+		public Round()
+		{
+			PlayerPlaces = new List<PlayerStance>();
+			PlayerPairs = new List<PlayerPair>();
+			Number = 1;
+		}
 
-        /// <summary>
-        /// Match round with points
-        /// </summary>
-        /// <param name="pairs"></param>
-        public Round(List<PlayerPair> pairs) : this()
-        {
-            PlayerPairs.AddRange(pairs);
+		/// <summary>
+		/// Match round with points
+		/// </summary>
+		/// <param name="pairs"></param>
+		public Round(List<PlayerPair> pairs)
+			: this()
+		{
+			PlayerPairs.AddRange(pairs);
 
-            foreach (var pair in pairs)
-            {
-                PlayerPlaces.Add(pair.Player1);
-                PlayerPlaces.Add(pair.Player2);
-            }
-        }
+			foreach (var pair in pairs)
+			{
+				PlayerPlaces.Add(pair.Player1);
+				PlayerPlaces.Add(pair.Player2);
+			}
+		}
 
-        /// <summary>
-        /// Final Player List
-        /// </summary>
-        /// <param name="playerPlaces"></param>
-        public Round(List<PlayerStance> finalPlaces) : this()
-        {
-            foreach (PlayerStance place in finalPlaces)
-            {
-                PlayerPlaces.Add(new PlayerStance(place));
-            }
-            PlayerPlaces.Remove(PlayerStance.Empty); //remove bay player
-            PlayerPlaces.Sort();
+		/// <summary>
+		/// Final Player List
+		/// </summary>
+		/// <param name="playerPlaces"></param>
+		public Round(List<PlayerStance> finalPlaces)
+			: this()
+		{
+			foreach (PlayerStance place in finalPlaces)
+			{
+				PlayerPlaces.Add(new PlayerStance(place));
+			}
+			PlayerPlaces.Remove(PlayerStance.Empty); //remove bay player
+			PlayerPlaces.Sort();
 
-            foreach (PlayerStance place in PlayerPlaces)
-            {
-                place.Place = playerPlaces.IndexOf(place) + 1;
-            }
-        } 
-        #endregion
+			foreach (PlayerStance place in PlayerPlaces)
+			{
+				place.Place = playerPlaces.IndexOf(place) + 1;
+			}
+		}
+		#endregion
 
-        #region methods
+		#region methods
 
-        public override string ToString()
-        {
-            return string.Format("Round number: {0}", Number);
-        }
+		public override string ToString()
+		{
+			return string.Format("Round number: {0}", Number);
+		}
 
-        internal void GenerateStartPairs(List<Player> players)
-        {
-            Status = RoundStatus.CalculatingPairings;
+		internal void GenerateStartPairs(List<Player> players)
+		{
+			Status = RoundStatus.CalculatingPairings;
 
-            players = new List<Player>(players.Randomize());
+			players = new List<Player>(players.Randomize());
 
-            int place = 1;
-            int tableNumber = 1;
-            Player player1 = null;
-            PlayerStance player1_Stance = null;
-            Player player2 = null;
-            PlayerStance player2_Stance = null;
+			int place = 1;
+			int tableNumber = 1;
+			Player player1 = null;
+			PlayerStance player1_Stance = null;
+			Player player2 = null;
+			PlayerStance player2_Stance = null;
 
-            while ((players.Count / 2) > 0)
-            {
-                player1 = players.First();
-                players.RemoveAt(0);
-                player2 = players.First();
-                players.RemoveAt(0);
+			while ((players.Count / 2) > 0)
+			{
+				player1 = players.First();
+				players.RemoveAt(0);
+				player2 = players.First();
+				players.RemoveAt(0);
 
-                player1_Stance = new PlayerStance(player1, player2) { 
-                                        Place = place, TableNumber = tableNumber};
-                place++;
-                player2_Stance = new PlayerStance(player2, player1) { 
-                                        Place = place, TableNumber = tableNumber};
-                place++;
+				player1_Stance = new PlayerStance(player1, player2)
+				{
+					Place = place,
+					TableNumber = tableNumber
+				};
+				place++;
+				player2_Stance = new PlayerStance(player2, player1)
+				{
+					Place = place,
+					TableNumber = tableNumber
+				};
+				place++;
 
-                tableNumber++;
-                playerPlaces.Add(player1_Stance);
-                playerPlaces.Add(player2_Stance);
-                playerPairs.Add(new PlayerPair(player1_Stance, player2_Stance));
-            }
+				tableNumber++;
+				playerPlaces.Add(player1_Stance);
+				playerPlaces.Add(player2_Stance);
+				playerPairs.Add(new PlayerPair(player1_Stance, player2_Stance));
+			}
 
-            if (players.Count == 1)
-            {
-                player1 = players.First();
-                players.RemoveAt(0);
-                //BAY playa 
-                player1_Stance = new PlayerStance(player1, Player.Empty) { 
-                    Place = place, TableNumber = -1, BigVP = 10, IsBay = true };
-                place++;
-                player2_Stance = PlayerStance.Empty;
-                place++;
+			if (players.Count == 1)
+			{
+				player1 = players.First();
+				players.RemoveAt(0);
+				//BAY playa 
+				player1_Stance = new PlayerStance(player1, Player.Empty)
+				{
+					Place = place,
+					TableNumber = -1,
+					BigVP = 10,
+					IsBay = true
+				};
+				place++;
+				player2_Stance = PlayerStance.Empty;
+				place++;
 
-                tableNumber++;
-                playerPlaces.Add(player1_Stance);
-                playerPlaces.Add(player2_Stance);
-                playerPairs.Add(new PlayerPair(player1_Stance, player2_Stance));
-            }
-            Status = RoundStatus.RoundStarted;
-            Contract.Ensures(players.Count == 0, "Player generation list is not emptied");
-        }
+				tableNumber++;
+				playerPlaces.Add(player1_Stance);
+				playerPlaces.Add(player2_Stance);
+				playerPairs.Add(new PlayerPair(player1_Stance, player2_Stance));
+			}
+			Status = RoundStatus.RoundStarted;
+			Contract.Ensures(players.Count == 0, "Player generation list is not emptied");
+		}
 
         private List<PlayerPair> GenerateRankingPairs()
         {
@@ -210,23 +223,37 @@ namespace Logic
 
             SwapRepeatedOpponents(places);
             int place = 0;
-            int table = 1;
+			HashSet<int> tables = new HashSet<int>(Enumerable.Range(1, Match.Settings.TablesCount).Randomize());
 
-            var newPairs = new List<PlayerPair>(places.Count/2 + 1);
-            while ((places.Count / 2) > 0)
-            {//TODO: Add tables repeat check
+			var newPairs = new List<PlayerPair>((places.Count / 2) + (places.Count % 2));
+			PlayerStance first = null;
+			PlayerStance second = null;
+
+			while ((places.Count / 2) > 0)
+            {
+				first = places[0];
+				second = places[1];
+
+				int tableNr = tables.FirstOrDefault(n =>
+					Match.GetPlayerTables(first).Union(Match.GetPlayerTables(second)).Intersect(tables).Count() == 0);
+
+				if (tableNr == 0)
+					tableNr = tables.First();
+				tables.Remove(tableNr);
+
                 newPairs.Add(new PlayerPair(
-                    new PlayerStance(places[0]) { 
-                            Place = ++place, TableNumber = table, OponentId = places[1].PlayerId },
-                    new PlayerStance(places[1]) { 
-                            Place = ++place, TableNumber = table, OponentId = places[0].PlayerId })
+                    new PlayerStance(first) { 
+                            Place = ++place, TableNumber = tableNr, OponentId = second.PlayerId },
+                    new PlayerStance(second) { 
+                            Place = ++place, TableNumber = tableNr, OponentId = first.PlayerId })
                             );
                 places.RemoveRange(0, 2);
             }
             if (places.Count == 1)
             {
                 newPairs.Add(new PlayerPair(
-                    new PlayerStance(places[0]) {
+					new PlayerStance(places[0])
+					{
                         Place = ++place,
                         TableNumber = -1,
                         OponentId = EmptyPlayer.EmptyPlayerId,

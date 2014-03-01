@@ -12,37 +12,56 @@ namespace Tournamenter_WinFormsApp
 {
     public partial class MatchSettingsFrm : ComponentFactory.Krypton.Toolkit.KryptonForm
     {
-        public MatchSettingsFrm()
-        {
-            InitializeComponent();
-        }
+		#region props
+		public MatchSettings Settings { get { return (MatchSettings)matchSettingsBindingSource.DataSource; } } 
+		#endregion
 
-        public MatchSettingsFrm(MatchSettings settings) : this()
-        {
-            matchSettingsBindingSource.DataSource = settings;
-        }
+		#region fields
+		bool _isReadonly; 
+		#endregion
 
-        private void btnOK_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+		#region ctor
+		public MatchSettingsFrm()
+		{
+			InitializeComponent();
+		} 
+		#endregion
 
-        internal void SetReadonly()
-        {
-            pointsForBayTextBox.ReadOnly = true;
-            walkowerPointsTextBox.ReadOnly = true;
-            roundCountTextBox.ReadOnly = true;
-        }
+		#region methods
+		public MatchSettingsFrm(MatchSettings settings, bool isReadonly)
+			: this()
+		{
+			matchSettingsBindingSource.DataSource = settings.Clone();
 
-        private void dgvPointRanges_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
-        {
-            if (e.ColumnIndex == maxPointsDataGridViewTextBoxColumn.Index && e.RowIndex > 0)
-                if (e.Value != null && (int)e.Value == int.MaxValue)
-                {
-                    e.PaintBackground(e.CellBounds, true);
-                    e.Graphics.DrawString("...", maxPointsDataGridViewTextBoxColumn.InheritedStyle.Font, Brushes.Black, e.CellBounds);
-                    e.Handled = true;
-                }
-        }
+			if (isReadonly)
+			{
+				_isReadonly = true;
+				SetReadonlyMode();
+			}
+		}
+
+		private void btnOK_Click(object sender, EventArgs e)
+		{
+			MatchSettings.DefaultSettings = Settings;
+			this.Close();
+		}
+
+		internal void SetReadonlyMode()
+		{
+			_isReadonly = pointsForBay.ReadOnly = walkowerPoints.ReadOnly = roundCount.ReadOnly =
+				tablesCount.ReadOnly = dgvPointRanges.ReadOnly = true;
+		}
+
+		private void dgvPointRanges_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+		{
+			if (e.ColumnIndex == maxPointsDataGridViewTextBoxColumn.Index && e.RowIndex > 0)
+				if (e.Value != null && (int)e.Value == int.MaxValue)
+				{
+					e.PaintBackground(e.CellBounds, true);
+					e.Graphics.DrawString("...", maxPointsDataGridViewTextBoxColumn.InheritedStyle.Font, Brushes.Black, e.CellBounds);
+					e.Handled = true;
+				}
+		} 
+		#endregion
     }
 }

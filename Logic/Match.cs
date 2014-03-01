@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace Logic
@@ -112,23 +110,17 @@ namespace Logic
             MatchDate = DateTime.Today.Date;
             Players = new List<Player>();
             Rounds = new List<Round>();
-            Settings = new MatchSettings();
         }
 
         public static Match CreateNewMatch(MatchSettings settings)
         {
-            Match match = new Match() { Status = MatchStatus.PlayersEnlisting};
+            Match match = new Match() { Settings = settings};
 
             string result = string.Empty;
             match.AutoSave(out result);
             return match;
         }
 
-        public static Match CreateNewMatch()
-        {
-            MatchSettings defaultSettings = new MatchSettings();
-            return CreateNewMatch(defaultSettings);
-        } 
         #endregion
 
         #region methods

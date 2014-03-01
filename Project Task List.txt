@@ -4,27 +4,30 @@ Winforms
 TODO:
 _______________
 
--Match result/State saving/loading to xml files 
-	- fix loading match with BAY in progress - cannot close round
-
+- fix loading match with BAY in progress - cannot close round
 -Remove player from match/ walkover
--Add Tables repeat verification for players
 
 -Match end messages
--Bonus/penality points
-
--Logging, messaging in app
-
 -Speaking Clock + match time
 
 -Ranking report/board - maybe PDF???
 
 
+-Bonus/penality points for play, painting etc
+
+-Logging, messaging in app
+
+
 -General testing
+
+- Localization
 
 DONE:
 __________________
 
+-Match result/State saving/loading to xml files 
+-Add Tables repeat verification for players
+-match settings fuckup fixed
 -Check for all points entered condition on round closing
 -Proper match end points
 ___________________

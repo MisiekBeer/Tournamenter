@@ -83,11 +83,10 @@ namespace Tournamenter_WinFormsApp
 
         private void matchSettings_Click(object sender, EventArgs e)
         {
-            if (_match == null || _match.Status != MatchStatus.PlayersEnlisting)
+            if (_match == null)
                 return;
-            using (MatchSettingsFrm frm = new MatchSettingsFrm(_match.Settings))
+			using (MatchSettingsFrm frm = new MatchSettingsFrm(_match.Settings, _match.Status != MatchStatus.PlayersEnlisting))
             {
-                //frm.SetReadonly();
                 frm.ShowDialog(this);
             }
         }
@@ -122,13 +121,11 @@ namespace Tournamenter_WinFormsApp
             if (_match != null)
                 RestartMatchUI();
 
-            MatchSettings settings = new MatchSettings();
-            using (MatchSettingsFrm frm = new MatchSettingsFrm(settings))
+            using (MatchSettingsFrm frm = new MatchSettingsFrm(MatchSettings.DefaultSettings, false))
             {
                 frm.ShowDialog(this);
+				_match = Match.CreateNewMatch(frm.Settings);
             }
-
-            _match = Match.CreateNewMatch();
 
             InitMatchGUI();
 
