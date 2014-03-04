@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Logic
 {
@@ -68,6 +69,13 @@ namespace Logic
             set { roundTime = value; OnPropertyChanged(PropNames.RoundTime); }
         }
 
+		[XmlIgnore]
+		public int RoundMinutes
+		{
+			get { return (int)roundTime.TotalMinutes; }
+			set { RoundTime = new TimeSpan(0, value, 0); OnPropertyChanged(PropNames.RoundMinutes); }
+		}
+
         private int tablesCount;
         public int TablesCount
         {
@@ -83,6 +91,7 @@ namespace Logic
             public const string RoundCount = "RoundCount";
             public const string PointRanges = "PointRanges";
             public const string RoundTime = "RoundTime";
+			public const string RoundMinutes = "RoundMinutes";
             public const string TablesCount = "TablesCount";
         } 
         #endregion

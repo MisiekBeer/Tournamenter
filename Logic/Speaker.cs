@@ -5,17 +5,84 @@ using System.Speech.Synthesis;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
+using System.Threading;
+using Logic.Extensions;
 
 namespace Logic
 {
     public class Speaker
     {
         public static Speaker Instance { get { return _instance.Value; } }
-        private static Lazy<Speaker> _instance = new Lazy<Speaker>(() => { return new Speaker(); }, true);
-        private static object _locker = new object();
 
-        private static ConcurrentQueue<string> _textsToSay = new ConcurrentQueue<string>();
-        private static SpeechSynthesizer _synth;
+        private static Lazy<Speaker> _instance = new Lazy<Speaker>(() => { return new Speaker(); }, true);
+        
+		
+		private object _locker = new object();
+
+        private ConcurrentQueue<string> _textsToSay = new ConcurrentQueue<string>();
+        private SpeechSynthesizer _synth;
+
+		private RoundTimer _roundTimer;
+
+		private class RoundTimer
+		{
+			private readonly TimeSpan MINUTE = new TimeSpan(0, 1, 0);
+
+			private TimeSpan _roundTimeRemaining;
+			private Timer _timer;
+
+			public void StartTimer(TimeSpan roundTime)
+			{
+				_roundTimeRemaining = roundTime;
+
+				_timer = new Timer(OnTimer, this, MINUTE, MINUTE);
+
+				Speaker.Instance.AddToSayQueue("Runda rozpoczęta!");
+				Speaker.Instance.AddToSayQueue(string.Format("Do końca rundy pozostało {0}", _roundTimeRemaining));
+			}
+
+			public void StopTimer()
+			{
+				if (_timer != null)
+					_timer.Dispose();
+			}
+
+			private void OnTimer(object state)
+			{
+				_roundTimeRemaining = _roundTimeRemaining.Subtract(MINUTE);
+
+				if (_roundTimeRemaining <= TimeSpan.Zero)
+				{
+					Speaker.Instance.AddToSayQueue("Runda dobiegła końca!");
+					StopTimer();
+					return;
+				}
+
+				if (_roundTimeRemaining.TotalHours >= 1)
+				{
+					if (((int)_roundTimeRemaining.TotalMinutes % 30) != 0)
+						return;
+
+					Speaker.Instance.AddToSayQueue(string.Format("Do końca rundy pozostało {0}.", _roundTimeRemaining));
+					return;
+				}
+				else if (_roundTimeRemaining.TotalMinutes >= 30)
+				{
+					if (((int)_roundTimeRemaining.TotalMinutes % 15) != 0)
+						return;
+
+					Speaker.Instance.AddToSayQueue(string.Format("Do końca rundy pozostało {0}.", _roundTimeRemaining));
+					return;
+				}
+				else if (_roundTimeRemaining.TotalMinutes >= 10)
+				{
+					if (((int)_roundTimeRemaining.TotalMinutes % 5) != 0)
+						return;
+				}
+
+				Speaker.Instance.AddToSayQueue(string.Format("Pozostało {0}.", _roundTimeRemaining));
+			}
+		}
 
         private Speaker ()
         {
@@ -27,6 +94,8 @@ namespace Logic
             _synth.SetOutputToDefaultAudioDevice();
 
             _synth.SpeakCompleted += _synth_SpeakCompleted;
+
+			_roundTimer = new RoundTimer();
         }
 
         /// <summary>
@@ -71,8 +140,15 @@ namespace Logic
             }
         }
 
+		public void StartRoundTimerSpeaker(TimeSpan roundTime)
+		{
+			_roundTimer.StartTimer(roundTime);
+		}
+
         public void KillAll()
         {
+			_roundTimer.StopTimer();
+
             _synth.SpeakCompleted -= _synth_SpeakCompleted;
             _synth.SpeakAsyncCancelAll();
             _synth.Dispose();

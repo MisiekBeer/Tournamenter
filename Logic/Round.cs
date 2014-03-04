@@ -210,7 +210,8 @@ namespace Logic
 				playerPairs.Add(new PlayerPair(player1_Stance, player2_Stance));
 			}
 			Status = RoundStatus.RoundStarted;
-			Contract.Ensures(players.Count == 0, "Player generation list is not emptied");
+
+			Speaker.Instance.StartRoundTimerSpeaker(Match.Settings.RoundTime);
 		}
 
         private List<PlayerPair> GenerateRankingPairs()
@@ -331,9 +332,17 @@ namespace Logic
         /// <returns>new Round</returns>
         internal Round CloseAndGenerateNext()
         {
-            UpdateBigPoints();
-            var pairs = GenerateRankingPairs();
-            return new Round(pairs) { Number = this.Number + 1, Match = this.Match};
+			try
+			{
+				UpdateBigPoints();
+				var pairs = GenerateRankingPairs();
+
+				return new Round(pairs) { Number = this.Number + 1, Match = this.Match };
+			}
+			finally
+			{
+				Speaker.Instance.StartRoundTimerSpeaker(Match.Settings.RoundTime);
+			}
         }
 
         private void UpdateBigPoints()

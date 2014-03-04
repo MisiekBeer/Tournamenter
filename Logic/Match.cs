@@ -155,6 +155,7 @@ namespace Logic
             rounds.Add(round);
 
             Status = MatchStatus.RoundStarted;
+
             return round;
         }
 

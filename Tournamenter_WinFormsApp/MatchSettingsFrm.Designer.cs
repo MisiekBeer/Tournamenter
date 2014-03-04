@@ -36,11 +36,8 @@ namespace Tournamenter_WinFormsApp
 			this.kryptonPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
 			this.settingsGroupBox = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
 			this.tablesCount = new ComponentFactory.Krypton.Toolkit.KryptonNumericUpDown();
-			this.matchSettingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.kryptonGroupBox1 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
 			this.dgvPointRanges = new System.Windows.Forms.DataGridView();
-			this.minPointsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.maxPointsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.WinPts = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.LoosePts = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.pointRangesBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -48,6 +45,11 @@ namespace Tournamenter_WinFormsApp
 			this.pointsForBay = new ComponentFactory.Krypton.Toolkit.KryptonNumericUpDown();
 			this.walkowerPoints = new ComponentFactory.Krypton.Toolkit.KryptonNumericUpDown();
 			this.roundCount = new ComponentFactory.Krypton.Toolkit.KryptonNumericUpDown();
+			this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+			this.roundTimeMinutes = new ComponentFactory.Krypton.Toolkit.KryptonNumericUpDown();
+			this.matchSettingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.minPointsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.maxPointsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			pointsForBayLabel = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
 			roundCountLabel = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
 			walkowerPointsLabel = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
@@ -58,13 +60,13 @@ namespace Tournamenter_WinFormsApp
 			((System.ComponentModel.ISupportInitialize)(this.settingsGroupBox.Panel)).BeginInit();
 			this.settingsGroupBox.Panel.SuspendLayout();
 			this.settingsGroupBox.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.matchSettingsBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1.Panel)).BeginInit();
 			this.kryptonGroupBox1.Panel.SuspendLayout();
 			this.kryptonGroupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgvPointRanges)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pointRangesBindingSource)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.matchSettingsBindingSource)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// pointsForBayLabel
@@ -105,7 +107,7 @@ namespace Tournamenter_WinFormsApp
 			this.kryptonPanel.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.kryptonPanel.Location = new System.Drawing.Point(0, 0);
 			this.kryptonPanel.Name = "kryptonPanel";
-			this.kryptonPanel.Size = new System.Drawing.Size(384, 460);
+			this.kryptonPanel.Size = new System.Drawing.Size(384, 503);
 			this.kryptonPanel.TabIndex = 0;
 			// 
 			// settingsGroupBox
@@ -116,6 +118,8 @@ namespace Tournamenter_WinFormsApp
 			// 
 			// settingsGroupBox.Panel
 			// 
+			this.settingsGroupBox.Panel.Controls.Add(this.roundTimeMinutes);
+			this.settingsGroupBox.Panel.Controls.Add(this.kryptonLabel2);
 			this.settingsGroupBox.Panel.Controls.Add(this.tablesCount);
 			this.settingsGroupBox.Panel.Controls.Add(kryptonLabel1);
 			this.settingsGroupBox.Panel.Controls.Add(this.kryptonGroupBox1);
@@ -126,7 +130,7 @@ namespace Tournamenter_WinFormsApp
 			this.settingsGroupBox.Panel.Controls.Add(this.walkowerPoints);
 			this.settingsGroupBox.Panel.Controls.Add(roundCountLabel);
 			this.settingsGroupBox.Panel.Controls.Add(this.roundCount);
-			this.settingsGroupBox.Size = new System.Drawing.Size(384, 460);
+			this.settingsGroupBox.Size = new System.Drawing.Size(384, 503);
 			this.settingsGroupBox.TabIndex = 8;
 			this.settingsGroupBox.Text = "Settings:";
 			this.settingsGroupBox.Values.Heading = "Settings:";
@@ -150,14 +154,11 @@ namespace Tournamenter_WinFormsApp
             0,
             0});
 			// 
-			// matchSettingsBindingSource
-			// 
-			this.matchSettingsBindingSource.AllowNew = false;
-			this.matchSettingsBindingSource.DataSource = typeof(Logic.MatchSettings);
-			// 
 			// kryptonGroupBox1
 			// 
-			this.kryptonGroupBox1.Location = new System.Drawing.Point(3, 87);
+			this.kryptonGroupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.kryptonGroupBox1.Location = new System.Drawing.Point(3, 134);
 			this.kryptonGroupBox1.Name = "kryptonGroupBox1";
 			// 
 			// kryptonGroupBox1.Panel
@@ -185,24 +186,6 @@ namespace Tournamenter_WinFormsApp
 			this.dgvPointRanges.Size = new System.Drawing.Size(370, 283);
 			this.dgvPointRanges.TabIndex = 9;
 			this.dgvPointRanges.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvPointRanges_CellPainting);
-			// 
-			// minPointsDataGridViewTextBoxColumn
-			// 
-			this.minPointsDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.minPointsDataGridViewTextBoxColumn.DataPropertyName = "MinPoints";
-			this.minPointsDataGridViewTextBoxColumn.FillWeight = 25F;
-			this.minPointsDataGridViewTextBoxColumn.HeaderText = "Min Points";
-			this.minPointsDataGridViewTextBoxColumn.Name = "minPointsDataGridViewTextBoxColumn";
-			this.minPointsDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
-			// maxPointsDataGridViewTextBoxColumn
-			// 
-			this.maxPointsDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.maxPointsDataGridViewTextBoxColumn.DataPropertyName = "MaxPoints";
-			this.maxPointsDataGridViewTextBoxColumn.FillWeight = 25F;
-			this.maxPointsDataGridViewTextBoxColumn.HeaderText = "Max Points";
-			this.maxPointsDataGridViewTextBoxColumn.Name = "maxPointsDataGridViewTextBoxColumn";
-			this.maxPointsDataGridViewTextBoxColumn.ReadOnly = true;
 			// 
 			// WinPts
 			// 
@@ -232,7 +215,7 @@ namespace Tournamenter_WinFormsApp
 			// 
 			this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.btnOK.Location = new System.Drawing.Point(287, 404);
+			this.btnOK.Location = new System.Drawing.Point(287, 447);
 			this.btnOK.Name = "btnOK";
 			this.btnOK.Size = new System.Drawing.Size(90, 25);
 			this.btnOK.TabIndex = 8;
@@ -301,11 +284,66 @@ namespace Tournamenter_WinFormsApp
             0,
             0});
 			// 
+			// kryptonLabel2
+			// 
+			this.kryptonLabel2.Location = new System.Drawing.Point(169, 99);
+			this.kryptonLabel2.Name = "kryptonLabel2";
+			this.kryptonLabel2.Size = new System.Drawing.Size(128, 20);
+			this.kryptonLabel2.TabIndex = 13;
+			this.kryptonLabel2.Values.Text = "Round time (minutes)";
+			// 
+			// roundTimeMinutes
+			// 
+			this.roundTimeMinutes.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.matchSettingsBindingSource, "RoundMinutes", true));
+			this.roundTimeMinutes.Location = new System.Drawing.Point(303, 99);
+			this.roundTimeMinutes.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+			this.roundTimeMinutes.Minimum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+			this.roundTimeMinutes.Name = "roundTimeMinutes";
+			this.roundTimeMinutes.Size = new System.Drawing.Size(65, 22);
+			this.roundTimeMinutes.TabIndex = 14;
+			this.roundTimeMinutes.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.roundTimeMinutes.Value = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+			// 
+			// matchSettingsBindingSource
+			// 
+			this.matchSettingsBindingSource.AllowNew = false;
+			this.matchSettingsBindingSource.DataSource = typeof(Logic.MatchSettings);
+			// 
+			// minPointsDataGridViewTextBoxColumn
+			// 
+			this.minPointsDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.minPointsDataGridViewTextBoxColumn.DataPropertyName = "MinPoints";
+			this.minPointsDataGridViewTextBoxColumn.FillWeight = 25F;
+			this.minPointsDataGridViewTextBoxColumn.HeaderText = "Min Points";
+			this.minPointsDataGridViewTextBoxColumn.Name = "minPointsDataGridViewTextBoxColumn";
+			this.minPointsDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// maxPointsDataGridViewTextBoxColumn
+			// 
+			this.maxPointsDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.maxPointsDataGridViewTextBoxColumn.DataPropertyName = "MaxPoints";
+			this.maxPointsDataGridViewTextBoxColumn.FillWeight = 25F;
+			this.maxPointsDataGridViewTextBoxColumn.HeaderText = "Max Points";
+			this.maxPointsDataGridViewTextBoxColumn.Name = "maxPointsDataGridViewTextBoxColumn";
+			this.maxPointsDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
 			// MatchSettingsFrm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(384, 460);
+			this.ClientSize = new System.Drawing.Size(384, 503);
 			this.Controls.Add(this.kryptonPanel);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.MaximizeBox = false;
@@ -321,13 +359,13 @@ namespace Tournamenter_WinFormsApp
 			this.settingsGroupBox.Panel.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.settingsGroupBox)).EndInit();
 			this.settingsGroupBox.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.matchSettingsBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1.Panel)).EndInit();
 			this.kryptonGroupBox1.Panel.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1)).EndInit();
 			this.kryptonGroupBox1.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dgvPointRanges)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.pointRangesBindingSource)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.matchSettingsBindingSource)).EndInit();
 			this.ResumeLayout(false);
 
         }
@@ -349,6 +387,8 @@ namespace Tournamenter_WinFormsApp
         private System.Windows.Forms.DataGridViewTextBoxColumn maxPointsDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn WinPts;
         private System.Windows.Forms.DataGridViewTextBoxColumn LoosePts;
+		private ComponentFactory.Krypton.Toolkit.KryptonNumericUpDown roundTimeMinutes;
+		private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel2;
     }
 }
 
