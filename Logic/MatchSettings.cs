@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace Logic
@@ -11,21 +8,28 @@ namespace Logic
     public class PointsDiffRange : ICloneable
     {
         public int MinPoints { get; set; }
+
         public int MaxPoints { get; set; }
+
         public int WinPts { get; set; }
+
         public int LoosePts { get; set; }
 
-		#region ICloneable Members
+        #region ICloneable Members
 
-		public object Clone()
-		{
-			return new PointsDiffRange() { 
-				MinPoints = this.MinPoints, MaxPoints = this.MaxPoints, LoosePts = this.LoosePts, WinPts = this.WinPts };
-		}
+        public object Clone()
+        {
+            return new PointsDiffRange()
+            {
+                MinPoints = this.MinPoints,
+                MaxPoints = this.MaxPoints,
+                LoosePts = this.LoosePts,
+                WinPts = this.WinPts
+            };
+        }
 
-		#endregion
-	}
-
+        #endregion ICloneable Members
+    }
 
     [Serializable]
     public class MatchSettings : BaseLogicClass, ICloneable
@@ -34,14 +38,16 @@ namespace Logic
 
         //Points for BAY
         private int pointsForBAY;
+
         public int PointsForBay
         {
             get { return pointsForBAY; }
             set { pointsForBAY = value; OnPropertyChanged(PropNames.PointsForBay); }
         }
 
-        //Points for WALKOVER 
+        //Points for WALKOVER
         private int walkowerPoints;
+
         public int WalkowerPoints
         {
             get { return walkowerPoints; }
@@ -49,6 +55,7 @@ namespace Logic
         }
 
         private int roundCount;
+
         public int RoundCount
         {
             get { return roundCount; }
@@ -56,27 +63,30 @@ namespace Logic
         }
 
         private List<PointsDiffRange> pointRanges;
-        public List<PointsDiffRange> PointRanges 
+
+        public List<PointsDiffRange> PointRanges
         {
             get { return pointRanges; }
             set { pointRanges = value; OnPropertyChanged(PropNames.PointRanges); }
         }
 
         private TimeSpan roundTime;
+
         public TimeSpan RoundTime
         {
             get { return roundTime; }
             set { roundTime = value; OnPropertyChanged(PropNames.RoundTime); }
         }
 
-		[XmlIgnore]
-		public int RoundMinutes
-		{
-			get { return (int)roundTime.TotalMinutes; }
-			set { RoundTime = new TimeSpan(0, value, 0); OnPropertyChanged(PropNames.RoundMinutes); }
-		}
+        [XmlIgnore]
+        public int RoundMinutes
+        {
+            get { return (int)roundTime.TotalMinutes; }
+            set { RoundTime = new TimeSpan(0, value, 0); OnPropertyChanged(PropNames.RoundMinutes); }
+        }
 
         private int tablesCount;
+
         public int TablesCount
         {
             get { return tablesCount; }
@@ -91,14 +101,14 @@ namespace Logic
             public const string RoundCount = "RoundCount";
             public const string PointRanges = "PointRanges";
             public const string RoundTime = "RoundTime";
-			public const string RoundMinutes = "RoundMinutes";
+            public const string RoundMinutes = "RoundMinutes";
             public const string TablesCount = "TablesCount";
-        } 
-        #endregion
+        }
+
+        #endregion properties
 
         public MatchSettings()
         {
-            
         }
 
         public override string ToString()
@@ -109,16 +119,17 @@ namespace Logic
 
         public static MatchSettings DefaultSettings;
 
-		static MatchSettings()
-		{
-			DefaultSettings = new MatchSettings() { 
-				WalkowerPoints = 20,
-				RoundCount = 3,
-				PointsForBay = 10,
-				TablesCount = 6,
-				RoundTime = new TimeSpan(2, 30, 0),
+        static MatchSettings()
+        {
+            DefaultSettings = new MatchSettings()
+            {
+                WalkowerPoints = 20,
+                RoundCount = 3,
+                PointsForBay = 10,
+                TablesCount = 6,
+                RoundTime = new TimeSpan(2, 30, 0),
 
-				PointRanges = new List<PointsDiffRange>()  {     //Points from, Points to , winner points
+                PointRanges = new List<PointsDiffRange>()  {     //Points from, Points to , winner points
 									new PointsDiffRange(){ MinPoints=0, MaxPoints=0, WinPts = 10, LoosePts = 10},
 									new PointsDiffRange(){ MinPoints=1, MaxPoints=1, WinPts = 11, LoosePts = 9},
 									new PointsDiffRange(){ MinPoints=2, MaxPoints=2, WinPts = 12, LoosePts = 8},
@@ -131,11 +142,11 @@ namespace Logic
 									new PointsDiffRange(){ MinPoints=9, MaxPoints=9, WinPts = 19, LoosePts = 1},
 									new PointsDiffRange(){ MinPoints=10, MaxPoints=int.MaxValue, WinPts = 20, LoosePts = 0},
 								}
-			};
-		}
+            };
+        }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="pointsDiff">difference</param>
         /// <returns></returns>
@@ -149,7 +160,7 @@ namespace Logic
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="pointsDiff">difference</param>
         /// <returns></returns>
@@ -162,24 +173,24 @@ namespace Logic
                 n => n.MinPoints <= pointsDiff && n.MaxPoints >= pointsDiff).LoosePts;
         }
 
-		#region ICloneable Members
+        #region ICloneable Members
 
-		public object Clone()
-		{
-			MatchSettings clone = new MatchSettings()
-			{
-				WalkowerPoints = this.WalkowerPoints,
-				RoundCount = this.RoundCount,
-				PointsForBay = this.PointsForBay,
-				TablesCount = this.TablesCount,
-				RoundTime = this.RoundTime,
-				PointRanges = new List<PointsDiffRange>(this.PointRanges.Count)
-			};
+        public object Clone()
+        {
+            MatchSettings clone = new MatchSettings()
+            {
+                WalkowerPoints = this.WalkowerPoints,
+                RoundCount = this.RoundCount,
+                PointsForBay = this.PointsForBay,
+                TablesCount = this.TablesCount,
+                RoundTime = this.RoundTime,
+                PointRanges = new List<PointsDiffRange>(this.PointRanges.Count)
+            };
 
-			this.PointRanges.ForEach((n)=>clone.PointRanges.Add((PointsDiffRange)n.Clone()));
-			return clone;
-		}
+            this.PointRanges.ForEach((n) => clone.PointRanges.Add((PointsDiffRange)n.Clone()));
+            return clone;
+        }
 
-		#endregion
-	}
+        #endregion ICloneable Members
+    }
 }

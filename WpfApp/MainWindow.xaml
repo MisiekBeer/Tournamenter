@@ -3,48 +3,42 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:WpfApp"
         Title="Tournamenter" Height="1024" Width="1280">
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*" />
         </Grid.ColumnDefinitions>
-        
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        
+
         <!--MENU-->
         <Menu IsMainMenu="True" Grid.Row="0">
             <MenuItem Header="File">
                 <MenuItem Header="Open">
-                    
                 </MenuItem>
-            </MenuItem>/>
+            </MenuItem> />
             <MenuItem Header="Edit">
                 <MenuItem Header="Copy">
-                    
                 </MenuItem>
-            </MenuItem>/>
+            </MenuItem> />
         </Menu>
-        
+
         <!--Round controls-->
 
-        <ScrollViewer Grid.Row="1" 
+        <ScrollViewer Grid.Row="1"
                       VerticalScrollBarVisibility="Disabled"
                       HorizontalScrollBarVisibility="Auto">
             <StackPanel Orientation="Horizontal" ScrollViewer.CanContentScroll="True">
-                
-                <local:RoundControl/>
-                <local:RoundControl/>
-                <local:RoundControl/>
-                <local:RoundControl/>
-                <local:RoundControl/>
-                
+
+                <local:RoundControl />
+                <local:RoundControl />
+                <local:RoundControl />
+                <local:RoundControl />
+                <local:RoundControl />
             </StackPanel>
         </ScrollViewer>
-
-
     </Grid>
-
 </Window>

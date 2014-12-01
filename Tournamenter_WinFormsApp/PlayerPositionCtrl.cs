@@ -1,26 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Logic;
+using System;
 using System.Windows.Forms;
-using Logic;
 
 namespace Tournamenter_WinFormsApp
 {
     public partial class PlayerPositionCtrl : UserControl
     {
         #region props
+
         public PlayerStance Stance { get { return _playerStance; } }
-        public bool PointsEntered { 
-            get {
-                if (_player == Player.Empty || _playerStance == PlayerStance.Empty) 
+
+        public bool PointsEntered
+        {
+            get
+            {
+                if (_player == Player.Empty || _playerStance == PlayerStance.Empty)
                     return true;
-                return _playerStance != null && _valueEntered; } }
-        #endregion
+                return _playerStance != null && _valueEntered;
+            }
+        }
+
+        #endregion props
 
         private enum PlayerPosCtrlMode
         {
@@ -31,20 +31,22 @@ namespace Tournamenter_WinFormsApp
         }
 
         #region fields
+
         private Player _player;
         private PlayerStance _playerStance;
 
         private PlayerPosCtrlMode _workingMode;
         private bool _valueEntered;
-        #endregion
+
+        #endregion fields
 
         #region ctor
+
         public PlayerPositionCtrl()
         {
             InitializeComponent();
 
             SetWorkingMode(PlayerPosCtrlMode.NotSet);
-
         }
 
         public PlayerPositionCtrl(PlayerStance playerStance, bool lastRound = false)
@@ -85,7 +87,7 @@ namespace Tournamenter_WinFormsApp
 
             if (player == null)
                 throw new ArgumentNullException("Null player in control");
-            
+
             _player = player;
             if (_player == Player.Empty)
                 _playerStance = PlayerStance.Empty;
@@ -129,7 +131,7 @@ namespace Tournamenter_WinFormsApp
             ResumeLayout();
         }
 
-        #endregion
+        #endregion ctor
 
         private void tbSmallPoints_ValueChanged(object sender, EventArgs e)
         {
@@ -140,7 +142,5 @@ namespace Tournamenter_WinFormsApp
         {
             _valueEntered = btValEnteredChk.Checked;
         }
-
-
     }
 }

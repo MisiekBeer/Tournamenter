@@ -1,22 +1,19 @@
+using Logic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using ComponentFactory.Krypton.Toolkit;
-using Logic;
 using System.Linq;
-using System.Linq.Expressions;
+using System.Windows.Forms;
 
 namespace Tournamenter_WinFormsApp
 {
     public partial class MainForm : ComponentFactory.Krypton.Toolkit.KryptonForm
     {
-        RoundCtrl ActiveRound { get { return _rounds.Count > 0 ? _rounds.Last() : _startList; } }
+        private RoundCtrl ActiveRound { get { return _rounds.Count > 0 ? _rounds.Last() : _startList; } }
 
         #region fields
+
         private readonly List<RoundCtrl> _rounds = new List<RoundCtrl>();
 
         private PlayerListFrm _playerListFrm;
@@ -24,9 +21,11 @@ namespace Tournamenter_WinFormsApp
         private Match _match;
         private readonly RoundCtrl _startList = new RoundCtrl();
         private RoundCtrl _endList;
-        #endregion
+
+        #endregion fields
 
         #region ctor
+
         public MainForm()
         {
             InitializeComponent();
@@ -40,12 +39,13 @@ namespace Tournamenter_WinFormsApp
             tableLayout.Controls.Add(_startList);
 
             SetMenuAndToolboxItems(MatchStatus.NotSet);
-        } 
-        #endregion
+        }
+
+        #endregion ctor
 
         private void playerList_Click(object sender, EventArgs e)
         {
-                _playerListFrm.Show(this);
+            _playerListFrm.Show(this);
         }
 
         private void timerTime_Tick(object sender, EventArgs e)
@@ -78,14 +78,14 @@ namespace Tournamenter_WinFormsApp
 
         private void exit_Click(object sender, EventArgs e)
         {
-                Close();
+            Close();
         }
 
         private void matchSettings_Click(object sender, EventArgs e)
         {
             if (_match == null)
                 return;
-			using (MatchSettingsFrm frm = new MatchSettingsFrm(_match.Settings, _match.Status != MatchStatus.PlayersEnlisting))
+            using (MatchSettingsFrm frm = new MatchSettingsFrm(_match.Settings, _match.Status != MatchStatus.PlayersEnlisting))
             {
                 frm.ShowDialog(this);
             }
@@ -109,6 +109,7 @@ namespace Tournamenter_WinFormsApp
         }
 
         #region Match GUI -> Logic
+
         private void newMatch_Click(object sender, EventArgs e)
         {
             if (_match != null && !_match.CanCloseSafe &&
@@ -124,7 +125,7 @@ namespace Tournamenter_WinFormsApp
             using (MatchSettingsFrm frm = new MatchSettingsFrm(MatchSettings.DefaultSettings, false))
             {
                 frm.ShowDialog(this);
-				_match = Match.CreateNewMatch(frm.Settings);
+                _match = Match.CreateNewMatch(frm.Settings);
             }
 
             InitMatchGUI();
@@ -167,7 +168,7 @@ namespace Tournamenter_WinFormsApp
             tableLayout.Controls.Add(_startList);
         }
 
-        void matchRoundAdded(object sender, Round e)
+        private void matchRoundAdded(object sender, Round e)
         {
             RoundCtrl roundCtrl = new RoundCtrl(e);
             tableLayout.Controls.Add(roundCtrl);
@@ -178,22 +179,26 @@ namespace Tournamenter_WinFormsApp
             SetStatus("Round {0} started", e.Number);
         }
 
-        void matchStatusChanged(object sender, MatchStatus e)
+        private void matchStatusChanged(object sender, MatchStatus e)
         {
             switch (e)
             {
                 case MatchStatus.PlayersEnlisting:
                     SetStatus("Add players to match");
                     break;
+
                 case MatchStatus.RoundStarted:
                     SetStatus("Round started");
                     break;
+
                 case MatchStatus.RoundClosed:
                     SetStatus("Round closed");
                     break;
+
                 case MatchStatus.MatchEnded:
 
                     break;
+
                 default:
                     break;
             }
@@ -254,24 +259,28 @@ namespace Tournamenter_WinFormsApp
                     tsBtnNewMatch.Enabled = false;
                     btnCloseRound.Enabled = false;
                     break;
+
                 case MatchStatus.RoundStarted:
                     btnNewMatch.Enabled = false;
                     tsBtnNewMatch.Enabled = false;
                     btnStartMatch.Enabled = false;
                     break;
+
                 case MatchStatus.RoundTimeEnded:
                     btnNewMatch.Enabled = false;
                     tsBtnNewMatch.Enabled = false;
                     btnStartMatch.Enabled = false;
                     break;
+
                 case MatchStatus.RoundClosed:
                     btnNewMatch.Enabled = false;
                     tsBtnNewMatch.Enabled = false;
                     btnStartMatch.Enabled = false;
                     btnCloseRound.Enabled = false;
                     break;
+
                 case MatchStatus.MatchEnded:
-                case MatchStatus.NotSet:                        
+                case MatchStatus.NotSet:
                 default:
                     btnStartMatch.Enabled = false;
                     btnCloseRound.Enabled = false;
@@ -287,7 +296,8 @@ namespace Tournamenter_WinFormsApp
             }
             menuStrip.ResumeLayout();
         }
-        #endregion
+
+        #endregion Match GUI -> Logic
 
         private void startMatch_Click(object sender, EventArgs e)
         {
@@ -325,6 +335,7 @@ namespace Tournamenter_WinFormsApp
         }
 
         #region Help
+
         private void about_Click(object sender, EventArgs e)
         {
             MessageBox.Show(this, "Tournamenter by Misiek", "Info",
@@ -333,45 +344,48 @@ namespace Tournamenter_WinFormsApp
 
         private void helpContents_Click(object sender, EventArgs e)
         {
+        }
 
-        } 
-        #endregion
+        #endregion Help
 
         #region Logging/Status change
+
         private void SetStatus(string text, params object[] args)
         {
             statusLabel.Text = string.Format(text, args);
-        } 
-        #endregion
+        }
+
+        #endregion Logging/Status change
 
         #region Save/Load
+
         private void saveMatchStatus_Click(object sender, EventArgs e)
         {
-			saveFileDialog.FileName = string.Format(
-				"Match{0}_Round{1}.xml", _match.Name, _match.ActiveRoundCount);
+            saveFileDialog.FileName = string.Format(
+                "Match{0}_Round{1}.xml", _match.Name, _match.ActiveRoundCount);
 
             if (saveFileDialog.ShowDialog(this) != DialogResult.OK)
                 return;
 
             string result;
             if (_match.Save(saveFileDialog.FileName, out result))
-				SetStatus(String.Format("Match file saved to: {0}", result));
-			else 
-				SetStatus(String.Format("Match saving operation failed: {0}", result));
+                SetStatus(String.Format("Match file saved to: {0}", result));
+            else
+                SetStatus(String.Format("Match saving operation failed: {0}", result));
         }
 
         private void loadMatch_Click(object sender, EventArgs e)
         {
-			if (openFileDialog.ShowDialog(this) != DialogResult.OK)
-				return;
+            if (openFileDialog.ShowDialog(this) != DialogResult.OK)
+                return;
 
             string result;
             Match match = Match.Load(openFileDialog.FileName, out result);
-			if (match == null)
-			{
-				SetStatus(String.Format("Match loading operation failed: {0}", result));
-				return;
-			}
+            if (match == null)
+            {
+                SetStatus(String.Format("Match loading operation failed: {0}", result));
+                return;
+            }
 
             RestartMatchUI();
 
@@ -391,10 +405,10 @@ namespace Tournamenter_WinFormsApp
 
             matchStatusChanged(_match, _match.Status);
 
-			SetStatus(String.Format("Match file loaded from: {0}", result));
-		} 
-        #endregion
+            SetStatus(String.Format("Match file loaded from: {0}", result));
+        }
 
+        #endregion Save/Load
 
         #region test code
 
@@ -450,6 +464,6 @@ namespace Tournamenter_WinFormsApp
             tableLayout.ResumeLayout();
         }
 
-        #endregion
+        #endregion test code
     }
 }

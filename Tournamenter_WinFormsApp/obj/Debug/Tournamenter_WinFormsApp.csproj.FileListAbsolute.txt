@@ -46,3 +46,7 @@ C:\Users\JSkalski.POLAND-AVP\Documents\GitHub\Tournamenter\Tournamenter_WinForms
 C:\Users\JSkalski.POLAND-AVP\Documents\GitHub\Tournamenter\Tournamenter_WinFormsApp\obj\Debug\Tournamenter_WinFormsApp.csproj.GenerateResource.Cache
 C:\Users\JSkalski.POLAND-AVP\Documents\GitHub\Tournamenter\Tournamenter_WinFormsApp\obj\Debug\Tournamenter_WinFormsApp.exe
 C:\Users\JSkalski.POLAND-AVP\Documents\GitHub\Tournamenter\Tournamenter_WinFormsApp\obj\Debug\Tournamenter_WinFormsApp.pdb
+D:\Work + stuff\VS2013\Tournamenter\Tournamenter_WinFormsApp\bin\Debug\Tournamenter_WinFormsApp.exe.manifest
+D:\Work + stuff\VS2013\Tournamenter\Tournamenter_WinFormsApp\bin\Debug\Tournamenter_WinFormsApp.application
+D:\Work + stuff\VS2013\Tournamenter\Tournamenter_WinFormsApp\obj\Debug\Tournamenter_WinFormsApp.exe.manifest
+D:\Work + stuff\VS2013\Tournamenter\Tournamenter_WinFormsApp\obj\Debug\Tournamenter_WinFormsApp.application

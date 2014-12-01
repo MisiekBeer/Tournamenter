@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace Logic
@@ -14,7 +10,9 @@ namespace Logic
     public class Player : BaseLogicClass
     {
         #region properties
+
         private int playerId;
+
         public int PlayerId
         {
             get { return playerId; }
@@ -22,6 +20,7 @@ namespace Logic
         }
 
         private string name;
+
         public string Name
         {
             get { return name; }
@@ -29,6 +28,7 @@ namespace Logic
         }
 
         private string surname;
+
         public string Surname
         {
             get { return surname; }
@@ -36,6 +36,7 @@ namespace Logic
         }
 
         private string nick;
+
         public string Nick
         {
             get { return nick; }
@@ -43,20 +44,20 @@ namespace Logic
         }
 
         private string tag;
+
         public string Tag
         {
             get { return tag; }
             set { tag = value; OnPropertyChanged(PropNames.Tag); }
         }
 
-
         private string info;
+
         public string Info
         {
             get { return info; }
             set { info = value; OnPropertyChanged(PropNames.Info); }
         }
-
 
         public static class PropNames
         {
@@ -69,27 +70,29 @@ namespace Logic
         }
 
         public static readonly EmptyPlayer Empty;
-        #endregion
+
+        #endregion properties
 
         #region ctor
+
         static Player()
         {
-			Empty = EmptyPlayer.Instance;                        
+            Empty = EmptyPlayer.Instance;
         }
 
         public Player()
         {
+        }
 
-        } 
-        #endregion
+        #endregion ctor
 
-		public bool Equals(Player player)
-		{
-			if (player == null)
-				return false;
+        public bool Equals(Player player)
+        {
+            if (player == null)
+                return false;
 
-			return (player.playerId == this.playerId);
-		}
+            return (player.playerId == this.playerId);
+        }
 
         public override bool Equals(object obj)
         {
@@ -111,31 +114,35 @@ namespace Logic
         }
     }
 
-	[Serializable]
-	public sealed class EmptyPlayer : Player
-	{
-		[NonSerialized]
-		public const int EmptyPlayerId = -1;
+    [Serializable]
+    public sealed class EmptyPlayer : Player
+    {
+        [NonSerialized]
+        public const int EmptyPlayerId = -1;
 
-		[NonSerialized]
-		private static EmptyPlayer _instance;
-		[XmlIgnore]
-		public static EmptyPlayer Instance { 
-			get { 
-				if (_instance == null)
-					_instance = new EmptyPlayer();
-				return _instance;
-			} 
-		}
+        [NonSerialized]
+        private static EmptyPlayer _instance;
 
-		private EmptyPlayer() : base()
-		{
-			PlayerId = EmptyPlayerId;
- 			Name = "Empty";
- 			Surname = "-"; 
+        [XmlIgnore]
+        public static EmptyPlayer Instance
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = new EmptyPlayer();
+                return _instance;
+            }
+        }
+
+        private EmptyPlayer()
+            : base()
+        {
+            PlayerId = EmptyPlayerId;
+            Name = "Empty";
+            Surname = "-";
             Nick = "Empty";
-            Info = "Virtual BAY player"; 
+            Info = "Virtual BAY player";
             Tag = "BAY";
-		}
-	}
+        }
+    }
 }

@@ -20,23 +20,31 @@ namespace Logic
     public class Match : BaseLogicClass
     {
         #region events
+
         public event EventHandler<Player> PlayerAdded;
+
         public event EventHandler<MatchStatus> MatchStatusChanged;
+
         public event EventHandler<Round> RoundAdded;
-        #endregion
+
+        #endregion events
 
         #region properties
 
         private MatchStatus status;
+
         public MatchStatus Status
         {
             get { return status; }
-            set { status = value; OnPropertyChanged(PropNames.Status);
-                    RaiseMatchStatusChanged();
+            set
+            {
+                status = value; OnPropertyChanged(PropNames.Status);
+                RaiseMatchStatusChanged();
             }
         }
 
         private string name;
+
         public string Name
         {
             get { return name; }
@@ -44,6 +52,7 @@ namespace Logic
         }
 
         private DateTime matchDate;
+
         public DateTime MatchDate
         {
             get { return matchDate; }
@@ -51,6 +60,7 @@ namespace Logic
         }
 
         private MatchSettings settings;
+
         public MatchSettings Settings
         {
             get { return settings; }
@@ -58,6 +68,7 @@ namespace Logic
         }
 
         private List<Player> players;
+
         /// <summary>
         /// All match players
         /// </summary>
@@ -68,6 +79,7 @@ namespace Logic
         }
 
         private List<Round> rounds;
+
         /// <summary>
         /// Current match rounds - starts with count 1(initial round)
         /// </summary>
@@ -87,22 +99,26 @@ namespace Logic
             public const string MatchDate = "MatchDate";
         }
 
-        public bool CanCloseSafe {
+        public bool CanCloseSafe
+        {
             get
             {
-                return  Status == MatchStatus.NotSet ||
+                return Status == MatchStatus.NotSet ||
                         Status == MatchStatus.MatchEnded ||
                         (Status == MatchStatus.PlayersEnlisting && players.Count == 0);
-            } 
+            }
         }
 
         public int PlayerCount { get { return players.Count; } }
+
         public int ActiveRoundCount { get { return rounds.Count - 1; } }
+
         public Round ActiveRound { get { return rounds.Last(); } }
 
-        #endregion
+        #endregion properties
 
         #region ctor
+
         public Match()
         {
             Name = "New Match";
@@ -114,20 +130,22 @@ namespace Logic
 
         public static Match CreateNewMatch(MatchSettings settings)
         {
-            Match match = new Match() { Settings = settings};
+            Match match = new Match() { Settings = settings };
 
             string result = string.Empty;
             match.AutoSave(out result);
             return match;
         }
 
-        #endregion
+        #endregion ctor
 
         #region methods
+
         public override string ToString()
         {
             return string.Format("Match: {0} - {1}", Name, MatchDate);
         }
+
         /// <summary>
         /// Adds player to match
         /// </summary>
@@ -165,7 +183,7 @@ namespace Logic
                 return false;
             Status = MatchStatus.RoundClosed;
 
-            Round newRound = (Rounds.Count + 1 < settings.RoundCount) ? 
+            Round newRound = (Rounds.Count + 1 < settings.RoundCount) ?
                 ActiveRound.CloseAndGenerateNext() : ActiveRound.CloseMatchEndRound();
             Rounds.Add(newRound);
 
@@ -174,7 +192,7 @@ namespace Logic
 
             if (RoundAdded != null)
                 RoundAdded(this, newRound);
-            return true;        
+            return true;
         }
 
         internal bool CheckIfPlayerWasOpponent(PlayerStance player, int opponentId)
@@ -184,10 +202,11 @@ namespace Logic
 
         internal IEnumerable<int> GetPlayerTables(PlayerStance player)
         {
-            return rounds.Select(n=>n.GetPlayerTable(player));
+            return rounds.Select(n => n.GetPlayerTable(player));
         }
 
         #region save Match
+
         public bool AutoSave(out string result)
         {
             string resultInner = string.Empty;
@@ -261,12 +280,14 @@ namespace Logic
             result = "OK";
             return match;
         }
-        #endregion
-        #endregion
+
+        #endregion save Match
+
+        #endregion methods
 
         public void RaiseMatchStatusChanged()
         {
-            if (MatchStatusChanged != null) 
+            if (MatchStatusChanged != null)
                 MatchStatusChanged(this, status);
         }
     }

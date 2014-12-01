@@ -4,21 +4,21 @@
         Title="Players Window" Height="600" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <!--MENU-->
         <Menu IsMainMenu="False" Grid.Row="0">
-            <MenuItem Header="Dodaj"/>
-             
-            <MenuItem Header="Edytuj"/>
+            <MenuItem Header="Dodaj" />
 
-            <MenuItem Header="Usuń"/>
+            <MenuItem Header="Edytuj" />
+
+            <MenuItem Header="Usuń" />
         </Menu>
 
         <ListView Grid.Row="1">
@@ -30,6 +30,5 @@
                 </GridView>
             </ListView.View>
         </ListView>
-
     </Grid>
 </Window>

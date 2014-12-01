@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Xml.Serialization;
 
 namespace Logic
@@ -12,7 +10,9 @@ namespace Logic
     public class PlayerStance : BaseLogicClass, IComparable<PlayerStance>
     {
         #region properties
+
         private int place;
+
         public int Place
         {
             get { return place; }
@@ -20,55 +20,72 @@ namespace Logic
         }
 
         private int playerId;
+
         public int PlayerId
         {
             get { return playerId; }
-            set { playerId = value;
-                    if (player == null)
-                    {
-                        if (playerId == EmptyPlayer.EmptyPlayerId)
-                            Player = Player.Empty;
-                        else
-                            Player = PlayerList.Instance[value];
-                    }
-                            OnPropertyChanged(PropNames.PlayerId); }
+            set
+            {
+                playerId = value;
+                if (player == null)
+                {
+                    if (playerId == EmptyPlayer.EmptyPlayerId)
+                        Player = Player.Empty;
+                    else
+                        Player = PlayerList.Instance[value];
+                }
+                OnPropertyChanged(PropNames.PlayerId);
+            }
         }
 
         [NonSerialized]
         private Player player;
+
         [XmlIgnore]
         public Player Player
         {
             get { return (playerId == EmptyPlayer.EmptyPlayerId) ? EmptyPlayer.Instance : player; }
-            set { player = value;
-					if (PlayerId == 0 && value != null)
-						PlayerId = value.PlayerId;
-					OnPropertyChanged(PropNames.Player); }
+            set
+            {
+                player = value;
+                if (PlayerId == 0 && value != null)
+                    PlayerId = value.PlayerId;
+                OnPropertyChanged(PropNames.Player);
+            }
         }
 
         private int oponentId;
+
         public int OponentId
         {
             get { return oponentId; }
-            set { oponentId = value;
-                    if (Oponent == null)
-                        Oponent = PlayerList.Instance[value];
-                    OnPropertyChanged(PropNames.OponentId); }
+            set
+            {
+                oponentId = value;
+                if (Oponent == null)
+                    Oponent = PlayerList.Instance[value];
+                OnPropertyChanged(PropNames.OponentId);
+            }
         }
 
         [NonSerialized]
         private Player oponent;
+
         [XmlIgnore]
         public Player Oponent
         {
             get { return oponent; }
-            private set { oponent = value;
-                            if (OponentId == 0 && value != null)
-                                OponentId = value.PlayerId;
-                        OnPropertyChanged(PropNames.Oponent); }
+            private set
+            {
+                oponent = value;
+                if (OponentId == 0 && value != null)
+                    OponentId = value.PlayerId;
+                OnPropertyChanged(PropNames.Oponent);
+            }
         }
 
         private int smallVP;
+
         public int SmallVP
         {
             get { return smallVP; }
@@ -76,6 +93,7 @@ namespace Logic
         }
 
         private int bigVP;
+
         public int BigVP
         {
             get { return bigVP; }
@@ -83,14 +101,15 @@ namespace Logic
         }
 
         private int totalSmallVP;
+
         public int TotalSmallVP
         {
             get { return totalSmallVP; }
             set { totalSmallVP = value; OnPropertyChanged(PropNames.TotalSmallVP); }
         }
 
-
         private int totalBigVP;
+
         public int TotalBigVP
         {
             get { return totalBigVP; }
@@ -98,6 +117,7 @@ namespace Logic
         }
 
         private int tableNumber;
+
         public int TableNumber
         {
             get { return tableNumber; }
@@ -105,13 +125,13 @@ namespace Logic
         }
 
         private bool isBay;
+
         public bool IsBay
         {
             get { return isBay; }
             set { isBay = value; OnPropertyChanged(PropNames.IsBay); }
         }
 
-        
         public static class PropNames
         {
             public const string PlayerId = "PlayerId";
@@ -122,27 +142,32 @@ namespace Logic
             public const string BigVP = "BigVP";
             public const string TotalSmallVP = "TotalSmallVP";
             public const string TotalBigVP = "TotalBigVP";
+
             //public const string Round = "MatchRound";
             public const string Player = "Player";
+
             public const string TableNumber = "TableNumber";
             public const string IsBay = "IsBay";
         }
 
         public static readonly PlayerStance Empty;
 
-		static PlayerStance ()
-		{
-			Empty = EmptyPlayerStance.Instance;
-		}
-
-        public bool PointsEntered { 
-            get {
-                if (this == Empty) 
-                    return true;
-                return smallVP >= 0; } 
+        static PlayerStance()
+        {
+            Empty = EmptyPlayerStance.Instance;
         }
-        #endregion
 
+        public bool PointsEntered
+        {
+            get
+            {
+                if (this == Empty)
+                    return true;
+                return smallVP >= 0;
+            }
+        }
+
+        #endregion properties
 
         #region ctor
 
@@ -172,7 +197,8 @@ namespace Logic
             TotalBigVP = lastStance.TotalBigVP + lastStance.BigVP;
             TotalSmallVP = lastStance.TotalSmallVP + lastStance.SmallVP;
         }
-        #endregion
+
+        #endregion ctor
 
         public override bool Equals(object obj)
         {
@@ -189,7 +215,7 @@ namespace Logic
         public override int GetHashCode()
         {
             if (this == PlayerStance.Empty)
-				return PlayerStance.Empty.GetHashCode();
+                return PlayerStance.Empty.GetHashCode();
 
             return base.GetHashCode();
         }
@@ -206,23 +232,27 @@ namespace Logic
         }
     }
 
-	[Serializable]
-	public sealed class EmptyPlayerStance : PlayerStance
-	{
-		private static EmptyPlayerStance _instance;
-		public static EmptyPlayerStance Instance { 
-			get { 
-					if (_instance == null)
-						_instance = new EmptyPlayerStance();
-					return _instance;
-			} 
-		}
+    [Serializable]
+    public sealed class EmptyPlayerStance : PlayerStance
+    {
+        private static EmptyPlayerStance _instance;
 
-		private EmptyPlayerStance():base()
-		{
-			PlayerId = EmptyPlayer.EmptyPlayerId;
-			Player = Player.Empty;
-			IsBay = true;
-		}
-	}
+        public static EmptyPlayerStance Instance
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = new EmptyPlayerStance();
+                return _instance;
+            }
+        }
+
+        private EmptyPlayerStance()
+            : base()
+        {
+            PlayerId = EmptyPlayer.EmptyPlayerId;
+            Player = Player.Empty;
+            IsBay = true;
+        }
+    }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace Logic
 {
@@ -11,7 +6,7 @@ namespace Logic
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        // Create the OnPropertyChanged method to raise the event 
+        // Create the OnPropertyChanged method to raise the event
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChangedEventHandler handler = PropertyChanged;

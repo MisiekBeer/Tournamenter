@@ -4,8 +4,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
@@ -17,6 +15,7 @@ namespace Logic
     public class PlayerList : ICollection<Player>, IDisposable, INotifyPropertyChanged
     {
         #region Props
+
         public static PlayerList Instance
         {
             get
@@ -30,10 +29,12 @@ namespace Logic
         public IList<Player> Players
         {
             get { return _players.Values.ToList(); }
-        }         
-        #endregion
+        }
+
+        #endregion Props
 
         #region fields
+
         private const string PLAYERS_FILE_NAME = "Players.dat";
 
         private static PlayerList _instance;
@@ -41,10 +42,12 @@ namespace Logic
         private Dictionary<int, Player> _players = new Dictionary<int, Player>();
 
         private FileStream _playersFile;
-        private XmlSerializer serializer; 
-        #endregion
+        private XmlSerializer serializer;
+
+        #endregion fields
 
         #region ctor
+
         static PlayerList()
         {
             _instance = new PlayerList();
@@ -53,8 +56,9 @@ namespace Logic
         private PlayerList()
         {
             serializer = new XmlSerializer(typeof(List<Player>));
-        } 
-        #endregion
+        }
+
+        #endregion ctor
 
         public bool LoadPlayerList()
         {
@@ -116,6 +120,7 @@ namespace Logic
         }
 
         #region IList
+
         public Player this[int i]
         {
             get
@@ -191,9 +196,9 @@ namespace Logic
                     PropertyChanged(this, new PropertyChangedEventArgs("Players"));
                 SavePlayerList();
             }
-        } 
+        }
 
-        #endregion
+        #endregion IList
 
         public void Dispose()
         {
@@ -203,6 +208,5 @@ namespace Logic
             _playersFile.Close();
             _playersFile.Dispose();
         }
-
     }
 }

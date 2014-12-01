@@ -1,218 +1,225 @@
 ﻿using Logic.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Xml.Serialization;
 
 namespace Logic
 {
-	public enum RoundStatus
-	{
-		NotSet,
-		CalculatingPairings,
-		RoundStarted,
-		RoundClosed,
-		MatchResult
-	}
+    public enum RoundStatus
+    {
+        NotSet,
+        CalculatingPairings,
+        RoundStarted,
+        RoundClosed,
+        MatchResult
+    }
 
-	[Serializable]
-	public class PlayerPair
-	{
-		public PlayerStance Player1 { get; set; }
+    [Serializable]
+    public class PlayerPair
+    {
+        public PlayerStance Player1 { get; set; }
 
-		public PlayerStance Player2 { get; set; }
+        public PlayerStance Player2 { get; set; }
 
-		public PlayerPair()
-		{
+        public PlayerPair()
+        {
+        }
 
-		}
+        public PlayerPair(PlayerStance player1, PlayerStance player2)
+        {
+            Player1 = player1;
+            Player2 = player2;
+        }
 
-		public PlayerPair(PlayerStance player1, PlayerStance player2)
-		{
-			Player1 = player1;
-			Player2 = player2;
-		}
+        public bool IsBay { get { return Player1 == PlayerStance.Empty || Player2 == PlayerStance.Empty; } }
 
-		public bool IsBay { get { return Player1 == PlayerStance.Empty || Player2 == PlayerStance.Empty; } }
+        public override string ToString()
+        {
+            return string.Concat(Player1.ToString(), " vs ", Player2.ToString());
+        }
+    }
 
-		public override string ToString()
-		{
-			return string.Concat(Player1.ToString(), " vs ", Player2.ToString());
-		}
-	}
+    [Serializable]
+    public class Round : BaseLogicClass
+    {
+        #region Properties
 
-	[Serializable]
-	public class Round : BaseLogicClass
-	{
-		#region Properties
+        #region Serializable
 
-		#region Serializable
-		private RoundStatus status;
-		public RoundStatus Status
-		{
-			get { return status; }
-			set { status = value; OnPropertyChanged(PropNames.Status); }
-		}
+        private RoundStatus status;
 
-		private int number;
-		public int Number
-		{
-			get { return number; }
-			set { number = value; OnPropertyChanged(PropNames.Number); }
-		}
+        public RoundStatus Status
+        {
+            get { return status; }
+            set { status = value; OnPropertyChanged(PropNames.Status); }
+        }
 
-		private List<PlayerStance> playerPlaces;
-		public List<PlayerStance> PlayerPlaces
-		{
-			get { return playerPlaces; }
-			private set { playerPlaces = value; OnPropertyChanged(PropNames.PlayerPlaces); }
-		}
+        private int number;
 
-		private List<PlayerPair> playerPairs;
-		public List<PlayerPair> PlayerPairs
-		{
-			get { return playerPairs; }
-			set { playerPairs = value; }
-		}
-		#endregion
+        public int Number
+        {
+            get { return number; }
+            set { number = value; OnPropertyChanged(PropNames.Number); }
+        }
 
-		public static class PropNames
-		{
-			public const string Status = "Status";
-			public const string Number = "Number";
-			public const string PlayerPlaces = "PlayerPlaces";
-			public const string PlayerPairs = "PlayerPairs";
-		}
+        private List<PlayerStance> playerPlaces;
 
-		public bool AllPointsEntered
-		{
-			get { return playerPlaces.All(n => n.PointsEntered); }
-		}
+        public List<PlayerStance> PlayerPlaces
+        {
+            get { return playerPlaces; }
+            private set { playerPlaces = value; OnPropertyChanged(PropNames.PlayerPlaces); }
+        }
 
-		[XmlIgnore]
-		public Match Match { get; set; }
-		#endregion
+        private List<PlayerPair> playerPairs;
 
-		#region ctor
-		/// <summary>
-		/// Empty round
-		/// </summary>
-		public Round()
-		{
-			PlayerPlaces = new List<PlayerStance>();
-			PlayerPairs = new List<PlayerPair>();
-			Number = 1;
-		}
+        public List<PlayerPair> PlayerPairs
+        {
+            get { return playerPairs; }
+            set { playerPairs = value; }
+        }
 
-		/// <summary>
-		/// Match round with points
-		/// </summary>
-		/// <param name="pairs"></param>
-		public Round(List<PlayerPair> pairs)
-			: this()
-		{
-			PlayerPairs.AddRange(pairs);
+        #endregion Serializable
 
-			foreach (var pair in pairs)
-			{
-				PlayerPlaces.Add(pair.Player1);
-				PlayerPlaces.Add(pair.Player2);
-			}
-		}
+        public static class PropNames
+        {
+            public const string Status = "Status";
+            public const string Number = "Number";
+            public const string PlayerPlaces = "PlayerPlaces";
+            public const string PlayerPairs = "PlayerPairs";
+        }
 
-		/// <summary>
-		/// Final Player List
-		/// </summary>
-		/// <param name="playerPlaces"></param>
-		public Round(List<PlayerStance> finalPlaces)
-			: this()
-		{
-			foreach (PlayerStance place in finalPlaces)
-			{
-				PlayerPlaces.Add(new PlayerStance(place));
-			}
-			PlayerPlaces.Remove(PlayerStance.Empty); //remove bay player
-			PlayerPlaces.Sort();
+        public bool AllPointsEntered
+        {
+            get { return playerPlaces.All(n => n.PointsEntered); }
+        }
 
-			foreach (PlayerStance place in PlayerPlaces)
-			{
-				place.Place = playerPlaces.IndexOf(place) + 1;
-			}
-		}
-		#endregion
+        [XmlIgnore]
+        public Match Match { get; set; }
 
-		#region methods
+        #endregion Properties
 
-		public override string ToString()
-		{
-			return string.Format("Round number: {0}", Number);
-		}
+        #region ctor
 
-		internal void GenerateStartPairs(List<Player> players)
-		{
-			Status = RoundStatus.CalculatingPairings;
+        /// <summary>
+        /// Empty round
+        /// </summary>
+        public Round()
+        {
+            PlayerPlaces = new List<PlayerStance>();
+            PlayerPairs = new List<PlayerPair>();
+            Number = 1;
+        }
 
-			players = new List<Player>(players.Randomize());
+        /// <summary>
+        /// Match round with points
+        /// </summary>
+        /// <param name="pairs"></param>
+        public Round(List<PlayerPair> pairs)
+            : this()
+        {
+            PlayerPairs.AddRange(pairs);
 
-			int place = 1;
-			int tableNumber = 1;
-			Player player1 = null;
-			PlayerStance player1_Stance = null;
-			Player player2 = null;
-			PlayerStance player2_Stance = null;
+            foreach (var pair in pairs)
+            {
+                PlayerPlaces.Add(pair.Player1);
+                PlayerPlaces.Add(pair.Player2);
+            }
+        }
 
-			while ((players.Count / 2) > 0)
-			{
-				player1 = players.First();
-				players.RemoveAt(0);
-				player2 = players.First();
-				players.RemoveAt(0);
+        /// <summary>
+        /// Final Player List
+        /// </summary>
+        /// <param name="playerPlaces"></param>
+        public Round(List<PlayerStance> finalPlaces)
+            : this()
+        {
+            foreach (PlayerStance place in finalPlaces)
+            {
+                PlayerPlaces.Add(new PlayerStance(place));
+            }
+            PlayerPlaces.Remove(PlayerStance.Empty); //remove bay player
+            PlayerPlaces.Sort();
 
-				player1_Stance = new PlayerStance(player1, player2)
-				{
-					Place = place,
-					TableNumber = tableNumber
-				};
-				place++;
-				player2_Stance = new PlayerStance(player2, player1)
-				{
-					Place = place,
-					TableNumber = tableNumber
-				};
-				place++;
+            foreach (PlayerStance place in PlayerPlaces)
+            {
+                place.Place = playerPlaces.IndexOf(place) + 1;
+            }
+        }
 
-				tableNumber++;
-				playerPlaces.Add(player1_Stance);
-				playerPlaces.Add(player2_Stance);
-				playerPairs.Add(new PlayerPair(player1_Stance, player2_Stance));
-			}
+        #endregion ctor
 
-			if (players.Count == 1)
-			{
-				player1 = players.First();
-				players.RemoveAt(0);
-				//BAY playa 
-				player1_Stance = new PlayerStance(player1, Player.Empty)
-				{
-					Place = place,
-					TableNumber = -1,
-					BigVP = 10,
-					IsBay = true
-				};
-				place++;
-				player2_Stance = PlayerStance.Empty;
-				place++;
+        #region methods
 
-				tableNumber++;
-				playerPlaces.Add(player1_Stance);
-				playerPlaces.Add(player2_Stance);
-				playerPairs.Add(new PlayerPair(player1_Stance, player2_Stance));
-			}
-			Status = RoundStatus.RoundStarted;
+        public override string ToString()
+        {
+            return string.Format("Round number: {0}", Number);
+        }
 
-			Speaker.Instance.StartRoundTimerSpeaker(Match.Settings.RoundTime);
-		}
+        internal void GenerateStartPairs(List<Player> players)
+        {
+            Status = RoundStatus.CalculatingPairings;
+
+            players = new List<Player>(players.Randomize());
+
+            int place = 1;
+            int tableNumber = 1;
+            Player player1 = null;
+            PlayerStance player1_Stance = null;
+            Player player2 = null;
+            PlayerStance player2_Stance = null;
+
+            while ((players.Count / 2) > 0)
+            {
+                player1 = players.First();
+                players.RemoveAt(0);
+                player2 = players.First();
+                players.RemoveAt(0);
+
+                player1_Stance = new PlayerStance(player1, player2)
+                {
+                    Place = place,
+                    TableNumber = tableNumber
+                };
+                place++;
+                player2_Stance = new PlayerStance(player2, player1)
+                {
+                    Place = place,
+                    TableNumber = tableNumber
+                };
+                place++;
+
+                tableNumber++;
+                playerPlaces.Add(player1_Stance);
+                playerPlaces.Add(player2_Stance);
+                playerPairs.Add(new PlayerPair(player1_Stance, player2_Stance));
+            }
+
+            if (players.Count == 1)
+            {
+                player1 = players.First();
+                players.RemoveAt(0);
+                //BAY playa
+                player1_Stance = new PlayerStance(player1, Player.Empty)
+                {
+                    Place = place,
+                    TableNumber = -1,
+                    BigVP = 10,
+                    IsBay = true
+                };
+                place++;
+                player2_Stance = PlayerStance.Empty;
+                place++;
+
+                tableNumber++;
+                playerPlaces.Add(player1_Stance);
+                playerPlaces.Add(player2_Stance);
+                playerPairs.Add(new PlayerPair(player1_Stance, player2_Stance));
+            }
+            Status = RoundStatus.RoundStarted;
+
+            Speaker.Instance.StartRoundTimerSpeaker(Match.Settings.RoundTime);
+        }
 
         private List<PlayerPair> GenerateRankingPairs()
         {
@@ -224,43 +231,51 @@ namespace Logic
 
             SwapRepeatedOpponents(places);
             int place = 0;
-			HashSet<int> tables = new HashSet<int>(Enumerable.Range(1, Match.Settings.TablesCount).Randomize());
+            HashSet<int> tables = new HashSet<int>(Enumerable.Range(1, Match.Settings.TablesCount).Randomize());
 
-			var newPairs = new List<PlayerPair>((places.Count / 2) + (places.Count % 2));
-			PlayerStance first = null;
-			PlayerStance second = null;
+            var newPairs = new List<PlayerPair>((places.Count / 2) + (places.Count % 2));
+            PlayerStance first = null;
+            PlayerStance second = null;
 
-			while ((places.Count / 2) > 0)
+            while ((places.Count / 2) > 0)
             {
-				first = places[0];
-				second = places[1];
+                first = places[0];
+                second = places[1];
 
-				int tableNr = tables.FirstOrDefault(n =>
-					Match.GetPlayerTables(first).Union(Match.GetPlayerTables(second)).Intersect(tables).Count() == 0);
+                int tableNr = tables.FirstOrDefault(n =>
+                    Match.GetPlayerTables(first).Union(Match.GetPlayerTables(second)).Intersect(tables).Count() == 0);
 
-				if (tableNr == 0)
-					tableNr = tables.First();
-				tables.Remove(tableNr);
+                if (tableNr == 0)
+                    tableNr = tables.First();
+                tables.Remove(tableNr);
 
                 newPairs.Add(new PlayerPair(
-                    new PlayerStance(first) { 
-                            Place = ++place, TableNumber = tableNr, OponentId = second.PlayerId },
-                    new PlayerStance(second) { 
-                            Place = ++place, TableNumber = tableNr, OponentId = first.PlayerId })
+                    new PlayerStance(first)
+                    {
+                        Place = ++place,
+                        TableNumber = tableNr,
+                        OponentId = second.PlayerId
+                    },
+                    new PlayerStance(second)
+                    {
+                        Place = ++place,
+                        TableNumber = tableNr,
+                        OponentId = first.PlayerId
+                    })
                             );
                 places.RemoveRange(0, 2);
             }
             if (places.Count == 1)
             {
                 newPairs.Add(new PlayerPair(
-					new PlayerStance(places[0])
-					{
+                    new PlayerStance(places[0])
+                    {
                         Place = ++place,
                         TableNumber = -1,
                         OponentId = EmptyPlayer.EmptyPlayerId,
                         IsBay = true,
                         BigVP = Match.Settings.PointsForBay
-                    }, 
+                    },
                     PlayerStance.Empty));
             }
             return newPairs;
@@ -285,15 +300,16 @@ namespace Logic
                     if (plStance.Next == players.Last) break;
                     plStance = plStance.Next;
                 }
-                else {
+                else
+                {
                     tmpStance = plStance.Next; if (plStance.Next == players.Last) break;
                     tmpStance = plStance.Next;
-                    while(Match.CheckIfPlayerWasOpponent(plStance.Value, tmpStance.Value.PlayerId))
+                    while (Match.CheckIfPlayerWasOpponent(plStance.Value, tmpStance.Value.PlayerId))
                     {
                         if (tmpStance == players.Last)
                             break;
-                        tmpStance = tmpStance.Next; 
-                        if (tmpStance == players.Last) 
+                        tmpStance = tmpStance.Next;
+                        if (tmpStance == players.Last)
                             break;
                     }
                     players.Remove(tmpStance);
@@ -310,39 +326,40 @@ namespace Logic
         internal int GetCurrentOpponent(PlayerStance playerStance)
         {
             int id = playerStance.PlayerId;
-            PlayerPair pair = 
+            PlayerPair pair =
                 playerPairs.First(n => n.Player1.PlayerId == id || n.Player2.PlayerId == id);
 
-            return pair.Player1.PlayerId == id ? pair.Player2.PlayerId : pair.Player1.PlayerId; 
+            return pair.Player1.PlayerId == id ? pair.Player2.PlayerId : pair.Player1.PlayerId;
         }
 
         internal int GetPlayerTable(PlayerStance playerStance)
-        { 
+        {
             int id = playerStance.PlayerId;
             PlayerPair pair =
                 playerPairs.First(n => n.Player1.PlayerId == id || n.Player2.PlayerId == id);
-            
-            return pair.Player1.TableNumber; 
+
+            return pair.Player1.TableNumber;
         }
 
-        #endregion
+        #endregion methods
+
         /// <summary>
         /// Closes round and calculates next with proper values
         /// </summary>
         /// <returns>new Round</returns>
         internal Round CloseAndGenerateNext()
         {
-			try
-			{
-				UpdateBigPoints();
-				var pairs = GenerateRankingPairs();
+            try
+            {
+                UpdateBigPoints();
+                var pairs = GenerateRankingPairs();
 
-				return new Round(pairs) { Number = this.Number + 1, Match = this.Match };
-			}
-			finally
-			{
-				Speaker.Instance.StartRoundTimerSpeaker(Match.Settings.RoundTime);
-			}
+                return new Round(pairs) { Number = this.Number + 1, Match = this.Match };
+            }
+            finally
+            {
+                Speaker.Instance.StartRoundTimerSpeaker(Match.Settings.RoundTime);
+            }
         }
 
         private void UpdateBigPoints()
@@ -384,10 +401,11 @@ namespace Logic
                     stance1.BigVP += Match.Settings.GetWinnerPoints(diff);
                     stance2.BigVP += Match.Settings.GetLooserPoints(diff);
                 }
-                else {
+                else
+                {
                     stance1.BigVP += Match.Settings.GetLooserPoints(diff);
                     stance2.BigVP += Match.Settings.GetWinnerPoints(diff);
-                }              
+                }
             }
         }
 
@@ -406,9 +424,13 @@ namespace Logic
                 finalPlaces.Add(pair.Player2);
             }
 
-            Round lastRound = new Round(this.PlayerPlaces){ 
-                Number = this.Number + 1, Match = this.Match, Status = RoundStatus.MatchResult};
-            
+            Round lastRound = new Round(this.PlayerPlaces)
+            {
+                Number = this.Number + 1,
+                Match = this.Match,
+                Status = RoundStatus.MatchResult
+            };
+
             return lastRound;
         }
     }

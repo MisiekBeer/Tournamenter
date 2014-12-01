@@ -1,14 +1,8 @@
-﻿using System;
+﻿using Logic;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Logic;
 
 namespace Tournamenter_WinFormsApp
 {
@@ -20,10 +14,12 @@ namespace Tournamenter_WinFormsApp
             /// Start
             /// </summary>
             StartingRound,
+
             /// <summary>
             /// match rounds
             /// </summary>
             RoundStance,
+
             /// <summary>
             /// Finished match players positions
             /// </summary>
@@ -31,6 +27,7 @@ namespace Tournamenter_WinFormsApp
         }
 
         #region props
+
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
         public Mode ControlMode { get; private set; }
@@ -51,14 +48,17 @@ namespace Tournamenter_WinFormsApp
             set { roundGroup.ValuesSecondary.Heading = value; }
         }
 
-        #endregion
+        #endregion props
 
         #region fields
+
         private Round _round;
         private readonly List<PlayerPositionCtrl> _posControls = new List<PlayerPositionCtrl>();
-        #endregion
+
+        #endregion fields
 
         #region ctor
+
         /// <summary>
         /// Player list constructor. For adding single player controls
         /// </summary>
@@ -79,7 +79,7 @@ namespace Tournamenter_WinFormsApp
         {
             Initialize();
 
-            ControlMode = (matchRound.Status == RoundStatus.MatchResult) ? 
+            ControlMode = (matchRound.Status == RoundStatus.MatchResult) ?
                 Mode.EndRound : Mode.RoundStance;
 
             _round = matchRound;
@@ -94,7 +94,7 @@ namespace Tournamenter_WinFormsApp
                         AddPlayerCtrl(player);
                     }
                     break;
-                
+
                 case Mode.RoundStance:
                 default:
                     RoundName = string.Format("Round: {0}", matchRound.Number);
@@ -102,7 +102,6 @@ namespace Tournamenter_WinFormsApp
                     AddVsControls();
                     break;
             }
-
         }
 
         private void Initialize()
@@ -110,12 +109,12 @@ namespace Tournamenter_WinFormsApp
             InitializeComponent();
             Dock = DockStyle.Fill;
         }
-        #endregion
+
+        #endregion ctor
 
         internal void AddControl(Control ctrl)
         {
             tableLayout.SuspendLayout();
-
 
             tableLayout.Controls.Add(ctrl);
 
@@ -174,6 +173,7 @@ namespace Tournamenter_WinFormsApp
             {
                 case Mode.RoundStance:
                     return _posControls.All(n => n.PointsEntered == true);
+
                 default:
                     return false;
             }

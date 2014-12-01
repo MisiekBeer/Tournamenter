@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Diagnostics.Contracts;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics.Contracts;
 
 namespace Tournamenter_WinFormsApp
 {
@@ -32,12 +25,11 @@ namespace Tournamenter_WinFormsApp
             player2.Location = new Point(0, player1.Height + 4);
             vsGroup.Panel.Controls.Add(player2);
 
-            vsGroup.ValuesSecondary.Heading = string.Format("Table: {0}", 
+            vsGroup.ValuesSecondary.Heading = string.Format("Table: {0}",
                 player1.Stance.TableNumber > 0 ? player1.Stance.TableNumber.ToString() : "BAY");
             vsGroup.ValuesPrimary.Heading = string.Format("{1}  VS  {0}", player1.Stance.Player.Nick, player2.Stance.Player.Nick);
 
             ResumeLayout();
         }
-
     }
 }

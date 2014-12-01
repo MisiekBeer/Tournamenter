@@ -1,14 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using ComponentFactory.Krypton.Toolkit;
 using Logic;
+using System;
+using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
-using System.Linq.Expressions;
+using System.Windows.Forms;
 
 namespace Tournamenter_WinFormsApp
 {
@@ -23,15 +18,18 @@ namespace Tournamenter_WinFormsApp
         }
 
         #region fields
+
         private Player _selectedPlayer;
         private EditKind _editKind = EditKind.None;
 
         private MainForm _parentFrm;
         private Rectangle dragBoxFromMouseDown;
         private int rowIndexFromMouseDown;
-        #endregion
+
+        #endregion fields
 
         #region ctor
+
         public PlayerListFrm()
         {
             InitializeComponent();
@@ -39,7 +37,8 @@ namespace Tournamenter_WinFormsApp
             BlockEditors(true);
         }
 
-        public PlayerListFrm(MainForm parent) : this()
+        public PlayerListFrm(MainForm parent)
+            : this()
         {
             _parentFrm = parent;
             RefreshList();
@@ -50,9 +49,10 @@ namespace Tournamenter_WinFormsApp
             btnAddDebugPlayers.Visible = false;
 #endif
         }
-        #endregion
 
-        void Instance_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        #endregion ctor
+
+        private void Instance_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             RefreshList();
         }
@@ -88,19 +88,18 @@ namespace Tournamenter_WinFormsApp
             SetPlayerEditorsData(_selectedPlayer);
         }
 
-
         private void SetPlayerEditorsData(Player player)
         {
             playerIdTextBox.Text = player.PlayerId.ToString();
-            nameTextBox.Text = player.Name;     
-            surnameTextBox.Text = player.Surname;    
-            nickTextBox.Text = player.Nick; 
-            infoTextBox.Text = player.Info;       
-            tagTextBox.Text = player.Tag;      
+            nameTextBox.Text = player.Name;
+            surnameTextBox.Text = player.Surname;
+            nickTextBox.Text = player.Nick;
+            infoTextBox.Text = player.Info;
+            tagTextBox.Text = player.Tag;
         }
 
         private void SetPlayerDataFromEditors(Player player)
-        { 
+        {
             player.Name = nameTextBox.Text;
             player.Surname = surnameTextBox.Text;
             player.Nick = nickTextBox.Text;
@@ -115,7 +114,7 @@ namespace Tournamenter_WinFormsApp
             surnameTextBox.Clear();
             nickTextBox.Clear();
             infoTextBox.Clear();
-            tagTextBox.Clear();      
+            tagTextBox.Clear();
         }
 
         private void BlockEditors(bool blockEditors)
@@ -124,7 +123,7 @@ namespace Tournamenter_WinFormsApp
             surnameTextBox.ReadOnly =
             nickTextBox.ReadOnly =
             infoTextBox.ReadOnly =
-            tagTextBox.ReadOnly = blockEditors;      
+            tagTextBox.ReadOnly = blockEditors;
         }
 
         private bool ValidateEditors()
@@ -147,7 +146,7 @@ namespace Tournamenter_WinFormsApp
             switch (_editKind)
             {
                 case EditKind.Add:
-                    if (!ValidateEditors()) 
+                    if (!ValidateEditors())
                         return;
                     Player player = new Player();
                     SetPlayerDataFromEditors(player);
@@ -236,6 +235,7 @@ namespace Tournamenter_WinFormsApp
         }
 
         #region tool strip methods
+
         private void EnableEditMenuItems(bool editEnabled)
         {
             newPlayerToolStripMenuItem.Enabled =
@@ -261,8 +261,9 @@ namespace Tournamenter_WinFormsApp
         private void removePlayerStripMenuItem_Click(object sender, EventArgs e)
         {
             checkButtonRemovePlayer.PerformClick();
-        } 
-        #endregion
+        }
+
+        #endregion tool strip methods
 
         private void btnAddToMatch_Click(object sender, EventArgs e)
         {
@@ -273,19 +274,19 @@ namespace Tournamenter_WinFormsApp
             }
             _parentFrm.AddPlayerToMatch(_selectedPlayer);
             labelStatus.Text = string.Format("Player {0} added to match", _selectedPlayer);
-
         }
 
         #region Drag&Drop
+
         private void dgvPlayers_MouseDown(object sender, MouseEventArgs e)
         {
             // Get the index of the item the mouse is below.
             rowIndexFromMouseDown = dgvPlayers.HitTest(e.X, e.Y).RowIndex;
             if (rowIndexFromMouseDown != -1)
             {
-                // Remember the point where the mouse down occurred. 
-                // The DragSize indicates the size that the mouse can move 
-                // before a drag event should be started.                
+                // Remember the point where the mouse down occurred.
+                // The DragSize indicates the size that the mouse can move
+                // before a drag event should be started.
                 Size dragSize = SystemInformation.DragSize;
 
                 // Create a rectangle using the DragSize, with the mouse position being
@@ -308,14 +309,14 @@ namespace Tournamenter_WinFormsApp
             if (dragBoxFromMouseDown != Rectangle.Empty &&
                 !dragBoxFromMouseDown.Contains(e.X, e.Y))
             {
-
-                // Proceed with the drag and drop, passing in the list item.                    
+                // Proceed with the drag and drop, passing in the list item.
                 DragDropEffects dropEffect = dgvPlayers.DoDragDrop(
                 dgvPlayers.Rows[rowIndexFromMouseDown].DataBoundItem,
                 DragDropEffects.Link);
             }
-        } 
-        #endregion
+        }
+
+        #endregion Drag&Drop
 
         private void btnClose_Click(object sender, EventArgs e)
         {
@@ -345,7 +346,5 @@ namespace Tournamenter_WinFormsApp
                 MessageBox.Show(exc.ToString(), "Error");
             }
         }
-
-
     }
 }

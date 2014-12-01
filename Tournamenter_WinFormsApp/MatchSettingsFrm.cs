@@ -1,67 +1,70 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using ComponentFactory.Krypton.Toolkit;
 using Logic;
+using System;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace Tournamenter_WinFormsApp
 {
     public partial class MatchSettingsFrm : ComponentFactory.Krypton.Toolkit.KryptonForm
     {
-		#region props
-		public MatchSettings Settings { get { return (MatchSettings)matchSettingsBindingSource.DataSource; } } 
-		#endregion
+        #region props
 
-		#region fields
-		bool _isReadonly; 
-		#endregion
+        public MatchSettings Settings { get { return (MatchSettings)matchSettingsBindingSource.DataSource; } }
 
-		#region ctor
-		public MatchSettingsFrm()
-		{
-			InitializeComponent();
-		} 
-		#endregion
+        #endregion props
 
-		#region methods
-		public MatchSettingsFrm(MatchSettings settings, bool isReadonly)
-			: this()
-		{
-			matchSettingsBindingSource.DataSource = settings.Clone();
+        #region fields
 
-			if (isReadonly)
-			{
-				_isReadonly = true;
-				SetReadonlyMode();
-			}
-		}
+        private bool _isReadonly;
 
-		private void btnOK_Click(object sender, EventArgs e)
-		{
-			MatchSettings.DefaultSettings = Settings;
-			this.Close();
-		}
+        #endregion fields
 
-		internal void SetReadonlyMode()
-		{
-			_isReadonly = pointsForBay.ReadOnly = walkowerPoints.ReadOnly = roundCount.ReadOnly =
-				tablesCount.ReadOnly = dgvPointRanges.ReadOnly = true;
-		}
+        #region ctor
 
-		private void dgvPointRanges_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
-		{
-			if (e.ColumnIndex == maxPointsDataGridViewTextBoxColumn.Index && e.RowIndex > 0)
-				if (e.Value != null && (int)e.Value == int.MaxValue)
-				{
-					e.PaintBackground(e.CellBounds, true);
-					e.Graphics.DrawString("...", maxPointsDataGridViewTextBoxColumn.InheritedStyle.Font, Brushes.Black, e.CellBounds);
-					e.Handled = true;
-				}
-		} 
-		#endregion
+        public MatchSettingsFrm()
+        {
+            InitializeComponent();
+        }
+
+        #endregion ctor
+
+        #region methods
+
+        public MatchSettingsFrm(MatchSettings settings, bool isReadonly)
+            : this()
+        {
+            matchSettingsBindingSource.DataSource = settings.Clone();
+
+            if (isReadonly)
+            {
+                _isReadonly = true;
+                SetReadonlyMode();
+            }
+        }
+
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            MatchSettings.DefaultSettings = Settings;
+            this.Close();
+        }
+
+        internal void SetReadonlyMode()
+        {
+            _isReadonly = pointsForBay.ReadOnly = walkowerPoints.ReadOnly = roundCount.ReadOnly =
+                tablesCount.ReadOnly = dgvPointRanges.ReadOnly = true;
+        }
+
+        private void dgvPointRanges_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.ColumnIndex == maxPointsDataGridViewTextBoxColumn.Index && e.RowIndex > 0)
+                if (e.Value != null && (int)e.Value == int.MaxValue)
+                {
+                    e.PaintBackground(e.CellBounds, true);
+                    e.Graphics.DrawString("...", maxPointsDataGridViewTextBoxColumn.InheritedStyle.Font, Brushes.Black, e.CellBounds);
+                    e.Handled = true;
+                }
+        }
+
+        #endregion methods
     }
 }
